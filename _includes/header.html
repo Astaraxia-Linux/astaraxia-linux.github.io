@@ -1,4 +1,134 @@
-<header style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color: white; text-align: center; padding: 5rem 2rem; border-bottom: 1px solid #334155;">
+<header>
+    <style>
+    /* Force alignment with Index.html aesthetic */
+    :root {
+        --primary: #818cf8;
+        --bg: #0f172a;        /* Background */
+        --card-bg: #1e293b;   /* cards */
+        --text: #f1f5f9;      /* Near white */
+        --text-dim: #94a3b8;  /* Muted */
+        --accent: #10b981;    /* code/links */
+        --border: #334155;
+    }
+
+    /* Apply background to the entire section to prevent blending */
+    .download-page-wrapper {
+        background-color: var(--bg);
+        min-height: 100vh;
+        color: var(--text);
+        padding: 4rem 2rem;
+    }
+
+    .download-content {
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .download-content h1 { font-size: 3rem; margin-bottom: 0.5rem; color: #fff; }
+    .subtitle { color: var(--text-dim); font-size: 1.2rem; margin-bottom: 3rem; }
+
+    .card-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+
+    .card {
+        background: var(--card-bg);
+        padding: 2rem;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+    }
+
+    .card h2 { color: var(--primary); margin-bottom: 1rem; font-size: 1.5rem; }
+    .card p { color: var(--text-dim); margin-bottom: 1.5rem; }
+
+    /* Table Styling - Fixed Contrast */
+    .download-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+    }
+
+    .download-table th {
+        text-align: left;
+        color: var(--primary);
+        border-bottom: 1px solid var(--border);
+        padding: 0.5rem;
+    }
+
+    .download-table td { 
+        padding: 0.75rem 0.5rem; 
+        border-bottom: 1px solid var(--border);
+        color: var(--text); 
+    }
+    
+    .download-table a { color: var(--accent); text-decoration: none; font-weight: bold; }
+    .download-table a:hover { text-decoration: underline; }
+
+    .badge {
+        background: #312e81;
+        color: var(--primary);
+        padding: 0.2rem 0.6rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+    }
+
+    /* Terminal Style for Bootstrap */
+    .code-block {
+        background: #000;
+        padding: 1.2rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+        font-family: 'Cascadia Code', 'Fira Code', monospace;
+        font-size: 0.85rem;
+        overflow-x: auto;
+    }
+    .code-block pre { margin: 0; }
+    .code-block code { color: var(--accent); }
+
+    hr { border: 0; border-top: 1px solid var(--border); margin: 4rem 0; }
+
+    /* Flex Layout for ISO/Mirrors */
+    .flex-row { display: flex; gap: 4rem; margin-bottom: 4rem; }
+    .col { flex: 1; }
+    .col h3 { color: var(--primary); margin-bottom: 1rem; }
+
+    .status-tag {
+        font-size: 0.7rem;
+        background: #475569;
+        color: #fff;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        vertical-align: middle;
+        margin-left: 0.5rem;
+    }
+
+    /* Specs Section */
+    .specs-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+        margin-top: 1.5rem;
+    }
+    .spec-card {
+        background: rgba(30, 41, 59, 0.5);
+        padding: 1.5rem;
+        border-radius: 8px;
+        border: 1px solid var(--border);
+    }
+    .spec-card h4 { margin-bottom: 1rem; color: var(--primary); }
+    .spec-card ul { list-style: none; color: var(--text-dim); }
+    .spec-card li { margin-bottom: 0.4rem; }
+
+    .muted { color: #64748b; }
+
+    @media (max-width: 850px) {
+        .card-grid, .flex-row, .specs-grid { grid-template-columns: 1fr; flex-direction: column; }
+    }
+</style>
     <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
         <h1 style="margin:0;"><a href="/" style="color: white; text-decoration: none;">{{ site.title }}</a></h1>
         <nav style="margin-top: 1rem;">
