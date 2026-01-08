@@ -182,10 +182,10 @@
             transition: color 0.3s;
         }
         
-        /* MOBILE FIX */
+        /* MOBILE */
         @media (max-width: 600px) {
             .nav-container {
-                flex-direction: column; /* Stack logo and links */
+                flex-direction: column;
                 gap: 1rem;
                 padding: 1rem;
             }
@@ -194,7 +194,7 @@
                 gap: 1rem;
                 font-size: 0.8rem;
                 width: 100%;
-                justify-content: center; /* Center links on mobile */
+                justify-content: center;
             }
             
             .nav-logo {
@@ -202,11 +202,32 @@
             }
         }
         
-        @media (max-width: 768px) {
-            .title-gradient { font-size: 3rem; letter-spacing: -1px; }
-            header { padding: 4rem 1rem; }
-            .button { width: 100%; }
-        }
+@media (max-width: 600px) {
+    .title-gradient {
+        font-size: 2.5rem; /* Shrink title */
+        letter-spacing: -1px;
+    }
+
+    header p {
+        font-size: 1.1rem; /* Shrink description */
+    }
+
+    .button-group {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .button {
+        width: 100%; /* Full width buttons for fat-thumb clicking */
+        text-align: center;
+        margin: 0.25rem 0;
+    }
+
+    .dev-banner {
+        font-size: 0.75rem; /* Smaller warning text */
+        width: 100%;
+    }
+}
     </style>
 </head>
     <nav class="top-nav">
