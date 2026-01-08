@@ -22,49 +22,65 @@
             line-height: 1.6;
             background-color: var(--bg);
             color: var(--text);
+            overflow-x: hidden;
         }
 
+        /* 1. Full-width Header with Gradient */
         header {
             background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
-            padding: 5rem 0;
+            padding: 6rem 0;
             border-bottom: 1px solid var(--border);
             width: 100%;
+            text-align: center; /* Centers all inline-block elements */
         }
 
+        /* 2. Content Container */
         .container {
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
         }
-        
-        header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 0.5rem;
-            letter-spacing: -1px;
+
+        /* 3. The Fixed Gradient Title */
+        .title-gradient {
+            font-size: 4.5rem; /* Large and bold */
+            font-weight: 800;
+            letter-spacing: -3px;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, #ffffff 20%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
+        }
+
+        header p {
+            font-size: 1.4rem;
+            color: var(--text-dim);
+            max-width: 700px;
+            margin: 0 auto 2rem auto;
         }
 
         main {
-            margin: 0 auto;
-            max-width: 1200px;
-            width: 100%;
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 0 2rem;
         }
 
-        h1 { font-size: 3.5rem; margin-bottom: 1rem; letter-spacing: -1px; }
-        h2 { font-size: 2rem; margin: 2.5rem 0 1rem; color: var(--primary); }
-        p { margin-bottom: 1.5rem; font-size: 1.1rem; color: var(--text-dim); }
+        h2 { font-size: 2.2rem; margin: 3rem 0 1.5rem; color: var(--primary); letter-spacing: -1px; }
 
-        .button-group { margin-top: 2rem; }
-
+        /* Buttons */
+        .button-group { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+        
         .button {
             display: inline-block;
             background: var(--primary);
             color: white;
-            padding: 0.8rem 2.5rem;
-            margin: 0.5rem;
-            border-radius: 6px;
+            padding: 0.9rem 2.5rem;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: bold;
-            transition: transform 0.2s, background 0.2s;
+            transition: all 0.2s;
         }
 
         .button.secondary {
@@ -73,72 +89,59 @@
         }
 
         .button:hover {
-            transform: translateY(-2px);
-            background: #6366f1;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -10px rgba(129, 140, 248, 0.5);
         }
 
-        ul { list-style: none; margin-bottom: 2rem; }
+        /* Features List */
+        ul { list-style: none; }
         li {
             background: var(--card-bg);
-            margin-bottom: 0.5rem;
-            padding: 1rem;
-            border-radius: 8px;
+            margin-bottom: 1rem;
+            padding: 1.25rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
             border-left: 4px solid var(--primary);
         }
 
+        /* Code Blocks */
         .code-block {
             background: #000;
             padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            font-family: 'Cascadia Code', 'Fira Code', monospace;
-            position: relative;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
             overflow-x: auto;
         }
 
-        pre { color: var(--accent); }
+        pre { color: var(--accent); font-size: 0.95rem; }
 
         .footer {
             text-align: center;
-            padding: 4rem;
+            padding: 5rem 0;
             color: var(--text-dim);
-            font-size: 0.9rem;
+            border-top: 1px solid var(--border);
+            margin-top: 5rem;
         }
 
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-        
-        .header-container h1 a {
-            font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: -2px;
-            text-decoration: none;
-            background: linear-gradient(to right, #ffffff 20%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-             text-align: center;
-        }
-
-        /* Responsive Fix */
-        @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
-            .button { width: 100%; margin: 0.5rem 0; }
+        @media (max-width: 768px) {
+            .title-gradient { font-size: 3rem; letter-spacing: -1px; }
+            header { padding: 4rem 1rem; }
+            .button { width: 100%; }
         }
     </style>
 </head>
 <body>
+
     <header>
-         <div class="header-container">
-            <h1>Astaraxia Linux</h1>
-         </div>
-        <p>A minimal, source-based Linux distribution built for control.</p>
-        <div class="button-group">
-            <a href="https://github.com/Astaraxia-Linux" class="button">GitHub Project</a>
-            <a href="https://astaraxia-linux.github.io/download/" class="button secondary">Get Astaraxia</a>
+        <div class="container">
+            <h1 class="title-gradient">Astaraxia Linux</h1>
+            <p>A minimal, source-based Linux distribution built for absolute control.</p>
+            
+            <div class="button-group">
+                <a href="https://github.com/Astaraxia-Linux" class="button">GitHub Project</a>
+                <a href="/download" class="button secondary">Get Astaraxia</a>
+            </div>
         </div>
     </header>
 
@@ -155,27 +158,34 @@
                 <li><strong>Horizon Bootstrap:</strong> Automated 3-stage LFS-style deployment.</li>
                 <li><strong>Recipe Versatility:</strong> Native support for v1, v2, and v3 metadata formats.</li>
                 <li><strong>Init Freedom:</strong> No systemd dependency; built for modularity.</li>
+                <li>
+                    <strong>Architectural Modularity:</strong> 
+                    Designed as a collection of independent modules. Replace the init system, service manager, or standard library without side effects on the Astral core.
+                </li>
             </ul>
         </section>
         
         <section>
             <h2>Quick Start</h2>
-            <p>Get Astral running on your current system to start building:</p>
+            <p>Get Astral running on your system to start building:</p>
             <div class="code-block">
                 <pre><code># Download and install Astral
 curl -O https://raw.githubusercontent.com/Astaraxia-Linux/Astral/main/astral
 chmod +x astral
 sudo mv astral /usr/bin/
 
-# Initialize the Horizon bootstrap environment
+# Initialize Horizon
 export LFS=/mnt/lfs
 sudo astral -h --init</code></pre>
             </div>
         </section>
     </main>
 
-    <div class="footer">
-        <p>&copy; 2026 Astaraxia Linux Project. Built with dedication and shell scripts.</p>
-    </div>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Astaraxia Linux Project. Built with dedication and shell scripts.</p>
+        </div>
+    </footer>
+
 </body>
 </html>
