@@ -1,34 +1,27 @@
 <header>
     <style>
-        body {
+        header {
+            /* The Gradient: Deep Navy to Midnight */
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%) !important;
+            width: 100% !important;
+            margin: 0 !important;
+            padding: 3rem 0 !important;
+            border-bottom: 1px solid #334155;
+            background-image: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%) !important;
+        }
+        
+        body, .wrapper, .container-lg {
             margin: 0 !important;
             padding: 0 !important;
-            background-color: var(--bg) !important;
-            width: 100% !important;
             max-width: 100% !important;
         }
         
-        .container-lg, .wrapper, .header, .section, .footer {
-            max-width: 100% !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            width: 100% !important;
-        }
-        
-        header .container, .download-content, .docs-wrapper {
-            max-width: 1300px;
+        header .container {
+            max-width: 1200px;
             margin: 0 auto !important;
             padding: 0 2rem !important;
         }
-        
-        header {
-            width: 100% !important;
-            background-image: none !important;
-            background-color: #0f172a !important;
-            border-bottom: 1px solid var(--border);
-        }
-    }
-</style>
+    </style>
     <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
         <h1 style="margin:0;"><a href="/" style="color: white; text-decoration: none;">{{ site.title }}</a></h1>
         <nav style="margin-top: 1rem;">
