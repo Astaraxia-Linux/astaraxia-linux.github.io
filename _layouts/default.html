@@ -110,7 +110,13 @@
             border-top: 1px solid var(--border);
             margin-top: 5rem;
         }
-        
+        .docs-wrapper { display: flex; gap: 3rem; margin-top: 2rem; }
+        .docs-sidebar { width: 220px; flex-shrink: 0; position: sticky; top: 2rem; height: fit-content; }
+        .docs-sidebar ul { list-style: none; border-left: 1px solid var(--border); }
+        .docs-sidebar li a { display: block; padding: 0.4rem 1rem; color: var(--text-dim); text-decoration: none; }
+        .docs-sidebar li a:hover { color: var(--primary); border-left: 2px solid var(--primary); margin-left: -1px; }
+        .docs-content { flex-grow: 1; max-width: 800px; }
+        @media (max-width: 800px) { .docs-wrapper { flex-direction: column; } }
         a { color: var(--primary); text-decoration: none; }
         a:hover { text-decoration: underline; }
     </style>
