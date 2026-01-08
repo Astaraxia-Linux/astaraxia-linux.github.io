@@ -2,8 +2,8 @@
 layout: docs
 title: Astral Docs
 sidebar_content: |
-  <div class="nav-group">
-    <h4>Astral Engine</h4>
+  <div class="nav-group" style="display: block;">
+    <h3>Astral Engine</h3>
     <ul>
       <li><a href="#introduction">Introduction</a></li>
       <li><a href="#installation">Installation</a></li>
@@ -14,14 +14,28 @@ sidebar_content: |
   </div>
 ---
 
-<h1 class="title-gradient">Astral Package Manager</h1>
-<p>Because compiling from source should be less painful than a root canal.</p>
-
 <section id="introduction">
-    <h2>Introduction</h2>
-    <h3>What is Astral?
-      <p>Astral is a minimal POSIX package manager for Astaraxia Linux. It builds packages from source because apparently, we hate ourselves enough to avoid binary packages. Think of it as Gentoo's Portage, but written by someone who values their sanity (debatable)</p>
+    <h1 class="title-gradient">Astral Package Manager</h1>
+    <p class="quote" style="border-left: 4px solid var(--primary); padding: 1rem; background: rgba(129,140,248,0.1); font-style: italic; margin-bottom: 2rem;">
+        "Because compiling from source should be less painful than a root canal."
+    </p>
+    
+    <h2>What is Astral?</h2>
+    <p>Astral is a minimal POSIX package manager for Astaraxia Linux. It builds packages from source because apparently, we hate ourselves enough to avoid binary packages. Think of it as Gentoo's Portage, but written by someone who values their sanity (debatable).</p>
 </section>
-  
-# Remove and clean
-astral -R [package]</code></pre>
+
+<section id="installation">
+    <h2>Installation</h2>
+    <p>To inject Astral into your host system:</p>
+    <pre><code>curl -O https://raw.githubusercontent.com/Astaraxia-Linux/Astral/main/astral
+chmod +x astral
+sudo mv astral /usr/bin/</code></pre>
+</section>
+
+<section id="usage">
+    <h2>Basic Usage</h2>
+    <p>Sync and build a package:</p>
+    <pre><code>sudo astral -S [package]</code></pre>
+    <p>Remove and clean orphaned files:</p>
+    <pre><code>sudo astral -R [package]</code></pre>
+</section>
