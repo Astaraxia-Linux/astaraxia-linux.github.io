@@ -1,36 +1,49 @@
 <header>
     <style>
         header {
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%) !important;
             color: white;
-            padding: 5rem 2rem;
+            padding: 5rem 0 !important;
             border-bottom: 1px solid var(--border);
+            width: 100% !important;
+        }
+        .gradient-text {
+            background: linear-gradient(to right, #818cf8, #c084fc, #10b981);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: inline-block;
         }
 
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            background-color: var(--bg);
-            color: var(--text);
+        header h1 {
+            font-size: 3.5rem !important;
+            letter-spacing: -2px;
+            font-weight: 800;
+        }
+
+        header h1 a {
+            text-decoration: none;
+            background: linear-gradient(to right, #fff 20%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
         
+        /* Sidebar and content padding fixes */
         body, .wrapper, .container-lg {
             margin: 0 !important;
             padding: 0 !important;
             max-width: 100% !important;
-        }
-        
-        header .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
+            background-color: #0f172a;
         }
     </style>
-    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
-        <h1 style="margin:0;"><a href="/" style="color: white; text-decoration: none;">{{ site.title }}</a></h1>
-        <nav style="margin-top: 1rem;">
+
+    <div class="container">
+        <h1><a href="/">{{ site.title }}</a></h1>
+        <p style="color: var(--text-dim); margin-top: 0.5rem; font-size: 1.1rem;">{{ site.description }}</p>
+        <nav style="margin-top: 1.5rem;">
             {% for item in site.navigation %}
-            <a href="{{ item.url }}" style="color: var(--text-dim); margin-right: 1.5rem; text-decoration: none;">{{ item.title }}</a>
+            <a href="{{ item.url }}" style="color: var(--text-dim); margin-right: 1.5rem; text-decoration: none; font-weight: 500; transition: 0.3s;">{{ item.title }}</a>
             {% endfor %}
         </nav>
     </div>
