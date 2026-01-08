@@ -1,19 +1,27 @@
 ---
 layout: docs
-title: Astral Usage
-side_nav: astral
+title: Astral Docs
+sidebar_content: |
+  <div class="nav-group">
+    <h4>Astral Engine</h4>
+    <ul>
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#installation">Installation</a></li>
+      <li><a href="#usage">Commands</a></li>
+      <li><a href="#formats">Recipe Formats</a></li>
+      <li><a href="#troubleshooting">Troubleshooting</a></li>
+    </ul>
+  </div>
 ---
 
 <h1 class="title-gradient">Astral Package Manager</h1>
-<p>A pure POSIX shell engine...</p>
+<p>Because compiling from source should be less painful than a root canal.</p>
 
-<h2>Installation</h2>
-<pre><code># Bootstrap astral onto a new host
-curl -sL astral.astaraxia.org/install.sh | sh</code></pre>
-  
-<h2>Commands</h2>
-<pre><code># Sync and build
-astral -S [package]
+<section id="introduction">
+    <h2>Introduction</h2>
+    <h3>What is Astral?
+      <p>Astral is a minimal POSIX package manager for Astaraxia Linux. It builds packages from source because apparently, we hate ourselves enough to avoid binary packages. Think of it as Gentoo's Portage, but written by someone who values their sanity (debatable)</p>
+</section>
   
 # Remove and clean
 astral -R [package]</code></pre>
