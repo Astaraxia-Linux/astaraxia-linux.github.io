@@ -1,22 +1,32 @@
 <header>
     <style>
-header {
-    background-image: none !important; 
-    background-color: #0f172a !important; 
-    border-bottom: 1px solid #334155;
-    padding: 2rem 0;
-    margin: 0;
-}
-
-/* Sometimes the theme adds a 'before' or 'after' element for the gradient */
-header::before, header::after {
-    display: none !important;
-}
-
-.container-lg, .wrapper {
-    background: transparent !important;
-    max-width: 1200px !important;
-}
+        body {
+            margin: 0 !important;
+            padding: 0 !important;
+            background-color: var(--bg) !important;
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+        
+        .container-lg, .wrapper, .header, .section, .footer {
+            max-width: 100% !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            width: 100% !important;
+        }
+        
+        header .container, .download-content, .docs-wrapper {
+            max-width: 1200px;
+            margin: 0 auto !important;
+            padding: 0 2rem !important;
+        }
+        
+        header {
+            width: 100% !important;
+            background-image: none !important;
+            background-color: #0f172a !important;
+            border-bottom: 1px solid var(--border);
+        }
     }
 </style>
     <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
