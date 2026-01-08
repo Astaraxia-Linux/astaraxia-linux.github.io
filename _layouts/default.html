@@ -110,6 +110,18 @@
             border-top: 1px solid var(--border);
             margin-top: 5rem;
         }
+
+        .header-container h1 a {
+            font-size: 3.5rem;
+            font-weight: 800;
+            letter-spacing: -2px;
+            text-decoration: none;
+            background: linear-gradient(to right, #ffffff 20%, var(--primary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
         .docs-wrapper { display: flex; gap: 3rem; margin-top: 2rem; }
         .docs-sidebar { width: 220px; flex-shrink: 0; position: sticky; top: 2rem; height: fit-content; }
         .docs-sidebar ul { list-style: none; border-left: 1px solid var(--border); }
@@ -123,9 +135,8 @@
 </head>
 <body>
     <header>
-        <div class="container">
-            <h1>{{ site.title }}</h1>
-            <p style="color: var(--text-dim)">{{ site.description }}</p>
+        <div class="header-container">
+            <h1><a href="/">{{ site.title }}</a></h1>
             <nav>
                 {% for item in site.navigation %}
                 <a href="{{ item.url }}">{{ item.title }}</a>
