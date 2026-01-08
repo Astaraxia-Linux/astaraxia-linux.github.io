@@ -13,9 +13,9 @@ navigation:
   - title: Home
     url: /
   - title: Download
-    url: /download.html
+    url: /download
   - title: Documentation
-    url: /docs.html
+    url: /docs
   - title: Packages
     url: /packages
   - title: GitHub
