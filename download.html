@@ -1,239 +1,73 @@
 ---
-layout: default
+layout: docs
 title: Download
 ---
 
-<style>
-    /* Force alignment with Index.html aesthetic */
-    :root {
-        --primary: #818cf8;
-        --bg: #0f172a;        /* Background */
-        --card-bg: #1e293b;   /* cards */
-        --text: #f1f5f9;      /* Near white */
-        --text-dim: #94a3b8;  /* Muted */
-        --accent: #10b981;    /* code/links */
-        --border: #334155;
-    }
+<div class="download-content">
+    <h1 class="title-gradient">Get Astaraxia</h1>
+    <p class="subtitle">The Minimalist, Source-Based Powerhouse</p>
 
-    /* Apply background to the entire section to prevent blending */
-    .download-page-wrapper {
-        background-color: var(--bg);
-        min-height: 100vh;
-        color: var(--text);
-        padding: 4rem 2rem;
-    }
-
-    .download-content {
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    .download-content h1 { font-size: 3rem; margin-bottom: 0.5rem; color: #fff; }
-    .subtitle { color: var(--text-dim); font-size: 1.2rem; margin-bottom: 3rem; }
-
-    .card-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        margin-bottom: 4rem;
-    }
-
-    .card {
-        background: var(--card-bg);
-        padding: 2rem;
-        border-radius: 12px;
-        border: 1px solid var(--border);
-    }
-
-    .card h2 { color: var(--primary); margin-bottom: 1rem; font-size: 1.5rem; }
-    .card p { color: var(--text-dim); margin-bottom: 1.5rem; }
-
-    /* Table Styling - Fixed Contrast */
-    .download-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-        font-size: 0.9rem;
-    }
-
-    .download-table th {
-        text-align: left;
-        color: var(--primary);
-        border-bottom: 1px solid var(--border);
-        padding: 0.5rem;
-    }
-
-    .download-table td { 
-        padding: 0.75rem 0.5rem; 
-        border-bottom: 1px solid var(--border);
-        color: var(--text); 
-    }
-    
-    .download-table a { color: var(--accent); text-decoration: none; font-weight: bold; }
-    .download-table a:hover { text-decoration: underline; }
-
-    .badge {
-        background: #312e81;
-        color: var(--primary);
-        padding: 0.2rem 0.6rem;
-        border-radius: 4px;
-        font-size: 0.8rem;
-    }
-
-    /* Terminal Style for Bootstrap */
-    .code-block {
-        background: #000;
-        padding: 1.2rem;
-        border-radius: 8px;
-        border: 1px solid var(--border);
-        font-family: 'Cascadia Code', 'Fira Code', monospace;
-        font-size: 0.85rem;
-        overflow-x: auto;
-    }
-    .code-block pre { margin: 0; }
-    .code-block code { color: var(--accent); }
-
-    hr { border: 0; border-top: 1px solid var(--border); margin: 4rem 0; }
-
-    /* Flex Layout for ISO/Mirrors */
-    .flex-row { display: flex; gap: 4rem; margin-bottom: 4rem; }
-    .col { flex: 1; }
-    .col h3 { color: var(--primary); margin-bottom: 1rem; }
-
-    .status-tag {
-        font-size: 0.7rem;
-        background: #475569;
-        color: #fff;
-        padding: 0.2rem 0.5rem;
-        border-radius: 4px;
-        vertical-align: middle;
-        margin-left: 0.5rem;
-    }
-
-    /* Specs Section */
-    .specs-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        margin-top: 1.5rem;
-    }
-    .spec-card {
-        background: rgba(30, 41, 59, 0.5);
-        padding: 1.5rem;
-        border-radius: 8px;
-        border: 1px solid var(--border);
-    }
-    .spec-card h4 { margin-bottom: 1rem; color: var(--primary); }
-    .spec-card ul { list-style: none; color: var(--text-dim); }
-    .spec-card li { margin-bottom: 0.4rem; }
-
-    .muted { color: #64748b; }
-
-    @media (max-width: 850px) {
-        .card-grid, .flex-row, .specs-grid { grid-template-columns: 1fr; flex-direction: column; }
-    }
-</style>
-
-<div class="download-page-wrapper">
-    <div class="download-content">
-        <h1>Download Astaraxia</h1>
-        <p class="subtitle">The Minimalist, Source-Based Powerhouse</p>
-
-        <div class="card-grid">
-            <div class="card">
-                <h2>Stage Tarballs</h2>
-                <p>Pre-built base systems. Extract and bootstrap your environment instantly.</p>
-                
-                <div class="release-info" style="margin-bottom: 1rem;">
-                    <strong style="font-size: 0.9rem;">Latest Release:</strong> <span class="badge">v0.1.0-alpha</span>
-                </div>
-
-                <table class="download-table">
-                    <thead>
-                        <tr>
-                            <th>File</th>
-                            <th>Size</th>
-                            <th>SHA256</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><a href="https://github.com/Astaraxia-Linux/Horizon/releases">stage3-amd64.tar.xz</a></td>
-                            <td>~500MB</td>
-                            <td class="muted">Coming soon</td>
-                        </tr>
-                        <tr>
-                            <td><a href="https://github.com/Astaraxia-Linux/Horizon/releases">stage3-arm64.tar.xz</a></td>
-                            <td>~450MB</td>
-                            <td class="muted">Coming soon</td>
-                        </tr>
-                    </tbody>
-                </table>
+    <div class="card-grid">
+        <div class="card">
+            <h2>Stage Tarballs</h2>
+            <p>Pre-built base systems. Extract and bootstrap your environment instantly.</p>
+            
+            <div class="release-info" style="margin-bottom: 1rem;">
+                <strong style="font-size: 0.9rem;">Latest Release:</strong> <span class="badge">v0.1.0-alpha</span>
             </div>
 
-            <div class="card">
-                <h2>Bootstrap from Scratch</h2>
-                <p>Total control. Build your entire system from source using the Horizon engine.</p>
-                <div class="code-block">
-                    <pre><code># Install Astral
-curl -O https://raw.githubusercontent.com/.../astral
-chmod +x astral
-sudo mv astral /usr/bin/
+            <table class="download-table">
+                <thead>
+                    <tr>
+                        <th>File</th>
+                        <th>Size</th>
+                        <th>SHA256</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><a href="https://github.com/Astaraxia-Linux/Horizon/releases">stage3-amd64.tar.xz</a></td>
+                        <td>~500MB</td>
+                        <td class="muted">Coming soon</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-# Initialize Horizon
+        <div class="card">
+            <h2>Bootstrap from Scratch</h2>
+            <p>Total control. Build your entire system from source using the Horizon engine.</p>
+            <div class="code-block">
+                <pre><code># Initialize Horizon
 export LFS=/mnt/lfs
 sudo astral -h --init
 
 # Run stages (12-20 hours)
 sudo astral -h --stage 1
-sudo astral -h --stage 2
-sudo astral --chroot $LFS
-astral -h --stage 3</code></pre>
-                </div>
+sudo astral -h --stage 2</code></pre>
             </div>
         </div>
+    </div>
 
-        <hr>
+    <hr style="border: 0; border-top: 1px solid var(--border); margin: 4rem 0;">
 
-        <div class="flex-row">
-            <div class="col">
-                <h3>Live ISO <span class="status-tag">Coming Soon</span></h3>
+    <div class="specs-section">
+        <h3 style="color: var(--primary); margin-bottom: 1.5rem;">System Requirements</h3>
+        <div class="specs-grid">
+            <div class="spec-card">
+                <h4>Minimum</h4>
                 <ul style="list-style: none; color: var(--text-dim);">
-                    <li style="margin-bottom: 0.5rem;">◽ astaraxia-live-2026.01.iso</li>
-                    <li style="margin-bottom: 0.5rem;">◽ Includes installer</li>
-                    <li style="margin-bottom: 0.5rem;">◽ NetworkManager pre-configured</li>
+                    <li>• CPU: x86_64 / ARM64</li>
+                    <li>• RAM: 512MB</li>
+                    <li>• Disk: 10GB</li>
                 </ul>
             </div>
-
-            <div class="col">
-                <h3>Mirrors</h3>
-                <p style="margin-bottom: 0.5rem; color: var(--text);"><strong>Primary:</strong> GitHub Releases</p>
-                <p class="muted">Mirror 1: DigitalOcean (Coming soon)</p>
-                <p class="muted">Mirror 2: AWS (Coming soon)</p>
-            </div>
-        </div>
-
-        <div class="specs-section">
-            <h3 style="color: var(--primary);">System Requirements</h3>
-            <div class="specs-grid">
-                <div class="spec-card">
-                    <h4>Minimum</h4>
-                    <ul>
-                        <li>• CPU: x86_64 / ARM64</li>
-                        <li>• RAM: 512MB</li>
-                        <li>• Disk: 10GB</li>
-                        <li>• Time: Patience</li>
-                    </ul>
-                </div>
-                <div class="spec-card">
-                    <h4>Recommended</h4>
-                    <ul>
-                        <li>• CPU: Multi-core (High Clock)</li>
-                        <li>• RAM: 4GB+</li>
-                        <li>• Disk: 20GB+</li>
-                        <li>• Time: <strong>Lots of coffee</strong></li>
-                    </ul>
-                </div>
+            <div class="spec-card">
+                <h4>Recommended</h4>
+                <ul style="list-style: none; color: var(--text-dim);">
+                    <li>• RAM: 4GB+</li>
+                    <li>• Time: <strong>Lots of coffee</strong></li>
+                </ul>
             </div>
         </div>
     </div>
