@@ -237,6 +237,35 @@
         .astral-docs section {
             scroll-margin-top: 100px; /* Prevents header overlap when clicking TOC links */
         }
+
+        /* Center the Header Content */
+        .header-container, .doc-header {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        /* Center the Metadata Banner spans */
+        .metadata-banner {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        /* Ensure the blockquote maintains a clean look while centered */
+        blockquote {
+            max-width: 600px;
+            margin: 2rem auto;
+            border-left: none;
+            border-top: 2px solid var(--primary);
+            border-bottom: 2px solid var(--primary);
+            padding: 1rem 0;
+        }
         
         /* Responsive */
         @media (max-width: 850px) {
