@@ -1,0 +1,10 @@
+<header style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); padding: 2rem 0; border-bottom: 1px solid var(--border);">
+    <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 2rem;">
+        <h1 style="margin:0;"><a href="/" style="color: white; text-decoration: none;">{{ site.title }}</a></h1>
+        <nav style="margin-top: 1rem;">
+            {% for item in site.navigation %}
+            <a href="{{ item.url }}" style="color: var(--text-dim); margin-right: 1.5rem; text-decoration: none;">{{ item.title }}</a>
+            {% endfor %}
+        </nav>
+    </div>
+</header>
