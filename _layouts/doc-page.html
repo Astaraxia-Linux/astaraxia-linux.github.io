@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include head.html %} </head>
+<body style="background: var(--bg); color: var(--text);">
+    {% include header.html %} <main class="container" style="display: flex; gap: 3rem; padding: 4rem 2rem; max-width: 1200px; margin: 0 auto;">
+        
+        <aside style="width: 250px; flex-shrink: 0; position: sticky; top: 2rem; height: fit-content;">
+            <h3 style="color: var(--primary); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 1rem;">Navigation</h3>
+            <ul style="list-style: none; border-left: 1px solid var(--border);">
+                <li><a href="/docs" style="padding: 0.5rem 1rem; display: block; color: var(--text-dim);">« Back to Index</a></li>
+                <li style="margin-top: 1rem; padding-left: 1rem; color: var(--primary); font-weight: bold;">Manuals</li>
+                <li><a href="/docus/astral" style="padding: 0.3rem 1rem; display: block; color: var(--text-dim);">Astral Usage</a></li>
+                <li><a href="/docus/recipes" style="padding: 0.3rem 1rem; display: block; color: var(--text-dim);">Writing Recipes</a></li>
+                <li><a href="/docus/horizon" style="padding: 0.3rem 1rem; display: block; color: var(--text-dim);">Horizon Guide</a></li>
+            </ul>
+        </aside>
+
+        <article class="markdown-content" style="flex-grow: 1; max-width: 800px;">
+            {{ content }}
+        </article>
+    </main>
+</body>
+</html>
