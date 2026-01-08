@@ -145,7 +145,7 @@
         .top-nav {
             width: 100%;
             border-bottom: 1px solid var(--border);
-            background: rgba(15, 23, 42, 0.8);
+            background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(12px);
             position: sticky;
             top: 0;
@@ -171,24 +171,35 @@
         
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
         }
         
         .nav-links a {
             text-decoration: none;
             color: var(--text-dim);
             font-weight: 500;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             transition: color 0.3s;
         }
         
-        .nav-links a:hover {
-            color: var(--primary);
-        }
+        /* MOBILE FIX */
+        @media (max-width: 600px) {
+            .nav-container {
+                flex-direction: column; /* Stack logo and links */
+                gap: 1rem;
+                padding: 1rem;
+            }
         
-        /* Highlight the active page */
-        .nav-links a.active {
-            color: var(--text);
+            .nav-links {
+                gap: 1rem;
+                font-size: 0.8rem;
+                width: 100%;
+                justify-content: center; /* Center links on mobile */
+            }
+            
+            .nav-logo {
+                font-size: 1rem;
+            }
         }
         
         @media (max-width: 768px) {
