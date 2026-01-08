@@ -106,7 +106,45 @@
         .card { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); }
         .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
         .spec-card { background: rgba(30, 41, 59, 0.5); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border); }
+
+        /* Documentation Index Styling */
+        .doc-card {
+            text-decoration: none;
+            display: block;
+        }
         
+        .doc-card .card {
+            background: var(--card-bg);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            height: 100%;
+            transition: all 0.2s ease-in-out;
+        }
+        
+        .doc-card h2 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 0.75rem;
+            font-size: 1.5rem;
+        }
+        
+        .doc-card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .doc-card:hover .card {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px -10px rgba(129, 140, 248, 0.3);
+        }
+        
+        .doc-card code {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--accent);
+        }   
         /* Responsive */
         @media (max-width: 850px) {
             .card-grid, .specs-grid { grid-template-columns: 1fr; }
