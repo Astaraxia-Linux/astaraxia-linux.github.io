@@ -145,15 +145,19 @@
             background: rgba(16, 185, 129, 0.1);
             color: var(--accent);
         }
-
-        /* Hide all nav groups by default */
-        .nav-group { display: none; }
         
-        /* If the page is 'astral', show astral nav */
-        .astral-page #nav-astral { display: block; }
+        .sidebar .nav-group {
+            display: block !important; /* Forces it to show */
+        }
         
-        /* If the page is 'horizon', show horizon nav */
-        .horizon-page #nav-horizon { display: block; }
+        .sidebar h3 {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            color: var(--primary);
+            letter-spacing: 1px;
+            margin-bottom: 1rem;
+            margin-top: 0;
+        }
         
         /* Responsive */
         @media (max-width: 850px) {
