@@ -4,7 +4,23 @@
     {% include head.html %} </head>
 <body style="background: var(--bg); color: var(--text);">
     {% include header.html %} <main class="container" style="display: flex; gap: 3rem; padding: 4rem 2rem; max-width: 1200px; margin: 0 auto;">
-        
+        <style>
+            pre {
+                background: #000; /* Deep black terminal look */
+                color: #f1f5f9;   /* Off-white text */
+                padding: 1.5rem;
+                border-radius: 8px;
+                border: 1px solid var(--border);
+                overflow-x: auto; /* Allow scrolling if line is too long */
+                margin: 1.5rem 0;
+                display: block;   /* Force it to show up */
+            }
+            
+            code {
+                font-family: 'JetBrains Mono', 'Fira Code', monospace;
+                font-size: 0.9rem;
+            }
+        </style>
         <aside style="width: 250px; flex-shrink: 0; position: sticky; top: 2rem; height: fit-content;">
             <h3 style="color: var(--primary); font-size: 0.8rem; text-transform: uppercase; margin-bottom: 1rem;">Navigation</h3>
             <ul style="list-style: none; border-left: 1px solid var(--border);">
