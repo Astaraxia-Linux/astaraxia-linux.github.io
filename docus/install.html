@@ -1,0 +1,33 @@
+---
+layout: doc-page
+title: Installation Guide
+---
+
+<section class="docs-content">
+    <h1>Installation Guide</h1>
+    
+    <h3>Prerequisites</h3>
+    <ul>
+        <li>A Linux host system (any distribution).</li>
+        <li>10GB+ free disk space.</li>
+        <li>Internet connection for fetching source tarballs.</li>
+    </ul>
+
+    <hr style="border-color: var(--border); margin: 2rem 0;">
+
+    <h2>Method 1: Stage3 Tarball (Recommended)</h2>
+    <p>The fastest way to get Astaraxia running.</p>
+    <ol style="padding-left: 1.5rem; color: var(--text-dim);">
+        <li>Download the latest Stage3 tarball.</li>
+        <li>Extract to your target partition.</li>
+        <li>Chroot into the environment using <code>astral -c</code>.</li>
+        <li>Install your kernel and bootloader.</li>
+    </ol>
+
+    <h2>Method 2: Horizon (From Source)</h2>
+    <p>For those who want to build the entire system from scratch (LFS style).</p>
+    <pre><code># Run the bootstrap sequence
+sudo astral -h --stage 1
+sudo astral -h --stage 2
+sudo astral -h --stage 3</code></pre>
+</section>
