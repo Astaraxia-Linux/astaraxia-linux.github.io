@@ -3,60 +3,181 @@ layout: docs
 title: Astral Docs
 sidebar_content: |
   <div class="nav-group" style="display: block;">
-    <h3>Astral Engine</h3>
+    <h3>Documentation</h3>
     <ul>
       <li><a href="#introduction">Introduction</a></li>
       <li><a href="#installation">Installation</a></li>
-      <li><a href="#usage">Commands</a></li>
-      <li><a href="#formats">Recipe Formats</a></li>
+      <li><a href="#basic-usage">Basic Usage</a></li>
+      <li><a href="#recipe-formats">Recipe Formats</a></li>
+      <li><a href="#package-management">Package Management</a></li>
+      <li><a href="#dependency-system">Dependency System</a></li>
+      <li><a href="#configuration">Configuration</a></li>
+      <li><a href="#advanced-features">Advanced Features</a></li>
+      <li><a href="#recipe-generator">Recipe Generator</a></li>
       <li><a href="#troubleshooting">Troubleshooting</a></li>
+      <li><a href="#contributing">Contributing</a></li>
+      <li><a href="#faq">FAQ</a></li>
     </ul>
   </div>
 ---
 
-<section id="introduction">
-    <h1 class="title-gradient">Astral Package Manager</h1>
-    <p class="quote" style="border-left: 4px solid var(--primary); padding: 1rem; background: rgba(129,140,248,0.1); font-style: italic; margin-bottom: 2rem;">
-        "Because compiling from source should be less painful than a root canal."
-    </p>
-
-    <h2>The Engine</h2>
-    <p>Astral is a minimal POSIX package manager for Astaraxia Linux. It builds packages from source because binaries are for people who trust other people's compilers. Think of it as Gentoo's Portage, but written with a focus on POSIX portability and scriptable transparency.</p>
-
-    <div class="card-grid">
-        <div class="card">
-            <h3 style="color: var(--accent);">Why Astral?</h3>
-            <ul style="list-style: none; padding: 0; margin-top: 1rem;">
-                <li style="margin-bottom: 0.5rem;"><strong>✓ Source-based:</strong> Total silicon optimization.</li>
-                <li style="margin-bottom: 0.5rem;"><strong>✓ POSIX-compliant:</strong> Runs where Bash doesn't.</li>
-                <li style="margin-bottom: 0.5rem;"><strong>✓ Minimal:</strong> Just <code>sh</code>, <code>curl</code>, and grit.</li>
-                <li style="margin-bottom: 0.5rem;"><strong>✓ 4 Formats:</strong> Compatibility from dir to v3.</li>
-            </ul>
+<article class="astral-docs">
+    <header class="doc-header">
+        <h1 class="title-gradient">Astral Package Manager</h1>
+        <blockquote>"Because compiling from source should be less painful than a root canal"</blockquote>
+        <div class="metadata-banner">
+            <span><strong>Version:</strong> 3.4.1.1 Main</span>
+            <span><strong>Updated:</strong> 8 January 2026</span>
+            <span><strong>Maintained by:</strong> One Maniac</span>
         </div>
-        <div class="card" style="border-color: #ef4444;">
-            <h3 style="color: #ef4444;">Why Not?</h3>
-            <ul style="list-style: none; padding: 0; margin-top: 1rem;">
-                <li style="margin-bottom: 0.5rem;"><strong>✗ Time:</strong> You actually have a life.</li>
-                <li style="margin-bottom: 0.5rem;"><strong>✗ Hardware:</strong> You're on a 2008 netbook.</li>
-                <li style="margin-bottom: 0.5rem;"><strong>✗ Preference:</strong> You like <code>.deb</code> or <code>.rpm</code>.</li>
-                <li style="margin-bottom: 0.5rem;"><strong>✗ Normality:</strong> You aren't a terminal maniac.</li>
-            </ul>
-        </div>
-    </div>
-</section>
+    </header>
 
-<section id="installation">
-    <h2>Installation</h2>
-    <p>To inject Astral into your host system:</p>
-    <pre><code>curl -O https://raw.githubusercontent.com/Astaraxia-Linux/Astral/main/astral
+    <hr>
+
+    <section id="introduction">
+        <h2>Introduction</h2>
+        <h3>What is Astral?</h3>
+        <p>Astral is a minimal POSIX package manager for <a href="https://github.com/Astaraxia-Linux/Astaraxia/">Astaraxia Linux</a>. It builds packages from source because apparently, we hate ourselves enough to avoid binary packages. Think of it as Gentoo's Portage, but written by someone who values their sanity (debatable).</p>
+
+        <div class="card-grid">
+            <div class="card">
+                <h4>Why Astral?</h4>
+                <ul>
+                    <li><strong>Source-based</strong>: Total control over compilation.</li>
+                    <li><strong>POSIX-compliant</strong>: Runs on any UNIX-like shell.</li>
+                    <li><strong>Minimal</strong>: Just <code>sh</code>, <code>curl</code>, and determination.</li>
+                    <li><strong>4 Recipe Formats</strong>: Evolution from <code>dir</code> to <code>v3</code>.</li>
+                    <li><strong>Smart Resolution</strong>: Doesn't kill <code>/usr</code> anymore.</li>
+                </ul>
+            </div>
+            <div class="card">
+                <h4>Why Not?</h4>
+                <ul>
+                    <li>You value your free time.</li>
+                    <li>You're using a potato for a CPU.</li>
+                    <li>You prefer binary blobs.</li>
+                    <li>You're a well-adjusted human being.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <section id="installation">
+        <h2>Installation</h2>
+        <h3>Prerequisites</h3>
+        <ul>
+            <li>POSIX-compliant shell (bash, dash, etc.)</li>
+            <li><code>curl</code> or <code>wget</code></li>
+            <li><code>sha256sum</code></li>
+            <li>Root access (sudo/doas)</li>
+            <li>Coffee (Essential)</li>
+        </ul>
+
+        <h3>Quick Install</h3>
+        <pre><code># Clone and install
+curl -O https://raw.githubusercontent.com/Astaraxia-Linux/Astral/main/astral
 chmod +x astral
-sudo mv astral /usr/bin/</code></pre>
-</section>
+sudo mv astral /usr/bin/
 
-<section id="usage">
-    <h2>Basic Usage</h2>
-    <p>Sync and build a package:</p>
-    <pre><code>sudo astral -S [package]</code></pre>
-    <p>Remove and clean orphaned files:</p>
-    <pre><code>sudo astral -R [package]</code></pre>
-</section>
+# Initialize
+sudo astral --version</code></pre>
+    </section>
+
+    <section id="basic-usage">
+        <h2>Basic Usage</h2>
+        <h3>Installing</h3>
+        <pre><code># From official repo (AOHARU)
+sudo astral -S package-name
+
+# From community overlay (ASURA)
+sudo astral -SA package-name</code></pre>
+
+        <h3>Removing</h3>
+        <pre><code># Simple remove
+sudo astral -R package-name
+
+# Remove with orphans
+sudo astral -r package-name
+
+# Spring cleaning
+sudo astral --autoremove</code></pre>
+    </section>
+
+    <section id="recipe-formats">
+        <h2>Recipe Formats</h2>
+        <p>Astral supports four formats. <strong>v3</strong> is the current standard.</p>
+
+        <h3>v3 Format (Separated Dependencies)</h3>
+        <p>The future standard. Separates build-time and runtime dependencies.</p>
+        <pre><code>$PKG.Version = "3"
+$PKG.Metadata: {
+    Version = "1.2.3"
+    Description = "A cool package"
+};
+
+$PKG.Depend.BDepends: { gcc make };
+$PKG.Depend.RDepends: { ncurses readline };
+
+$PKG.Build: {
+    ./configure --prefix=/usr
+    make -j$(nproc)
+};
+
+$PKG.Package: {
+    make DESTDIR="$PKGDIR" install
+};</code></pre>
+    </section>
+
+    <section id="package-management">
+        <h2>Package Management</h2>
+        <h3>The World Set</h3>
+        <p>The "world set" is your list of explicitly installed packages. It lives in <code>/var/lib/astral/db/world_set</code>.</p>
+        
+        <h3>Dependency Resolution</h3>
+        
+        <p>Astral uses recursive resolution. Use <code>astral -p [pkg]</code> to preview the tree before committing to a build.</p>
+    </section>
+
+    <section id="configuration">
+        <h2>Configuration</h2>
+        <p>Edit <code>/etc/astral/make.conf</code> to tune the engine.</p>
+        <pre><code>CFLAGS="-O2 -pipe -march=native"
+MAKEFLAGS="-j$(nproc)"
+CCACHE_ENABLED="yes"
+FEATURES="ccache parallel-make strip"</code></pre>
+    </section>
+
+    <section id="troubleshooting">
+        <h2>Troubleshooting</h2>
+        <div class="spec-card">
+            <h4>"Another instance is running"</h4>
+            <p>Fix: <code>sudo rm -rf /var/lock/astral.lock.d</code></p>
+        </div>
+        <div class="spec-card">
+            <h4>"Circular Dependency"</h4>
+            <p>Math says no. Fix your recipes.</p>
+        </div>
+        <div class="spec-card">
+            <h4>"Checksum Mismatch"</h4>
+            <p>Upstream changed the file. Re-download and update the recipe checksum.</p>
+        </div>
+    </section>
+
+    <section id="faq">
+        <h2>FAQ</h2>
+        <dl>
+            <dt>Why POSIX sh?</dt>
+            <dd>If /bin/sh is broken, you have bigger problems.</dd>
+            
+            <dt>Is it stable?</dt>
+            <dd>It won't delete /usr anymore, so... yes?</dd>
+        </dl>
+    </section>
+
+    <footer class="doc-footer">
+        <div class="dev-banner">
+            <strong>LICENSE:</strong> GPL-3.0 | <strong>CREDITS:</strong> Inspired by Gentoo, Arch, and Pain.
+        </div>
+        <p class="quote">"Astral: Because life's too short to not compile everything from source"</p>
+    </footer>
+</article>
