@@ -25,6 +25,9 @@ navigation:
 markdown: kramdown
 highlighter: rouge
 permalink: pretty
+kramdown:
+  syntax_highlighter_opts:
+    disable: false
 
 # Plugins
 plugins:
