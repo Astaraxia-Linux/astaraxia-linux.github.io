@@ -45,14 +45,8 @@
             letter-spacing: -1px;
         }
         
-        nav { margin-top: 1rem; }
-        nav a {
-            color: var(--text-dim);
-            text-decoration: none;
-            margin-right: 1.5rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
+        nav { margin-top: 1.5rem; }
+        nav a { color: var(--text-dim); text-decoration: none; margin-right: 1.5rem; font-weight: 500; transition: 0.3s; }
         nav a:hover { color: var(--primary); }
         
         main {
@@ -115,6 +109,10 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
         
         .header-container h1 a {
@@ -126,6 +124,35 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+        }
+
+        header, .doc-header {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+        }
+
+        .metadata-banner {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-top: 1.5rem;
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        blockquote {
+            text-align: center;
+            margin: 2rem auto;
+            padding: 1rem 2rem;
+            max-width: 800px;
+            border-left: none;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
         }
         
         .docs-wrapper { display: flex; gap: 3rem; margin-top: 2rem; }
