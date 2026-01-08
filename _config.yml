@@ -5,7 +5,7 @@ url: "https://astaraxia.org"
 baseurl: ""
 
 # Theme
-theme: jekyll-theme-minimal
+# theme: jekyll-theme-minimal
 # Or use: minima, cayman, hacker, etc.
 
 # Navigation
