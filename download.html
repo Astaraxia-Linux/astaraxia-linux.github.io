@@ -111,28 +111,78 @@ title: Download
     }
 
     /* Specs Section */
-    .specs-grid {
+    .spec-card {
+        background: rgba(30, 41, 59, 0.5);
+        padding: 2rem; /* Increased padding for breathability */
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        margin-bottom: 1.5rem; /* Space between cards */
+        transition: transform 0.2s ease;
+    }
+    
+    .spec-card h4 {
+        margin-top: 0;
+        margin-bottom: 1rem;
+        color: var(--primary);
+    }
+    
+    /* Spacing for the Card Grid */
+    .card-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
-        margin-top: 1.5rem;
+        margin: 2.5rem 0;
     }
-    .spec-card {
-        background: rgba(30, 41, 59, 0.5);
-        padding: 1.5rem;
-        border-radius: 8px;
-        border: 1px solid var(--border);
-    }
-    .spec-card h4 { margin-bottom: 1rem; color: var(--primary); }
     .spec-card ul { list-style: none; color: var(--text-dim); }
     .spec-card li { margin-bottom: 0.4rem; }
 
     .muted { color: #64748b; }
 
+    blockquote {
+        text-align: center;
+        margin: 2rem auto;
+        padding: 1rem 2rem;
+        max-width: 800px;
+        border-left: none;
+        border-top: 1px solid var(--border);
+        border-bottom: 1px solid var(--border);
+    }
+    
     @media (max-width: 850px) {
         .card-grid, .flex-row, .specs-grid { grid-template-columns: 1fr; flex-direction: column; }
     }
 </style>
+
+<header>
+    <div class="header-container">
+        <h1><a href="/">{{ site.title }}</a></h1>
+        <nav>
+            <a href="/">Home</a>
+            <a href="/docs">Docs</a>
+            <a href="/download">Download</a>
+        </header-container>
+    </div>
+</header>
+
+<main class="main-wrapper">
+    <section class="content" style="text-align: center; margin: 0 auto;">
+        <h2 class="title-gradient">Get Astaraxia</h2>
+        <p>Grab the latest ISO or bootstrap the system using Horizon.</p>
+        
+        <div class="card-grid" style="margin-top: 3rem;">
+            <div class="spec-card">
+                <h4>Standard ISO</h4>
+                <p>Ready to flash. Includes the base Astral engine.</p>
+                <a href="#" class="button">Download .iso</a>
+            </div>
+            <div class="spec-card">
+                <h4>Horizon Script</h4>
+                <p>For the maniacs. Bootstrap from an existing Linux host.</p>
+                <a href="#" class="button secondary">Get Script</a>
+            </div>
+        </div>
+    </section>
+</main>
 
 <div class="download-page-wrapper">
     <div class="download-content">
