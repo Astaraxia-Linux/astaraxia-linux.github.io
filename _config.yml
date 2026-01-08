@@ -1,0 +1,32 @@
+# Site settings
+title: Astaraxia Linux
+description: A minimal, source-based Linux distribution
+url: "https://astaraxia.org"
+baseurl: ""
+
+# Theme
+theme: jekyll-theme-minimal
+# Or use: minima, cayman, hacker, etc.
+
+# Navigation
+navigation:
+  - title: Home
+    url: /
+  - title: Download
+    url: /download
+  - title: Documentation
+    url: /docs
+  - title: Packages
+    url: /packages
+  - title: GitHub
+    url: https://github.com/Astaraxia-Linux
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
