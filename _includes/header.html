@@ -1,12 +1,17 @@
 <header>
     <style>
-        header {
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%) !important;
-            color: white;
-            text-align: left;
-            border-bottom: 1px solid #334155;
-            padding: 2rem 0;
-        }
+header {
+    background-image: none !important; 
+    background-color: #0f172a !important; 
+    border-bottom: 1px solid #334155;
+    padding: 2rem 0;
+    margin: 0;
+}
+
+/* Sometimes the theme adds a 'before' or 'after' element for the gradient */
+header::before, header::after {
+    display: none !important;
+}
 
 .container-lg, .wrapper {
     background: transparent !important;
