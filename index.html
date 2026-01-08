@@ -12,6 +12,7 @@
             --text: #f1f5f9;
             --text-dim: #94a3b8;
             --accent: #10b981;
+            --border: #334155;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -24,14 +25,29 @@
         }
 
         header {
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-            color: white;
-            text-align: center;
-            padding: 5rem 2rem;
-            border-bottom: 1px solid #334155;
+            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
+            padding: 5rem 0;
+            border-bottom: 1px solid var(--border);
+            width: 100%;
         }
 
-        main { max-width: 900px; margin: 3rem auto; padding: 0 2rem; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+        }
+
+        main {
+            margin: 0 auto;
+            max-width: 1200px;
+            width: 100%;
+        }
 
         h1 { font-size: 3.5rem; margin-bottom: 1rem; letter-spacing: -1px; }
         h2 { font-size: 2rem; margin: 2.5rem 0 1rem; color: var(--primary); }
@@ -98,7 +114,9 @@
 </head>
 <body>
     <header>
-        <h1>Astaraxia Linux</h1>
+         <div class="header-container">
+            <h1><a href="/">{{ site.title }}</a></h1>
+         </div>
         <p>A minimal, source-based Linux distribution built for control.</p>
         <div class="button-group">
             <a href="https://github.com/Astaraxia-Linux" class="button">GitHub Project</a>
