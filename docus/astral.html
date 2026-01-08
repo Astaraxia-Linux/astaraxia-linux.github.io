@@ -1,0 +1,32 @@
+---
+layout: doc-page
+title: Astral Package Manager
+---
+
+<section class="docs-content">
+    <h1>Astral Package Manager</h1>
+    <p>The core of Astaraxia: A monolithic, 5,000+ line pure POSIX <code>sh</code> engine designed for absolute control over source builds.</p>
+
+    <h2>Basic Usage</h2>
+    <pre><code># Install package
+sudo astral -S package-name
+
+# Remove package
+sudo astral -R package-name
+
+# Search packages
+astral -s keyword
+
+# Update repos
+sudo astral -u</code></pre>
+
+    <h2>Features</h2>
+    <ul>
+        <li><strong>POSIX Compliance:</strong> Runs on any standard shell; no bashisms allowed.</li>
+        <li><strong>Recipe Versatility:</strong> Native support for v1, v2, and v3 metadata formats.</li>
+        <li><strong>Dependency Logic:</strong> Handles complex trees without the bloat.</li>
+        <li><strong>Git Integration:</strong> Build directly from upstream repositories.</li>
+    </ul>
+
+    <p>For the full technical reference, visit the <a href="https://github.com/Astaraxia-Linux/Astral">Astral GitHub Repository</a>.</p>
+</section>
