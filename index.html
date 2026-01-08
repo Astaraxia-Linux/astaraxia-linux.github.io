@@ -1,132 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astaraxia Linux | Source-Based Minimalism</title>
-    <style>
-        :root {
-            --primary: #818cf8;
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --text: #f1f5f9;
-            --text-dim: #94a3b8;
-            --accent: #10b981;
-        }
+---
+layout: docs
+title: Home
+---
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            background-color: var(--bg);
-            color: var(--text);
-        }
-
-        header {
-            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%);
-            color: white;
-            text-align: center;
-            padding: 5rem 2rem;
-            border-bottom: 1px solid #334155;
-        }
-
-        main { max-width: 900px; margin: 3rem auto; padding: 0 2rem; }
-
-        h1 { font-size: 3.5rem; margin-bottom: 1rem; letter-spacing: -1px; }
-        h2 { font-size: 2rem; margin: 2.5rem 0 1rem; color: var(--primary); }
-        p { margin-bottom: 1.5rem; font-size: 1.1rem; color: var(--text-dim); }
-
-        .button-group { margin-top: 2rem; }
-
-        .button {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 0.8rem 2.5rem;
-            margin: 0.5rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.2s, background 0.2s;
-        }
-
-        .button.secondary {
-            background: transparent;
-            border: 2px solid var(--primary);
-        }
-
-        .button:hover {
-            transform: translateY(-2px);
-            background: #6366f1;
-        }
-
-        ul { list-style: none; margin-bottom: 2rem; }
-        li {
-            background: var(--card-bg);
-            margin-bottom: 0.5rem;
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .code-block {
-            background: #000;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border: 1px solid #334155;
-            font-family: 'Cascadia Code', 'Fira Code', monospace;
-            position: relative;
-            overflow-x: auto;
-        }
-
-        pre { color: var(--accent); }
-
-        .footer {
-            text-align: center;
-            padding: 4rem;
-            color: var(--text-dim);
-            font-size: 0.9rem;
-        }
-
-        /* Responsive Fix */
-        @media (max-width: 600px) {
-            h1 { font-size: 2.5rem; }
-            .button { width: 100%; margin: 0.5rem 0; }
-        }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>Astaraxia Linux</h1>
-        <p>A minimal, source-based Linux distribution built for control.</p>
-        <div class="button-group">
+<main>
+    <section style="text-align: center; margin-bottom: 4rem;">
+        <h1 class="title-gradient" style="font-size: 4rem; line-height: 1.1;">Tranquility in Minimalism.</h1>
+        <p style="font-size: 1.25rem; margin-top: 1rem;">Astaraxia is a monolithic, source-based Linux distribution built for control.</p>
+        <div class="button-group" style="margin-top: 2.5rem;">
             <a href="https://github.com/Astaraxia-Linux" class="button">GitHub Project</a>
-            <a href="https://astaraxia-linux.github.io/download/" class="button secondary">Get Astaraxia</a>
+            <a href="/download" class="button secondary">Get Astaraxia</a>
         </div>
-    </header>
+    </section>
 
-    <main>
-        <section>
-            <h2>What is Astaraxia?</h2>
-            <p>Astaraxia is a POSIX-compliant Linux distribution designed for users who want to understand their system from the ground up. No bloat, no unnecessary abstractions—just you and the source.</p>
-        </section>
-        
-        <section>
-            <h2>Features</h2>
-            <ul>
-                <li><strong>Astral Manager:</strong> A 5,000+ line pure POSIX shell package manager.</li>
-                <li><strong>Horizon Bootstrap:</strong> Automated 3-stage LFS-style deployment.</li>
-                <li><strong>Recipe Versatility:</strong> Native support for v1, v2, and v3 metadata formats.</li>
-                <li><strong>Init Freedom:</strong> No systemd dependency; built for modularity.</li>
-            </ul>
-        </section>
-        
-        <section>
-            <h2>Quick Start</h2>
-            <p>Get Astral running on your current system to start building:</p>
-            <div class="code-block">
-                <pre><code># Download and install Astral
+    <section>
+        <h2>What is Astaraxia?</h2>
+        <p>Astaraxia is a POSIX-compliant Linux distribution designed for users who want to understand their system from the ground up. No bloat, no unnecessary abstractions—just you and the source.</p>
+    </section>
+    
+    <section>
+        <h2>Features</h2>
+        <ul>
+            <li><strong>Astral Manager:</strong> A 5,000+ line pure POSIX shell package manager.</li>
+            <li><strong>Horizon Bootstrap:</strong> Automated 3-stage LFS-style deployment.</li>
+            <li><strong>Recipe Versatility:</strong> Native support for v1, v2, and v3 metadata formats.</li>
+            <li><strong>Init Freedom:</strong> No systemd dependency; built for modularity.</li>
+        </ul>
+    </section>
+    
+    <section>
+        <h2>Quick Start</h2>
+        <p>Get Astral running on your current system to start building:</p>
+        <div class="code-block">
+            <pre><code># Download and install Astral
 curl -O https://raw.githubusercontent.com/Astaraxia-Linux/Astral/main/astral
 chmod +x astral
 sudo mv astral /usr/bin/
@@ -134,12 +40,6 @@ sudo mv astral /usr/bin/
 # Initialize the Horizon bootstrap environment
 export LFS=/mnt/lfs
 sudo astral -h --init</code></pre>
-            </div>
-        </section>
-    </main>
-
-    <div class="footer">
-        <p>&copy; 2026 Astaraxia Linux Project. Built with dedication and shell scripts.</p>
-    </div>
-</body>
-</html>
+        </div>
+    </section>
+</main>
