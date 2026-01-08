@@ -175,31 +175,36 @@
         </div>
     </header>
 
-    <main class="main-wrapper">
-        <aside class="sidebar">
-            <div class="nav-group" id="nav-astral">
-                <h4>Astral Engine</h4>
-                <ul>
-                    <li><a href="#intro">Introduction</a></li>
-                    <li><a href="#install">Installation</a></li>
-                    <li><a href="#usage">Commands</a></li>
-                    <li><a href="#formats">Recipe Formats</a></li>
-                </ul>
-            </div>
-    
-            <div class="nav-group" id="nav-horizon">
-                <h4>Horizon Bootstrap</h4>
-                <ul>
-                    <li><a href="#stage1">Stage 1: Toolchain</a></li>
-                    <li><a href="#stage2">Stage 2: Final CC</a></li>
-                    <li><a href="#stage3">Stage 3: Chroot</a></li>
-                </ul>
-            </div>
-        </aside>
-    
-        <article class="content">
-            {{ content }}
-        </article>
+<main class="main-wrapper">
+    <aside class="sidebar">
+        {% if page.side_nav == "astral" %}
+        <div class="nav-group">
+            <h4>Astral Engine</h4>
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#install">Installation</a></li>
+                <li><a href="#usage">Basic Usage</a></li>
+                <li><a href="#formats">Recipe Formats</a></li>
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if page.side_nav == "horizon" %}
+        <div class="nav-group">
+            <h4>Horizon Guide</h4>
+            <ul>
+                <li><a href="#stage1">Stage 1: Cross</a></li>
+                <li><a href="#stage2">Stage 2: Native</a></li>
+                <li><a href="#stage3">Stage 3: Chroot</a></li>
+            </ul>
+        </div>
+        {% endif %}
+    </aside>
+
+    <article class="content">
+        {{ content }}
+    </article>
+</main>
     </main>
 </body>
 </html>
