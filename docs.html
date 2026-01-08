@@ -1,41 +1,34 @@
 ---
-layout: default
+layout: docs
 title: Documentation
 ---
 
 <div class="docs-index">
-    <h1>Documentation</h1>
-    <p class="subtitle">Everything you need to build, manage, and break Astaraxia.</p>
+    <h1 class="title-gradient">Documentation</h1>
+    <p class="subtitle" style="color: var(--text-dim); font-size: 1.2rem;">Everything you need to build, manage, and break Astaraxia.</p>
 
     <div class="docs-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3rem;">
         
-        <a href="/docus/astral" class="doc-card" style="text-decoration: none;">
-            <div class="card" style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); height: 100%; transition: transform 0.2s;">
-                <h2 style="color: var(--primary); margin-top: 0;">Astral</h2>
-                <p style="color: var(--text-dim);">Master the 5k line POSIX shell engine. Learn package installation, removal, and sync logic.</p>
+        <a href="/docus/astral" class="doc-card">
+            <div class="card">
+                <h2>Astral</h2>
+                <p>Master the 5k line POSIX shell engine. Learn package installation, removal, and sync logic.</p>
             </div>
         </a>
 
-        <a href="/docus/recipes" class="doc-card" style="text-decoration: none;">
-            <div class="card" style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); height: 100%;">
-                <h2 style="color: var(--primary); margin-top: 0;">Recipes</h2>
-                <p style="color: var(--text-dim);">Write <code>.stars</code> files. Understand the v1, v2, and v3 metadata formats and build hooks.</p>
+        <a href="/docus/recipes" class="doc-card">
+            <div class="card">
+                <h2>Recipes</h2>
+                <p>Write <code>.stars</code> files. Understand the v1, v2, and v3 metadata formats and build hooks.</p>
             </div>
         </a>
 
-        <a href="/docus/horizon" class="doc-card" style="text-decoration: none;">
-            <div class="card" style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); height: 100%;">
-                <h2 style="color: var(--primary); margin-top: 0;">Horizon</h2>
-                <p style="color: var(--text-dim);">The bootstrap engine. A guide to the 3-stage LFS process and system initialization.</p>
+        <a href="/docus/horizon" class="doc-card">
+            <div class="card">
+                <h2>Horizon</h2>
+                <p>The bootstrap engine. A guide to the 3-stage LFS process and system initialization.</p>
             </div>
         </a>
 
     </div>
 </div>
-
-<style>
-    .doc-card:hover .card {
-        border-color: var(--primary) !important;
-        transform: translateY(-5px);
-    }
-</style>
