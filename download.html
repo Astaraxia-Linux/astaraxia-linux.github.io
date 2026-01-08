@@ -148,27 +148,41 @@ title: Download
         border-bottom: 1px solid var(--border);
     }
     
+    /* Enhanced Mobile Responsiveness */
     @media (max-width: 850px) {
+        /* 1. Force ALL grids to stack 1-column */
         .card-grid, .specs-grid { 
             grid-template-columns: 1fr !important; 
-            gap: 1.5rem;
+            display: grid !important;
+            gap: 1.5rem !important;
         }
-
+    
+        /* 2. Fix the ISO/Mirrors flex row */
         .flex-row { 
             flex-direction: column !important; 
-            gap: 2rem; 
+            gap: 2rem !important; 
         }
-
-        .download-content h1 { font-size: 2.2rem; }
-
+    
+        /* 3. Prevent Table from stretching the card */
         .download-table {
             display: block;
-            overflow-x: auto;
+            width: 100%;
+            overflow-x: auto; /* Adds a scrollbar to the table ONLY */
+            -webkit-overflow-scrolling: touch;
             white-space: nowrap;
+            border: 1px solid var(--border);
+            border-radius: 4px;
         }
-
-        .download-page-wrapper {
-            padding: 2rem 1rem;
+    
+        /* 4. Adjust typography for small screens */
+        .download-content h1 { font-size: 2.2rem; }
+        .download-page-wrapper { padding: 2rem 1rem; }
+        
+        /* 5. Ensure cards take full width */
+        .card, .spec-card {
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-right: 0 !important;
         }
     }
 </style>
