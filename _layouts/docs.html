@@ -250,6 +250,7 @@
         .metadata-banner {
             display: flex;
             justify-content: center;
+            flex-wrap: wrap;
             gap: 2rem;
             margin-top: 1rem;
             font-size: 0.85rem;
@@ -265,6 +266,29 @@
             border-top: 2px solid var(--primary);
             border-bottom: 2px solid var(--primary);
             padding: 1rem 0;
+        }
+
+        .spec-card {
+            background: rgba(30, 41, 59, 0.5);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            margin-bottom: 1.5rem;
+            transition: transform 0.2s ease;
+        }
+        
+        .spec-card h4 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        /* Spacing for the Card Grid */
+        .card-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            margin: 2.5rem 0;
         }
         
         /* Responsive */
