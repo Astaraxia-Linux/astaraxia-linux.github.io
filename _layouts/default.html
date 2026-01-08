@@ -128,9 +128,18 @@
         </div>
     </header>
     
-    <main class="container">
+<main class="container">
+    {% if page.url contains '/docus/' %}
+    <div class="docs-wrapper">
+        {% include docs_sidebar.html %}
+        <article class="docs-content">
+            {{ content }}
+        </article>
+    </div>
+    {% else %}
         {{ content }}
-    </main>
+    {% endif %}
+</main>
     
     <footer>
         <p>&copy; 2026 Astaraxia Linux. Licensed under GPL-3.0</p>
