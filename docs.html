@@ -3,161 +3,39 @@ layout: default
 title: Documentation
 ---
 
+<div class="docs-index">
+    <h1>Documentation</h1>
+    <p class="subtitle">Everything you need to build, manage, and break Astaraxia.</p>
+
+    <div class="docs-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 3rem;">
+        
+        <a href="/docus/astral" class="doc-card" style="text-decoration: none;">
+            <div class="card" style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); height: 100%; transition: transform 0.2s;">
+                <h2 style="color: var(--primary); margin-top: 0;">Astral</h2>
+                <p style="color: var(--text-dim);">Master the 5,000-line POSIX shell engine. Learn package installation, removal, and sync logic.</p>
+            </div>
+        </a>
+
+        <a href="/docus/recipes" class="doc-card" style="text-decoration: none;">
+            <div class="card" style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); height: 100%;">
+                <h2 style="color: var(--primary); margin-top: 0;">Recipes</h2>
+                <p style="color: var(--text-dim);">Write <code>.stars</code> files. Understand the v1, v2, and v3 metadata formats and build hooks.</p>
+            </div>
+        </a>
+
+        <a href="/docus/horizon" class="doc-card" style="text-decoration: none;">
+            <div class="card" style="background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); height: 100%;">
+                <h2 style="color: var(--primary); margin-top: 0;">Horizon</h2>
+                <p style="color: var(--text-dim);">The bootstrap engine. A guide to the 3-stage LFS process and system initialization.</p>
+            </div>
+        </a>
+
+    </div>
+</div>
+
 <style>
-    .docs-container {
-        display: flex;
-        gap: 3rem;
-        margin-top: 2rem;
-    }
-
-    /* Sidebar Navigation */
-    .docs-sidebar {
-        width: 250px;
-        flex-shrink: 0;
-        position: sticky;
-        top: 2rem;
-        height: fit-content;
-    }
-
-    .docs-sidebar h3 {
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: var(--text-dim);
-        margin-bottom: 1rem;
-    }
-
-    .docs-sidebar ul {
-        list-style: none;
-        padding: 0;
-        border-left: 1px solid var(--border);
-    }
-
-    .docs-sidebar li {
-        margin-bottom: 0.5rem;
-    }
-
-    .docs-sidebar a {
-        display: block;
-        padding: 0.3rem 1rem;
-        color: var(--text-dim);
-        font-size: 0.95rem;
-        transition: all 0.2s;
-        border-left: 2px solid transparent;
-        margin-left: -1px;
-    }
-
-    .docs-sidebar a:hover {
-        color: var(--primary);
-        border-left: 2px solid var(--primary);
-        text-decoration: none;
-    }
-
-    /* Content Area */
-    .docs-main {
-        flex-grow: 1;
-        max-width: 850px;
-    }
-
-    .docs-section {
-        margin-bottom: 4rem;
-        scroll-margin-top: 2rem;
-    }
-
-    .docs-section h2 {
-        font-size: 2.2rem;
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 0.5rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .docs-section h3 {
-        color: var(--text);
-        margin-top: 2rem;
-    }
-
-    .info-box {
-        background: rgba(129, 140, 248, 0.1);
-        border-left: 4px solid var(--primary);
-        padding: 1.5rem;
-        border-radius: 4px;
-        margin: 1.5rem 0;
-    }
-
-    @media (max-width: 900px) {
-        .docs-container { flex-direction: column; }
-        .docs-sidebar { width: 100%; position: relative; top: 0; }
+    .doc-card:hover .card {
+        border-color: var(--primary) !important;
+        transform: translateY(-5px);
     }
 </style>
-
-<div class="docs-container">
-    <aside class="docs-sidebar">
-        <h3>Getting Started</h3>
-        <ul>
-            <li><a href="#intro">Introduction</a></li>
-            <li><a href="#installation">Installing Astral</a></li>
-        </ul>
-
-        <h3>Package Management</h3>
-        <ul>
-            <li><a href="#usage">Astral Usage</a></li>
-            <li><a href="#recipes">Writing Recipes</a></li>
-            <li><a href="#dependencies">Handling Dependencies</a></li>
-        </ul>
-
-        <h3>System Build</h3>
-        <ul>
-            <li><a href="#horizon">Horizon Bootstrap</a></li>
-            <li><a href="#stages">Stage 1, 2, & 3</a></li>
-        </ul>
-    </aside>
-
-    <main class="docs-main">
-        <section id="intro" class="docs-section">
-            <h2>Introduction</h2>
-            <p>Astaraxia is built on the philosophy of <strong>transparency over magic</strong>. The system is designed to be auditable, minimal, and entirely source-based.</p>
-            <div class="info-box">
-                <strong>Note:</strong> Astral is written in pure POSIX shell. It assumes only a working <code>/bin/sh</code> and basic coreutils.
-            </div>
-        </section>
-
-        <section id="usage" class="docs-section">
-            <h2>Astral Usage</h2>
-            <p>Astral is the heart of the system. It handles building, staging, and installing recipes.</p>
-            <h3>Basic Commands</h3>
-            <pre><code># Install a package from source
-astral -i &lt;pkgname&gt;
-
-# Build a package without installing
-astral -b &lt;pkgname&gt;
-
-# List installed packages
-astral -l
-
-# Remove a package safely
-astral -r &lt;pkgname&gt;</code></pre>
-        </section>
-
-        <section id="recipes" class="docs-section">
-            <h2>Writing Recipes</h2>
-            <p>Recipes are simple directories containing build instructions. A valid recipe requires:</p>
-            <ul>
-                <li><code>version</code>: The version string.</li>
-                <li><code>build</code>: A shell script for the compilation phase.</li>
-                <li><code>package</code>: A shell script for the installation phase.</li>
-            </ul>
-            <p>Example <code>build</code> script:</p>
-            <pre><code>#!/bin/sh
-./configure --prefix=/usr
-make</code></pre>
-        </section>
-
-        <section id="horizon" class="docs-section">
-            <h2>Horizon Bootstrap</h2>
-            <p>Horizon is the engine that drives the Astaraxia deployment process. It automates the transition from a host system to a standalone Astaraxia environment.</p>
-            <pre><code># Start the bootstrap
-sudo astral -h --init
-sudo astral -h --stage 1</code></pre>
-        </section>
-    </main>
-</div>
