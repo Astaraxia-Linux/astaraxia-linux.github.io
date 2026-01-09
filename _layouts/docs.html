@@ -247,10 +247,10 @@
             min-height: 1.2em; /* Prevents layout jump when text appears */
         }
 
-        /* Sticky Copy Button Styling */
+         /* --- Sticky Copy Button Styling (FIXED GAPS) --- */
         pre {
             position: relative;
-            padding-top: 1.5rem;
+            padding: 1.2rem; 
             background: #0D1117;
             border: 1px solid var(--border);
             border-radius: 8px;
@@ -260,12 +260,12 @@
         
         .copy-code {
             position: absolute;
-            top: 6px;
-            right: 6px;
+            top: 10px;
+            right: 10px;
             z-index: 50;
             
-            width: 34px;
-            height: 34px;
+            width: 32px;
+            height: 32px;
             
             background: var(--card-bg); 
             color: var(--text-dim);
@@ -277,7 +277,7 @@
             align-items: center;
             justify-content: center;
             transition: 0.2s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
         
         .copy-code:hover {
@@ -285,11 +285,12 @@
             color: #ffffff;
             border-color: var(--primary);
         }
-        
+    
         pre code {
-            display: block;
-            padding-top: 2rem; /* The 'gutter' for the button */
-            background: #0D1117;
+            display: inline-block;
+            padding: 0 !important;
+            background: transparent !important;
+            line-height: 1.5;
         }
 
         /* --- MOBILE FIXES --- */
