@@ -171,6 +171,61 @@
         .search-item strong { color: var(--primary); display: block; font-size: 0.9rem; }
         .search-item small { font-size: 0.75rem; opacity: 0.7; }
 
+        /* --- Professional Card Styling --- */
+
+        .doc-card {
+            text-decoration: none !important;
+            color: inherit;
+            display: block;
+            transition: transform 0.2s ease;
+        }
+        
+        /* Fix the card internal styles */
+        .doc-card .card {
+            background: var(--card-bg);
+            padding: 2.5rem 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            height: 100%;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        /* Remove underlines from the titles inside cards */
+        .doc-card h2 {
+            color: var(--primary);
+            margin-bottom: 0.75rem;
+            font-size: 1.6rem;
+            text-decoration: none !important;
+        }
+        
+        /* Smooth Hover Effect */
+        .doc-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .doc-card:hover .card {
+            border-color: var(--primary);
+            background: rgba(129, 140, 248, 0.08);
+            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.6);
+        }
+        
+        /* Fix for the grid to ensure alignment */
+        .docs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .title-gradient {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(to right, #fff, var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
         /* --- MOBILE FIXES --- */
         @media (max-width: 900px) {
             /* Shrink global text and headings on mobile */
