@@ -226,6 +226,55 @@
             margin-bottom: 0.5rem;
         }
 
+        /* Terminal Cursor Styling */
+        .typewriter-text::after {
+            content: '_';
+            animation: blink 1s step-end infinite;
+            color: var(--primary);
+            margin-left: 4px;
+        }
+        
+        @keyframes blink {
+            from, to { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        
+        .title-gradient {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace; /* Use a mono font if possible */
+            min-height: 1.2em; /* Prevents layout jump when text appears */
+        }
+
+        /* Sticky Copy Button Styling */
+        .copy-code {
+            position: sticky; /* Follows the user as they scroll the code block */
+            float: right;     /* Aligns to the right */
+            top: 10px;        /* Distance from the top of the viewport/block */
+            right: 10px;      /* Distance from the right edge */
+            z-index: 10;
+            
+            background: var(--border);
+            color: var(--text);
+            border: 1px solid var(--border);
+            padding: 6px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: "JetBrainsMono Nerd Font", "FiraCode Nerd Font", monospace;
+            font-size: 1.1rem;
+            transition: all 0.2s ease;
+            margin-bottom: -40px; /* Offset so it doesn't push the code text down */
+        }
+        
+        .copy-code:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        pre {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
         /* --- MOBILE FIXES --- */
         @media (max-width: 900px) {
             /* Shrink global text and headings on mobile */
@@ -374,17 +423,23 @@
         document.querySelectorAll('pre').forEach((codeBlock) => {
             const button = document.createElement('button');
             button.className = 'copy-code';
-            button.innerText = 'Copy';
-            button.style = 'position: absolute; right: 10px; top: 10px; background: var(--border); color: var(--text); border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.7rem;';
-        
-            codeBlock.style.position = 'relative';
-            codeBlock.appendChild(button);
+            // Nerd Font Glyph for Copy (󰆏)
+            button.innerHTML = '󰆏'; 
+            
+            // Add button to the top of the pre block
+            codeBlock.prepend(button);
         
             button.addEventListener('click', () => {
                 const code = codeBlock.querySelector('code').innerText;
                 navigator.clipboard.writeText(code).then(() => {
-                    button.innerText = 'Copied!';
-                    setTimeout(() => { button.innerText = 'Copy'; }, 2000);
+                    // Nerd Font Glyph for Success/Check (󰄬)
+                    button.innerHTML = '󰄬';
+                    button.style.color = 'var(--accent)';
+                    
+                    setTimeout(() => { 
+                        button.innerHTML = '󰆏'; 
+                        button.style.color = '';
+                    }, 2000);
                 });
             });
         });
@@ -429,6 +484,26 @@
         // Close search when clicking outside
         document.addEventListener('click', (e) => {
             if (!searchInput.contains(e.target)) searchResults.style.display = 'none';
+        });
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const titleElement = document.querySelector('.title-gradient');
+            const text = "Documentation";
+            let i = 0;
+        
+            // Clear initial text to start animation
+            titleElement.innerHTML = '';
+            titleElement.classList.add('typewriter-text');
+        
+            function typeWriter() {
+                if (i < text.length) {
+                    titleElement.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(typeWriter, 100); // Speed of typing (in ms)
+                }
+            }
+        
+            typeWriter();
         });
     </script>
 </body>
