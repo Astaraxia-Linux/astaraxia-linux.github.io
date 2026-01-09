@@ -10,29 +10,35 @@ sidebar_content: |
       <li><a href="#basic-usage">Basic Usage</a></li>
       <li><a href="#recipe-formats">Recipe Formats</a></li>
       <li><a href="#package-management">Package Management</a></li>
-      <li><a href="#dependency-system">Dependency System</a></li>
       <li><a href="#configuration">Configuration</a></li>
-      <li><a href="#advanced-features">Advanced Features</a></li>
-      <li><a href="#recipe-generator">Recipe Generator</a></li>
       <li><a href="#troubleshooting">Troubleshooting</a></li>
-      <li><a href="#contributing">Contributing</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
   </div>
 ---
 
 <article class="astral-docs">
-    <header class="doc-header">
+    <header class="doc-header" style="margin-bottom: 3rem;">
         <h1 class="title-gradient">Astral Package Manager</h1>
-        <blockquote>"Because compiling from source should be less painful than a root canal"</blockquote>
-        <div class="metadata-banner">
-            <span><strong>Version:</strong> 3.4.1.1 Main</span>
-            <span><strong>Updated:</strong> 8 January 2026</span>
-            <span><strong>Maintained by:</strong> One Maniac</span>
+        <blockquote style="max-width: 100%; margin: 1rem 0;">
+            "Because compiling from source should be less painful than a root canal"
+        </blockquote>
+        
+        <div class="spec-card" style="margin-top: 2rem; grid-template-columns: repeat(3, 1fr);">
+            <div class="spec-item">
+                <span class="spec-label">Version</span>
+                <span class="spec-value">3.4.1.1 Main</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Updated</span>
+                <span class="spec-value">8 January 2026</span>
+            </div>
+            <div class="spec-item">
+                <span class="spec-label">Maintainer</span>
+                <span class="spec-value">One Maniac</span>
+            </div>
         </div>
     </header>
-
-    <hr>
 
     <section id="introduction">
         <h2>Introduction</h2>
@@ -40,23 +46,22 @@ sidebar_content: |
         <p>Astral is a minimal POSIX package manager for <a href="https://github.com/Astaraxia-Linux/Astaraxia/">Astaraxia Linux</a>. It builds packages from source because apparently, we hate ourselves enough to avoid binary packages. Think of it as Gentoo's Portage, but written by someone who values their sanity (debatable).</p>
 
         <div class="card-grid">
-        <div class="card">
-            <h3 style="color: var(--accent);">Why Astral?</h3>
-                <ul style="list-style: none; padding: 0; margin-top: 1rem;">
-                    <li style="margin-bottom: 0.5rem;"><strong>Source-based</strong>: Total control over compilation.</li>
-                    <li style="margin-bottom: 0.5rem;"><strong>POSIX-compliant</strong>: Runs on any UNIX-like shell.</li>
-                    <li style="margin-bottom: 0.5rem;"><strong>Minimal</strong>: Just <code>sh</code>, <code>curl</code>, and determination.</li>
-                    <li style="margin-bottom: 0.5rem;"><strong>4 Recipe Formats</strong>: Evolution from <code>dir</code> to <code>v3</code>.</li>
-                    <li style="margin-bottom: 0.5rem;"><strong>Smart Resolution</strong>: Doesn't kill <code>/usr</code> anymore.</li>
+            <div class="card" style="border-left: 4px solid var(--accent);">
+                <h3 style="color: var(--accent); margin-top: 0;">Why Astral?</h3>
+                <ul>
+                    <li><strong>Source-based</strong>: Total control over compilation.</li>
+                    <li><strong>POSIX-compliant</strong>: Runs on any UNIX-like shell.</li>
+                    <li><strong>Minimal</strong>: Just <code>sh</code>, <code>curl</code>, and determination.</li>
+                    <li><strong>Smart Resolution</strong>: Doesn't kill <code>/usr</code> anymore.</li>
                 </ul>
             </div>
-            <div class="card" style="border-color: #ef4444;">
-            <h4 style="color: #ef4444;">Why Not?</h3>
-                <ul style="list-style: none; padding: 0; margin-top: 1rem;">
-                    <li style="margin-bottom: 0.5rem;"><strong>You value your free time.</li>
-                    <li style="margin-bottom: 0.5rem;"><strong>You're using a potato for a CPU.</li>
-                    <li style="margin-bottom: 0.5rem;"><strong>You prefer binary blobs.</li>
-                    <li style="margin-bottom: 0.5rem;"><strong>You're a well-adjusted human being.</li>
+            <div class="card" style="border-left: 4px solid #ef4444;">
+                <h3 style="color: #ef4444; margin-top: 0;">Why Not?</h3>
+                <ul>
+                    <li>You value your free time.</li>
+                    <li>You're using a potato for a CPU.</li>
+                    <li>You prefer binary blobs.</li>
+                    <li>You're a well-adjusted human being.</li>
                 </ul>
             </div>
         </div>
@@ -68,7 +73,6 @@ sidebar_content: |
         <ul>
             <li>POSIX-compliant shell (bash, dash, etc.)</li>
             <li><code>curl</code> or <code>wget</code></li>
-            <li><code>sha256sum</code></li>
             <li>Root access (sudo/doas)</li>
             <li>Coffee (Essential)</li>
         </ul>
@@ -97,10 +101,7 @@ sudo astral -SA package-name</code></pre>
 sudo astral -R package-name
 
 # Remove with orphans
-sudo astral -r package-name
-
-# Spring cleaning
-sudo astral --autoremove</code></pre>
+sudo astral -r package-name</code></pre>
     </section>
 
     <section id="recipe-formats">
@@ -121,21 +122,7 @@ $PKG.Depend.RDepends: { ncurses readline };
 $PKG.Build: {
     ./configure --prefix=/usr
     make -j$(nproc)
-};
-
-$PKG.Package: {
-    make DESTDIR="$PKGDIR" install
 };</code></pre>
-    </section>
-
-    <section id="package-management">
-        <h2>Package Management</h2>
-        <h3>The World Set</h3>
-        <p>The "world set" is your list of explicitly installed packages. It lives in <code>/var/lib/astral/db/world_set</code>.</p>
-        
-        <h3>Dependency Resolution</h3>
-        
-        <p>Astral uses recursive resolution. Use <code>astral -p [pkg]</code> to preview the tree before committing to a build.</p>
     </section>
 
     <section id="configuration">
@@ -143,23 +130,23 @@ $PKG.Package: {
         <p>Edit <code>/etc/astral/make.conf</code> to tune the engine.</p>
         <pre><code>CFLAGS="-O2 -pipe -march=native"
 MAKEFLAGS="-j$(nproc)"
-CCACHE_ENABLED="yes"
-FEATURES="ccache parallel-make strip"</code></pre>
+CCACHE_ENABLED="yes"</code></pre>
     </section>
 
     <section id="troubleshooting">
         <h2>Troubleshooting</h2>
         <div class="spec-card">
-            <h4>"Another instance is running"</h4>
-            <p>Fix: <code>sudo rm -rf /var/lock/astral.lock.d</code></p>
+            <div class="spec-item" style="grid-column: span 2;">
+                <span class="spec-label">Problem: "Another instance is running"</span>
+                <span class="spec-value"><code>sudo rm -rf /var/lock/astral.lock.d</code></span>
+            </div>
         </div>
+        
         <div class="spec-card">
-            <h4>"Circular Dependency"</h4>
-            <p>Math says no. Fix your recipes.</p>
-        </div>
-        <div class="spec-card">
-            <h4>"Checksum Mismatch"</h4>
-            <p>Upstream changed the file. Re-download and update the recipe checksum.</p>
+            <div class="spec-item" style="grid-column: span 2;">
+                <span class="spec-label">Problem: "Checksum Mismatch"</span>
+                <span class="spec-value">Upstream changed the file. Re-download and update the recipe.</span>
+            </div>
         </div>
     </section>
 
@@ -174,10 +161,9 @@ FEATURES="ccache parallel-make strip"</code></pre>
         </dl>
     </section>
 
-    <footer class="doc-footer">
-        <div class="dev-banner">
-            <strong>LICENSE:</strong> GPL-3.0 | <strong>CREDITS:</strong> Inspired by Gentoo, Arch, and Pain.
-        </div>
-        <p class="quote">"Astral: Because life's too short to not compile everything from source"</p>
+    <footer class="doc-footer" style="margin-top: 5rem; padding-top: 2rem; border-top: 1px solid var(--border); text-align: center;">
+        <p style="font-size: 0.85rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px;">
+            GPL-3.0 LICENSE | Inspired by Gentoo, Arch, and Pain.
+        </p>
     </footer>
 </article>
