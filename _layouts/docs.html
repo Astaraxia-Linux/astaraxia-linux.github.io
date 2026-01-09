@@ -463,6 +463,43 @@
             line-height: 1.5;
         }
 
+        /* Styling for all links in the doc */
+        .astral-docs a {
+            color: var(--primary);
+            text-decoration: none;
+            position: relative;
+            transition: color 0.2s ease;
+        }
+        
+        /* Custom underline effect (only shows on hover) */
+        .astral-docs a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: -2px;
+            left: 0;
+            background-color: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.2s ease;
+        }
+        
+        .astral-docs a:hover::after {
+            transform: scaleX(1);
+        }
+        
+        /* The External Link Icon (for GitHub/External URLs) */
+        .astral-docs a[href^="http"]::after {
+            content: ' \2197'; /* Unicode for North East Arrow */
+            font-size: 0.8em;
+            position: static; /* Place it next to the text */
+            padding-left: 3px;
+            opacity: 0.7;
+            /* Reset the underline transform for the icon itself */
+            display: inline-block;
+            background: none; 
+        }
+
         /* --- MOBILE FIXES --- */
         @media (max-width: 900px) {
             /* Shrink global text and headings on mobile */
