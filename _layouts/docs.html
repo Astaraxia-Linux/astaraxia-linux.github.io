@@ -463,33 +463,59 @@
             line-height: 1.5;
         }
 
-        /* Styling for all links in the doc */
+        /* Styling for all links in the doc - FIXED */
         .astral-docs a {
-            display: inline; /* Keep it strictly inline */
+            display: inline;
             color: var(--primary);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(129, 140, 248, 0.3); /* Subtle fixed underline */
+            text-decoration: none !important; /* Forces the browser underline to hide */
+            border-bottom: 1px solid rgba(129, 140, 248, 0.3); /* This is our 'clean' underline */
             transition: all 0.2s ease;
         }
         
         .astral-docs a:hover {
             border-bottom-color: var(--primary);
             background: rgba(129, 140, 248, 0.1);
-            border-radius: 2px;
         }
         
-        .astral-docs a:hover::after {
-            transform: scaleX(1);
-        }
-        
-        /* The External Link Icon (for GitHub/External URLs) */
+        /* Fixes the arrow icon */
         .astral-docs a[href^="http"]::after {
-            content: ' \2197'; /* Arrow symbol */
+            content: ' \2197';
             font-size: 0.8em;
-            display: inline; /* Changed from inline-block to inline */
-            white-space: nowrap; /* Forces the arrow to stay with the last word */
+            display: inline; 
+            white-space: nowrap; 
             opacity: 0.7;
-            border: none !important; /* Prevents underline on the arrow itself */
+            border-bottom: none !important; /* Ensures the arrow isn't underlined */
+            text-decoration: none !important;
+        }
+
+        #back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 45px;
+            height: 45px;
+            background: var(--primary);
+            color: white;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        }
+        
+        #back-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        #back-to-top:hover {
+            transform: translateY(-5px);
+            background: var(--accent);
         }
 
         /* --- MOBILE FIXES --- */
@@ -549,6 +575,9 @@
         footer { text-align: center; padding: 4rem 2rem; color: var(--text-dim); border-top: 1px solid var(--border); margin-top: 5rem; }
     </style>
 </head>
+<div id="back-to-top" title="Back to Top">
+    <i class="fa-solid fa-arrow-up"></i>
+</div>
 <body>
     <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
 
@@ -635,6 +664,20 @@
             document.querySelectorAll('.content h2, .content h3').forEach((section) => {
                 observer.observe(section);
             });
+        });
+
+        const backToTop = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
 
         document.querySelectorAll('pre').forEach((codeBlock) => {
