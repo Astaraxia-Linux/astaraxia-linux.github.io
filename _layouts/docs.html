@@ -65,13 +65,18 @@
         .main-wrapper {
             display: flex;
             flex-direction: row; /* Content first, sidebar second */
+            align-items: flex-start;
         }
 
         /* Hardcoded Sidebar Style */
         .sidebar {
-            width: 240px;
+            width: 250px;
             flex-shrink: 0;
-            order: 2;
+            order: 2; /* Moves to right */
+            position: sticky;
+            top: 2rem; /* Distance from top of screen when scrolling */
+            max-height: calc(100vh - 4rem);
+            overflow-y: auto;
         }
         .sidebar h3 { font-size: 0.8rem; text-transform: uppercase; color: var(--primary); letter-spacing: 1px; margin-bottom: 1rem; }
         .sidebar ul { list-style: none; border-left: 1px solid var(--border); }
@@ -79,7 +84,7 @@
         .sidebar li a:hover { color: var(--primary); border-left: 2px solid var(--primary); margin-left: -1px; }
 
         /* Markdown Content Replacement */
-        .content { flex-grow: 1; max-width: 800px; }
+        .content { flex-grow: 1; min-width: 0; order: 1; }
         .content h1 { 
             font-size: 2.5rem; 
             margin-bottom: 1.5rem; 
@@ -309,78 +314,72 @@
             flex-grow: 1; 
             min-width: 0;
         }
+
+        .sidebar-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(4px);
+            z-index: 999;
+            display: none; /* Hidden by default */
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
         
         /* Responsive */
         @media (max-width: 850px) {
             .card-grid, .specs-grid { grid-template-columns: 1fr; }
         }
 
-        @media (max-width: 900px) {
-            .main-wrapper { 
-                padding: 1rem;
-                position: relative;
-            }
+@media (max-width: 900px) {
+        .main-wrapper { padding: 2rem 1rem; }
         
-            /* 1. The Right-Side Overlay Sidebar */
-            .sidebar {
-                position: fixed;
-                top: 0;
-                right: -100%; /* Hidden by default */
-                height: 100vh;
-                background: var(--bg);
-                border-left: 1px solid var(--border);
-                z-index: 1000;
-                transition: 0.3s ease;
-                padding: 6rem 2rem 2rem;
-                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-            }
-        
-            /* When sidebar is toggled open */
-            .sidebar.active {
-                right: 0;
-            }
-        
-            /* 2. Responsive Card Grid Fix */
-            .card-grid, .specs-grid { 
-                grid-template-columns: 1fr !important; 
-                gap: 1.5rem;
-            }
-        
-            .card, .spec-card {
-                width: 100% !important;
-                min-width: 0 !important;
-            }
-        
-            /* 3. Table & Code Scroll (Stops the stretching) */
-            .download-table, .code-block {
-                display: block;
-                width: 100%;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-        
-            /* Hamburger Button */
-            .menu-toggle {
-                display: block;
-                position: fixed;
-                top: 1.5rem;
-                right: 1.5rem;
-                z-index: 1100;
-                background: var(--primary);
-                color: white;
-                padding: 0.5rem 1rem;
-                border-radius: 4px;
-                cursor: pointer;
-                font-weight: bold;
-            }
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -100%; /* Hidden */
+            height: 100vh;
+            background: var(--bg);
+            z-index: 1000;
+            padding: 5rem 2rem;
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            width: 280px;
         }
-        
-        @media (min-width: 901px) {
-            .menu-toggle { display: none; }
+
+        .sidebar.active { right: 0; }
+        .sidebar.active ~ .sidebar-overlay { display: block; opacity: 1; }
+
+        .menu-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1100;
+            background: var(--primary);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(129, 140, 248, 0.4);
+        }
+    }
+
+    @media (min-width: 901px) {
+        .menu-toggle, .sidebar-overlay { display: none !important; }
+    }
         }
     </style>
-</head>
 <body>
+    <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
+
     <header>
         <div class="header-container">
             <h1><a href="/">{{ site.title }}</a></h1>
@@ -392,20 +391,38 @@
         </div>
     </header>
 
-<main class="main-wrapper" style="display: flex; gap: 3rem; max-width: 1200px; margin: 0 auto; padding: 2rem;">
-    
-    <aside class="sidebar" style="width: 250px; flex-shrink: 0;">
-        {{ page.sidebar_content }}
-    </aside>
+    <main class="main-wrapper">
+        <aside class="sidebar">
+            {{ page.sidebar_content }}
+        </aside>
 
-    <article class="content" style="flex-grow: 1; min-width: 0;">
-        {{ content }}
-    </article>
+        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-</main>
-        <footer>
+        <article class="content">
+            {{ content }}
+        </article>
+    </main>
+
+    <footer>
         <p>&copy; 2026 Astaraxia Linux. Licensed under GPL-3.0</p>
         <p>Maintained by One Maniac™</p>
     </footer>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            sidebar.classList.toggle('active');
+            
+            if (sidebar.classList.contains('active')) {
+                overlay.style.display = 'block';
+                setTimeout(() => overlay.style.opacity = '1', 10);
+            } else {
+                overlay.style.opacity = '0';
+                setTimeout(() => overlay.style.display = 'none', 300);
+            }
+        }
+    </script>
 </body>
+</head>
 </html>
