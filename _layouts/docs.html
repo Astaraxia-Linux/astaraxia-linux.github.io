@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} | {{ site.title }}</title>
@@ -435,25 +436,26 @@
         document.querySelectorAll('pre').forEach((codeBlock) => {
             const button = document.createElement('button');
             button.className = 'copy-code';
+            button.setAttribute('aria-label', 'Copy code');
             
-            // Create the icon element properly
             const icon = document.createElement('i');
-            icon.className = 'fa-solid fa-copy'; // Default FA copy icon
+            icon.className = 'fa-solid fa-copy';
             button.appendChild(icon);
             
-            codeBlock.style.paddingTop = "3.5rem"; 
+            // Create the space for the button
             codeBlock.prepend(button);
         
             button.addEventListener('click', () => {
                 const code = codeBlock.querySelector('code').innerText;
                 navigator.clipboard.writeText(code).then(() => {
-                    // Change class for success state
                     icon.className = 'fa-solid fa-check';
                     button.style.color = 'var(--accent)';
+                    button.style.borderColor = 'var(--accent)';
                     
                     setTimeout(() => { 
                         icon.className = 'fa-solid fa-copy';
                         button.style.color = '';
+                        button.style.borderColor = '';
                     }, 2000);
                 });
             });
