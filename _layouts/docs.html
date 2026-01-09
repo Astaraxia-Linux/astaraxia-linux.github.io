@@ -463,29 +463,30 @@
             line-height: 1.5;
         }
 
-        /* Styling for all links in the doc - FIXED */
+        /* --- The Final Link Fix --- */
         .astral-docs a {
             display: inline;
             color: var(--primary);
-            text-decoration: none !important; /* Forces the browser underline to hide */
-            border-bottom: 1px solid rgba(129, 140, 248, 0.3); /* This is our 'clean' underline */
+            text-decoration: none !important; /* Kills the stubborn default underline */
+            box-shadow: inset 0 -1px 0 0 rgba(129, 140, 248, 0.3); /* Custom clean underline */
             transition: all 0.2s ease;
+            padding-bottom: 1px;
         }
         
         .astral-docs a:hover {
-            border-bottom-color: var(--primary);
-            background: rgba(129, 140, 248, 0.1);
+            box-shadow: inset 0 -1.5rem 0 0 rgba(129, 140, 248, 0.1); /* Subtle highlight */
+            color: var(--text);
         }
         
-        /* Fixes the arrow icon */
+        /* The Arrow Fix: Force it to stay attached to the word */
         .astral-docs a[href^="http"]::after {
-            content: ' \2197';
-            font-size: 0.8em;
+            content: '\00a0\2197'; /* Uses a non-breaking space + arrow */
             display: inline; 
-            white-space: nowrap; 
+            font-size: 0.85em;
             opacity: 0.7;
-            border-bottom: none !important; /* Ensures the arrow isn't underlined */
+            transition: 0.2s;
             text-decoration: none !important;
+            box-shadow: none !important; /* No underline on the arrow */
         }
 
         #back-to-top {
