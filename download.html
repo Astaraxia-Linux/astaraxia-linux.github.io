@@ -4,18 +4,9 @@ title: Download
 ---
 
 <style>
-    /* Force alignment with Index.html aesthetic */
-    :root {
-        --primary: #818cf8;
-        --bg: #0f172a;        /* Background */
-        --card-bg: #1e293b;   /* cards */
-        --text: #f1f5f9;      /* Near white */
-        --text-dim: #94a3b8;  /* Muted */
-        --accent: #10b981;    /* code/links */
-        --border: #334155;
-    }
-
-    /* Apply background to the entire section to prevent blending */
+    /* DON'T redefine :root variables - inherit from default.html layout */
+    
+    /* Page-specific wrapper */
     .download-page-wrapper {
         background-color: var(--bg);
         min-height: 100vh;
@@ -28,8 +19,20 @@ title: Download
         margin: 0 auto;
     }
 
-    .download-content h1 { font-size: 3rem; margin-bottom: 0.5rem; color: #fff; }
-    .subtitle { color: var(--text-dim); font-size: 1.2rem; margin-bottom: 3rem; }
+    /* Use consistent heading styles that inherit font-family */
+    .download-content h1 { 
+        font-size: 3rem; 
+        margin-bottom: 0.5rem; 
+        color: var(--text);
+        font-weight: 800;
+    }
+    
+    .subtitle { 
+        color: var(--text-dim); 
+        font-size: 1.2rem; 
+        margin-bottom: 3rem;
+        font-weight: 400;
+    }
 
     .card-grid {
         display: grid;
@@ -38,17 +41,20 @@ title: Download
         margin-bottom: 4rem;
     }
 
-    .card {
-        background: var(--card-bg);
-        padding: 2rem;
-        border-radius: 12px;
-        border: 1px solid var(--border);
+    /* Cards inherit from default.html .card styles */
+    .card h2 { 
+        color: var(--primary); 
+        margin-bottom: 1rem; 
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    
+    .card p { 
+        color: var(--text-dim); 
+        margin-bottom: 1.5rem;
     }
 
-    .card h2 { color: var(--primary); margin-bottom: 1rem; font-size: 1.5rem; }
-    .card p { color: var(--text-dim); margin-bottom: 1.5rem; }
-
-    /* Table Styling - Fixed Contrast */
+    /* Table Styling */
     .download-table {
         width: 100%;
         border-collapse: collapse;
@@ -61,6 +67,7 @@ title: Download
         color: var(--primary);
         border-bottom: 1px solid var(--border);
         padding: 0.5rem;
+        font-weight: 600;
     }
 
     .download-table td { 
@@ -69,7 +76,12 @@ title: Download
         color: var(--text); 
     }
     
-    .download-table a { color: var(--accent); text-decoration: none; font-weight: bold; }
+    .download-table a { 
+        color: var(--accent); 
+        text-decoration: none; 
+        font-weight: 500;
+    }
+    
     .download-table a:hover { text-decoration: underline; }
 
     .badge {
@@ -78,27 +90,44 @@ title: Download
         padding: 0.2rem 0.6rem;
         border-radius: 4px;
         font-size: 0.8rem;
+        font-weight: 500;
     }
 
-    /* Terminal Style for Bootstrap */
+    /* Code blocks inherit from default.html but add page-specific tweaks */
     .code-block {
         background: #000;
         padding: 1.2rem;
         border-radius: 8px;
         border: 1px solid var(--border);
-        font-family: 'Cascadia Code', 'Fira Code', monospace;
+        font-family: 'JetBrains Mono', 'Fira Code', monospace;
         font-size: 0.85rem;
         overflow-x: auto;
     }
+    
     .code-block pre { margin: 0; }
     .code-block code { color: var(--accent); }
 
-    hr { border: 0; border-top: 1px solid var(--border); margin: 4rem 0; }
+    hr { 
+        border: 0; 
+        border-top: 1px solid var(--border); 
+        margin: 4rem 0; 
+    }
 
-    /* Flex Layout for ISO/Mirrors */
-    .flex-row { display: flex; gap: 4rem; margin-bottom: 4rem; }
+    /* ISO/Mirrors section */
+    .flex-row { 
+        display: flex; 
+        gap: 4rem; 
+        margin-bottom: 4rem; 
+    }
+    
     .col { flex: 1; }
-    .col h3 { color: var(--primary); margin-bottom: 1rem; }
+    
+    .col h3 { 
+        color: var(--primary); 
+        margin-bottom: 1rem;
+        font-weight: 700;
+        font-size: 1.4rem;
+    }
 
     .status-tag {
         font-size: 0.7rem;
@@ -108,80 +137,65 @@ title: Download
         border-radius: 4px;
         vertical-align: middle;
         margin-left: 0.5rem;
+        font-weight: 500;
     }
 
-    /* Specs Section */
-    .spec-card {
-        background: rgba(30, 41, 59, 0.5);
-        padding: 2rem; /* Increased padding for breathability */
-        border-radius: 12px;
-        border: 1px solid var(--border);
-        margin-bottom: 1.5rem; /* Space between cards */
-        transition: transform 0.2s ease;
-    }
-    
+    /* Specs cards - inherit from default.html .spec-card */
     .spec-card h4 {
         margin-top: 0;
         margin-bottom: 1rem;
         color: var(--primary);
+        font-weight: 600;
+        font-size: 1.1rem;
     }
     
-    /* Spacing for the Card Grid */
-    .card-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        margin: 2.5rem 0;
+    .spec-card ul { 
+        list-style: none; 
+        color: var(--text-dim);
     }
-    .spec-card ul { list-style: none; color: var(--text-dim); }
+    
     .spec-card li { margin-bottom: 0.4rem; }
 
-    .muted { color: #64748b; }
-
-    blockquote {
-        text-align: center;
-        margin: 2rem auto;
-        padding: 1rem 2rem;
-        max-width: 800px;
-        border-left: none;
-        border-top: 1px solid var(--border);
-        border-bottom: 1px solid var(--border);
-    }
-    
-    /* Enhanced Mobile Responsiveness */
-@media (max-width: 850px) {
-    /* 1. Force the grid to stack */
-    .card-grid {
-        grid-template-columns: 1fr !important;
+    .muted { 
+        color: #64748b;
+        font-weight: 400;
     }
 
-    /* 2. Fix the "Rigid" Card Content */
-    .card {
-        width: 100% !important;
-        min-width: 0 !important; /* Allows the card to shrink smaller than its content */
-        overflow: hidden;         /* Prevents internal content from pushing walls out */
-    }
+    /* Mobile Responsiveness */
+    @media (max-width: 850px) {
+        .card-grid {
+            grid-template-columns: 1fr !important;
+        }
 
-    /* 3. Handle the Table (Stage Tarballs) */
-    .download-table {
-        display: block;
-        width: 100%;
-        overflow-x: auto;         /* Adds horizontal scroll to the table only */
-        white-space: nowrap;      /* Keeps data in one line while scrolling */
-        -webkit-overflow-scrolling: touch;
-    }
+        .card {
+            width: 100% !important;
+            min-width: 0 !important;
+            overflow: hidden;
+        }
 
-    /* 4. Handle the Code Block (Bootstrap) */
-    .code-block {
-        width: 100%;
-        overflow-x: auto;         /* Adds scroll to code block */
-    }
+        .download-table {
+            display: block;
+            width: 100%;
+            overflow-x: auto;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch;
+        }
 
-    .code-block pre {
-        white-space: pre;         /* Ensures code doesn't wrap awkwardly */
-        word-wrap: normal;
+        .code-block {
+            width: 100%;
+            overflow-x: auto;
+        }
+
+        .code-block pre {
+            white-space: pre;
+            word-wrap: normal;
+        }
+
+        .flex-row {
+            flex-direction: column;
+            gap: 2rem;
+        }
     }
-}
 </style>
 
 <main class="main-wrapper">
@@ -284,8 +298,8 @@ astral -h --stage 3</code></pre>
         </div>
 
         <div class="specs-section">
-            <h3 style="color: var(--primary);">System Requirements</h3>
-            <div class="specs-grid">
+            <h3 style="color: var(--primary); font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem;">System Requirements</h3>
+            <div class="card-grid">
                 <div class="spec-card">
                     <h4>Minimum</h4>
                     <ul>
