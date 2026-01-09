@@ -199,7 +199,56 @@
             color: var(--text);
         }
 
-        /* Quotes Restoration */
+        /* --- Iconic Tagline Styling --- */
+        .hero-quote {
+            position: relative;
+            padding: 3rem 1rem;
+            text-align: center;
+            margin: 4rem 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(to right, transparent, rgba(129, 140, 248, 0.03), transparent);
+        }
+        
+        .hero-quote p {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--primary);
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.4;
+        }
+        
+        .hero-quote p::before {
+            content: '“';
+            position: absolute;
+            left: 10%;
+            top: 1rem;
+            font-size: 4rem;
+            color: var(--border);
+            font-family: serif;
+            opacity: 0.5;
+        }
+        
+        .hero-quote p::after {
+            content: '”';
+            position: absolute;
+            right: 10%;
+            bottom: 0.5rem;
+            font-size: 4rem;
+            color: var(--border);
+            font-family: serif;
+            opacity: 0.5;
+        }
+        
+        /* Responsive for phone */
+        @media (max-width: 600px) {
+            .hero-quote p { font-size: 1rem; padding: 0 1rem; }
+            .hero-quote p::before, .hero-quote p::after { display: none; }
+        }
+
+        /* Quotes */
         blockquote {
             max-width: 600px;
             margin: 2rem auto;
