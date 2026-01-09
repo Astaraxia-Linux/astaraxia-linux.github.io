@@ -465,10 +465,10 @@
 
         /* Styling for all links in the doc */
         .astral-docs a {
+            display: inline;
             color: var(--primary);
             text-decoration: none;
-            position: relative;
-            transition: color 0.2s ease;
+            border-bottom: 1px solid rgba(129, 140, 248, 0.2);
         }
         
         /* Custom underline effect (only shows on hover) */
@@ -490,7 +490,9 @@
         
         /* The External Link Icon (for GitHub/External URLs) */
         .astral-docs a[href^="http"]::after {
-            content: ' \2197'; /* Unicode for North East Arrow */
+            display: inline; 
+            content: ' \2197';
+            white-space: nowrap; /* Unicode for North East Arrow */
             font-size: 0.8em;
             position: static; /* Place it next to the text */
             padding-left: 3px;
