@@ -477,14 +477,15 @@
             color: var(--text);
         }
         
-        /* Fix for the Arrow and the Period */
+        /* This ensures the arrow and the following punctuation stay together */
         .astral-docs a[href^="http"]::after {
-            content: '\00a0\2197'; /* \00a0 is a non-breaking space */
-            display: inline; /* Ensure it doesn't act like a box */
+            content: '\00a0\2197'; /* Non-breaking space + Arrow */
+            display: inline;
             font-size: 0.8em;
             opacity: 0.7;
-            white-space: nowrap; /* Keeps the arrow stuck to the word */
-            box-shadow: none !important; /* No underline on the arrow */
+            /* This prevents the underline/hover effect from applying to the arrow */
+            box-shadow: none !important; 
+            padding-left: 2px;
         }
 
         #back-to-top {
