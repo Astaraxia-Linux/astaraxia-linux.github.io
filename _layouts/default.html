@@ -111,10 +111,10 @@
 <body>
     <header>
         <div class="header-container">
-            <h1><a href="/">{{ site.title }}</a></h1>
-            <nav>
+            <h1><a href="/" style="text-decoration:none; color:inherit;">{{ site.title }}</a></h1>
+            <nav style="margin-top:1.5rem;">
                 {% for item in site.navigation %}
-                <a href="{{ item.url }}">{{ item.title }}</a>
+                <a href="{{ item.url }}" style="color:var(--text-dim); margin: 0 1rem; text-decoration:none;">{{ item.title }}</a>
                 {% endfor %}
             </nav>
         </div>
