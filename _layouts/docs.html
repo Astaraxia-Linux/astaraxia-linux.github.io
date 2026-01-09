@@ -118,6 +118,13 @@
             transition: opacity 0.3s ease;
         }
 
+        .sidebar li a.active-link {
+            color: var(--primary);
+            border-left: 2px solid var(--primary);
+            margin-left: -1px;
+            background: rgba(129, 140, 248, 0.05);
+        }
+
         /* --- MOBILE FIXES --- */
         @media (max-width: 900px) {
             /* Shrink global text and headings on mobile */
@@ -235,6 +242,29 @@
                 toggleSidebar();
             }
         }
+        
+        window.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    // Find the link in the sidebar that matches the id of the section on screen
+                    const id = entry.target.getAttribute('id');
+                    const sidebarLink = document.querySelector(`.sidebar li a[href="#${id}"]`);
+                    
+                    if (entry.isIntersecting && sidebarLink) {
+                        // Remove active class from all links
+                        document.querySelectorAll('.sidebar li a').forEach(link => 
+                            link.classList.remove('active-link'));
+                        // Add to current one
+                        sidebarLink.classList.add('active-link');
+                    }
+                });
+            }, { rootMargin: '-20% 0px -70% 0px' }); // Trigger when item is in the top portion of screen
+        
+            // Track all headings in the content that have an ID
+            document.querySelectorAll('.content h2, .content h3').forEach((section) => {
+                observer.observe(section);
+            });
+        });
     </script>
 </body>
 </html>
