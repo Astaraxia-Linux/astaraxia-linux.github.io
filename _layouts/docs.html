@@ -62,10 +62,16 @@
             padding: 4rem 2rem;
         }
 
+        .main-wrapper {
+            display: flex;
+            flex-direction: row; /* Content first, sidebar second */
+        }
+
         /* Hardcoded Sidebar Style */
         .sidebar {
             width: 240px;
             flex-shrink: 0;
+            order: 2;
         }
         .sidebar h3 { font-size: 0.8rem; text-transform: uppercase; color: var(--primary); letter-spacing: 1px; margin-bottom: 1rem; }
         .sidebar ul { list-style: none; border-left: 1px solid var(--border); }
@@ -298,13 +304,80 @@
             border-top: 1px solid var(--border);
             margin-top: 5rem;
         }
+
+        .content { 
+            flex-grow: 1; 
+            min-width: 0;
+        }
         
         /* Responsive */
         @media (max-width: 850px) {
             .card-grid, .specs-grid { grid-template-columns: 1fr; }
         }
 
-        @media (max-width: 900px) { .main-wrapper { flex-direction: column; } .sidebar { width: 100%; } }
+        @media (max-width: 900px) {
+            .main-wrapper { 
+                padding: 1rem;
+                position: relative;
+            }
+        
+            /* 1. The Right-Side Overlay Sidebar */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                right: -100%; /* Hidden by default */
+                height: 100vh;
+                background: var(--bg);
+                border-left: 1px solid var(--border);
+                z-index: 1000;
+                transition: 0.3s ease;
+                padding: 6rem 2rem 2rem;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+            }
+        
+            /* When sidebar is toggled open */
+            .sidebar.active {
+                right: 0;
+            }
+        
+            /* 2. Responsive Card Grid Fix */
+            .card-grid, .specs-grid { 
+                grid-template-columns: 1fr !important; 
+                gap: 1.5rem;
+            }
+        
+            .card, .spec-card {
+                width: 100% !important;
+                min-width: 0 !important;
+            }
+        
+            /* 3. Table & Code Scroll (Stops the stretching) */
+            .download-table, .code-block {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+        
+            /* Hamburger Button */
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 1.5rem;
+                right: 1.5rem;
+                z-index: 1100;
+                background: var(--primary);
+                color: white;
+                padding: 0.5rem 1rem;
+                border-radius: 4px;
+                cursor: pointer;
+                font-weight: bold;
+            }
+        }
+        
+        @media (min-width: 901px) {
+            .menu-toggle { display: none; }
+        }
     </style>
 </head>
 <body>
