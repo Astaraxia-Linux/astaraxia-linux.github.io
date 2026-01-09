@@ -60,7 +60,7 @@ sidebar_content: |
                     <li>You value your time</li>
                     <li>You have a slow computer</li>
                     <li>You prefer binary packages</li>
-                    <li>You're a well-adjusted human being.</li>
+                    <li>You're a normal person</li>
                 </ul>
             </div>
         </div>
@@ -71,19 +71,20 @@ sidebar_content: |
         <h3>Prerequisites</h3>
         <ul>
             <li>POSIX-compliant shell (bash, dash, etc.)</li>
-            <li><code>curl</code> or <code>wget</code></li>
-            <li>Root access (sudo/doas)</li>
-            <li>Coffee (Essential)</li>
+            <li><code>curl</code> or <code>wget</code> (for downloading things)</li>
+            <li><code>sha256sum</code> (for paranoia)</li>
+            <li>Root access (because <code>sudo</code>/<code>doaso</code> is your friend)
+            <li>Coffee (not technically required, but highly recommended)</li>
         </ul>
 
         <h3>Quick Install</h3>
-        <pre><code># Clone and install
+        <pre><code># Clone the repository (or download the script)
 curl -O https://raw.githubusercontent.com/Astaraxia-Linux/Astral/main/astral
 chmod +x astral
 sudo mv astral /usr/bin/
 
-# Initialize
-sudo astral --version</code></pre>
+# Initialize directories
+sudo astral --version  # This creates necessary directories</code></pre>
     </section>
 
     <section id="basic-usage">
