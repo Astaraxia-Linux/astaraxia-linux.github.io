@@ -265,6 +265,24 @@
                 observer.observe(section);
             });
         });
+
+        document.querySelectorAll('pre').forEach((codeBlock) => {
+            const button = document.createElement('button');
+            button.className = 'copy-code';
+            button.innerText = 'Copy';
+            button.style = 'position: absolute; right: 10px; top: 10px; background: var(--border); color: var(--text); border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 0.7rem;';
+        
+            codeBlock.style.position = 'relative';
+            codeBlock.appendChild(button);
+        
+            button.addEventListener('click', () => {
+                const code = codeBlock.querySelector('code').innerText;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.innerText = 'Copied!';
+                    setTimeout(() => { button.innerText = 'Copy'; }, 2000);
+                });
+            });
+        });
     </script>
 </body>
 </html>
