@@ -12,32 +12,28 @@
             --text: #f1f5f9;
             --text-dim: #94a3b8;
             --border: #334155;
+            --card-bg: rgba(30, 41, 59, 0.5);
         }
 
         /* Full Reset */
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; } /* Smooth scroll for links */
         body { 
             background-color: var(--bg); 
             color: var(--text); 
-            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            font-family: 'Inter', system-ui, sans-serif;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        /* Full-Bleed Gradient Header */
         header {
             background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
             padding: 5rem 0;
             border-bottom: 1px solid var(--border);
-            width: 100%;
+            text-align: center;
         }
 
-        .header-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        /* Title Gradient */
+        .header-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
         .header-container h1 a {
             font-size: 3.5rem;
             font-weight: 800;
@@ -46,7 +42,6 @@
             background: linear-gradient(to right, #ffffff 20%, var(--primary) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         nav { margin-top: 1.5rem; }
@@ -58,262 +53,36 @@
             max-width: 1200px;
             margin: 0 auto;
             display: flex;
-            gap: 4rem;
+            gap: 4rem; /* Desktop gap */
             padding: 4rem 2rem;
-        }
-
-        .main-wrapper {
-            display: flex;
-            flex-direction: row; /* Content first, sidebar second */
             align-items: flex-start;
         }
 
-        /* Hardcoded Sidebar Style */
+        .content { flex-grow: 1; min-width: 0; order: 1; }
+        
+        /* Desktop Sticky Sidebar on Right */
         .sidebar {
             width: 250px;
             flex-shrink: 0;
-            order: 2; /* Moves to right */
+            order: 2;
             position: sticky;
-            top: 2rem; /* Distance from top of screen when scrolling */
+            top: 2rem;
             max-height: calc(100vh - 4rem);
             overflow-y: auto;
         }
+
         .sidebar h3 { font-size: 0.8rem; text-transform: uppercase; color: var(--primary); letter-spacing: 1px; margin-bottom: 1rem; }
         .sidebar ul { list-style: none; border-left: 1px solid var(--border); }
         .sidebar li a { display: block; padding: 0.5rem 1rem; color: var(--text-dim); text-decoration: none; font-size: 0.95rem; }
         .sidebar li a:hover { color: var(--primary); border-left: 2px solid var(--primary); margin-left: -1px; }
 
-        /* Markdown Content Replacement */
-        .content { flex-grow: 1; min-width: 0; order: 1; }
-        .content h1 { 
-            font-size: 2.5rem; 
-            margin-bottom: 1.5rem; 
-            background: linear-gradient(to right, #fff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .content h2 { color: var(--primary); margin: 2.5rem 0 1rem; font-size: 1.75rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
-        
-        /* Terminal Code Blocks */
-        pre { background: #000; padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto; margin: 1.5rem 0; }
-        code { color: var(--accent); font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: 0.9rem; }
-
-        /* Buttons */
-        .button {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-        .button.secondary { background: transparent; border: 2px solid var(--primary); }
-        .button:hover { transform: translateY(-2px); filter: brightness(1.1); }
-        
-        /* Cards & Grids */
-        .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; }
+        /* UI Elements */
+        .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
         .card { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); }
-        .specs-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
-        .spec-card { background: rgba(30, 41, 59, 0.5); padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border); }
-
-        /* Documentation Index Styling */
-        .doc-card {
-            text-decoration: none;
-            display: block;
-        }
-        
-        .doc-card .card {
-            background: var(--card-bg);
-            padding: 2.5rem 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            height: 100%;
-            transition: all 0.2s ease-in-out;
-        }
-        
-        .doc-card h2 {
-            color: var(--primary);
-            margin-top: 0;
-            margin-bottom: 0.75rem;
-            font-size: 1.5rem;
-        }
-        
-        .doc-card p {
-            color: var(--text-dim);
-            font-size: 0.95rem;
-            line-height: 1.5;
-        }
-        
-        .doc-card:hover .card {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px -10px rgba(129, 140, 248, 0.3);
-        }
-        
-        .doc-card code {
-            background: rgba(16, 185, 129, 0.1);
-            color: var(--accent);
-        }
-        
-        .sidebar .nav-group {
-            display: block !important; /* Forces it to show */
-        }
-        
-        .sidebar h3 {
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            color: var(--primary);
-            letter-spacing: 1px;
-            margin-bottom: 1rem;
-            margin-top: 0;
-        }
-
-        .doc-header {
-            margin-bottom: 3rem;
-        }
-        
-        .metadata-banner {
-            display: flex;
-            gap: 2rem;
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            font-family: 'JetBrains Mono', monospace;
-        }
-        
-        .metadata-banner strong {
-            color: var(--primary);
-        }
-        
-        /* Metadata & Quote styling */
-        .quote {
-            border-left: 4px solid var(--primary);
-            padding: 1.5rem;
-            background: rgba(129, 140, 248, 0.05);
-            font-style: italic;
-            margin: 2rem 0;
-            border-radius: 0 8px 8px 0;
-        }
-        
-        /* Feature Banners */
-        .dev-banner {
-            border: 1px dashed var(--primary);
-            background: rgba(129, 140, 248, 0.03);
-            padding: 1.5rem;
-            border-radius: 8px;
-            margin: 2rem 0;
-            font-size: 0.9rem;
-            text-align: center;
-        }
-        
-        /* Definition Lists for FAQ */
-        dl dt {
-            font-weight: bold;
-            color: var(--primary);
-            margin-top: 1.5rem;
-            font-size: 1.1rem;
-        }
-        
-        dl dd {
-            margin-left: 0;
-            padding-left: 1.5rem;
-            border-left: 1px solid var(--border);
-            color: var(--text-dim);
-            margin-top: 0.5rem;
-        }
-        
-        /* Tables for Configuration */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            font-size: 0.9rem;
-        }
-        
-        table th {
-            text-align: left;
-            padding: 1rem;
-            border-bottom: 2px solid var(--border);
-            color: var(--primary);
-        }
-        
-        table td {
-            padding: 1rem;
-            border-bottom: 1px solid var(--border);
-        }
-        
-        /* Table of Contents adjustment */
-        .astral-docs section {
-            scroll-margin-top: 100px; /* Prevents header overlap when clicking TOC links */
-        }
-
-        /* Center the Header Content */
-        .header-container, .doc-header {
-            text-align: center;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        
-        /* Center the Metadata Banner spans */
-        .metadata-banner {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 2rem;
-            margin-top: 1rem;
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            font-family: 'JetBrains Mono', monospace;
-        }
-        
-        /* Ensure the blockquote maintains a clean look while centered */
-        blockquote {
-            max-width: 600px;
-            margin: 2rem auto;
-            border-left: none;
-            border-top: 2px solid var(--primary);
-            border-bottom: 2px solid var(--primary);
-            padding: 1rem 0;
-        }
-
-        .spec-card {
-            background: rgba(30, 41, 59, 0.5);
-            padding: 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            margin-bottom: 1.5rem;
-            transition: transform 0.2s ease;
-        }
-        
-        .spec-card h4 {
-            margin-top: 0;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        
-        /* Spacing for the Card Grid */
-        .card-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            margin: 2.5rem 0;
-        }
-
-        footer {
-            text-align: center;
-            padding: 4rem 2rem;
-            color: var(--text-dim);
-            border-top: 1px solid var(--border);
-            margin-top: 5rem;
-        }
-
-        .content { 
-            flex-grow: 1; 
-            min-width: 0;
-        }
+        pre { background: #000; padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto; margin: 1.5rem 0; }
+        code { color: var(--accent); font-family: monospace; font-size: 0.9rem; }
+        table { width: 100%; border-collapse: collapse; margin: 2rem 0; }
+        table td, table th { padding: 1rem; border-bottom: 1px solid var(--border); }
 
         .sidebar-overlay {
             position: fixed;
@@ -321,62 +90,64 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(4px);
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(8px);
             z-index: 999;
-            display: none; /* Hidden by default */
+            display: none;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
-        
-        /* Responsive */
-        @media (max-width: 850px) {
-            .card-grid, .specs-grid { grid-template-columns: 1fr; }
+
+        /* --- MOBILE FIXES --- */
+        @media (max-width: 900px) {
+            .main-wrapper { 
+                gap: 0;
+                padding: 2rem 1.5rem; 
+                display: block;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                right: -100%; /* Fully hidden */
+                height: 100vh;
+                background: #111827;
+                z-index: 1000;
+                padding: 6rem 2rem;
+                width: 280px;
+                order: unset;
+                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+                transition: right 0.3s ease;
+            }
+
+            .sidebar.active { right: 0; }
+            .card-grid { grid-template-columns: 1fr; }
+            
+            .menu-toggle {
+                display: flex !important;
+                position: fixed;
+                top: 1rem;
+                right: 1rem;
+                z-index: 1100;
+                background: var(--primary);
+                color: white;
+                width: 45px;
+                height: 45px;
+                border-radius: 8px;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 1.2rem;
+            }
         }
 
-@media (max-width: 900px) {
-        .main-wrapper { padding: 2rem 1rem; }
-        
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: -100%; /* Hidden */
-            height: 100vh;
-            background: var(--bg);
-            z-index: 1000;
-            padding: 5rem 2rem;
-            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-            width: 280px;
+        @media (min-width: 901px) {
+            .menu-toggle { display: none; }
         }
 
-        .sidebar.active { right: 0; }
-        .sidebar.active ~ .sidebar-overlay { display: block; opacity: 1; }
-
-        .menu-toggle {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            top: 1rem;
-            right: 1rem;
-            z-index: 1100;
-            background: var(--primary);
-            color: white;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            cursor: pointer;
-            font-weight: bold;
-            box-shadow: 0 4px 15px rgba(129, 140, 248, 0.4);
-        }
-    }
-
-    @media (min-width: 901px) {
-        .menu-toggle, .sidebar-overlay { display: none !important; }
-    }
-        }
+        footer { text-align: center; padding: 4rem 2rem; color: var(--text-dim); border-top: 1px solid var(--border); margin-top: 5rem; }
     </style>
+</head>
 <body>
     <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
 
@@ -417,12 +188,13 @@
             if (sidebar.classList.contains('active')) {
                 overlay.style.display = 'block';
                 setTimeout(() => overlay.style.opacity = '1', 10);
+                document.body.style.overflow = 'hidden'; // Stop background scroll
             } else {
                 overlay.style.opacity = '0';
                 setTimeout(() => overlay.style.display = 'none', 300);
+                document.body.style.overflow = 'auto'; // Re-enable scroll
             }
         }
     </script>
 </body>
-</head>
 </html>
