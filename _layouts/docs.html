@@ -85,6 +85,7 @@
             border-top: 2px solid var(--primary);
             border-bottom: 2px solid var(--primary);
             padding: 1rem 0;
+            background: rgba(129, 140, 248, 0.05);
         }
 
         .quote {
@@ -119,9 +120,15 @@
 
         /* --- MOBILE FIXES --- */
         @media (max-width: 900px) {
+            /* Shrink global text and headings on mobile */
+            body { font-size: 0.9rem; }
+            .header-container h1 a { font-size: 2.2rem; }
+            .content h1 { font-size: 2rem; }
+            .content h2 { font-size: 1.4rem; }
+
             .main-wrapper { 
                 gap: 0; 
-                padding: 2rem 1.2rem; 
+                padding: 1.5rem 1rem; /* Slightly tighter padding */
                 display: block; 
             }
 
@@ -130,18 +137,17 @@
                 top: 0;
                 right: -100%; 
                 height: 100vh;
-                background: #0f172a; /* Solid dark color */
+                background: #0f172a; 
                 z-index: 1000;
                 padding: 6rem 1.5rem;
                 width: 280px;
                 order: unset;
                 box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-                transition: right 0.3s ease;
+                transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
                 border-left: 1px solid var(--border);
             }
 
             .sidebar.active { right: 0; }
-            .card-grid { grid-template-columns: 1fr; }
             
             .menu-toggle {
                 display: flex !important;
@@ -157,7 +163,7 @@
                 align-items: center;
                 justify-content: center;
                 cursor: pointer;
-                font-size: 1.2rem;
+                font-size: 1.5rem; /* Larger icon */
                 box-shadow: 0 4px 12px rgba(0,0,0,0.3);
             }
         }
@@ -204,7 +210,11 @@
         function toggleSidebar() {
             const sidebar = document.querySelector('.sidebar');
             const overlay = document.querySelector('.sidebar-overlay');
+            const toggleBtn = document.querySelector('.menu-toggle');
             const isActive = sidebar.classList.toggle('active');
+            
+            // Switch between Burger and X
+            toggleBtn.innerHTML = isActive ? '✕' : '☰';
             
             if (isActive) {
                 overlay.style.display = 'block';
