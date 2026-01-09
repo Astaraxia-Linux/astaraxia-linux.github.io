@@ -11,7 +11,10 @@ sidebar_content: |
       <li><a href="#recipe-formats">Recipe Formats</a></li>
       <li><a href="#package-management">Package Management</a></li>
       <li><a href="#configuration">Configuration</a></li>
+      <li><a href="#advanced-features">Advanced Features</a></li>
+      <li><a href="#recipe-generator">Recipe Generator</a></li>
       <li><a href="#troubleshooting">Troubleshooting</a></li>
+      <li><a href="#contributing">Contributing</a></li>
       <li><a href="#faq">FAQ</a></li>
     </ul>
   </div>
@@ -85,6 +88,21 @@ sudo mv astral /usr/bin/
 
 # Initialize directories
 sudo astral --version  # This creates necessary directories</code></pre>
+
+      <h3>Configuration</h3>
+      <p>Create <code>/etc/astral/make.conf</code>:</p>
+      <pre><code># Build flags (adjust for your masochism level)
+CFLAGS="-O2 -pipe -march=native"
+CXXFLAGS="$CFLAGS"
+MAKEFLAGS="-j$(nproc)"
+
+# Enable ccache (because compiling twice is for chumps)
+CCACHE_ENABLED="yes"
+
+# Features
+FEATURES="ccache parallel-make strip"</code></pre>
+
+      <p>Pro tip: <code>-march=native</code> optimizes for your CPU. Don't use it if you're building for other machines, genius.</p>
     </section>
 
     <section id="basic-usage">
