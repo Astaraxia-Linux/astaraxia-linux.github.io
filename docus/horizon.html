@@ -19,7 +19,7 @@ title: Horizon Bootstrap
   </div>
 </div>
 
-<p>Horizon is the LFS-style bootstrap engine for Astaraxia. It builds a complete, bootable system from scratch on any Linux host — no pre-built tarballs required. Three stages, one script, a lot of compilation.</p>
+<p>Horizon is the LFS-style bootstrap engine for Astaraxia. It builds a complete, bootable system from scratch on any Linux host - no pre-built tarballs required. Three stages, one script, a lot of compilation.</p>
 
 <div class="callout warn">
   <p><strong>Time warning:</strong> A full bootstrap takes 12–20 hours depending on your hardware. Set up a <code>tmux</code> session. Go touch grass. Come back to a system.</p>
@@ -29,9 +29,9 @@ title: Horizon Bootstrap
 
 <p>Horizon follows the Linux From Scratch methodology with Gentoo-style stage separation:</p>
 <ul>
-  <li><strong>Stage 1</strong> — Build a minimal cross-toolchain that is independent of the host system</li>
-  <li><strong>Stage 2</strong> — Use that toolchain to prepare the chroot environment</li>
-  <li><strong>Stage 3</strong> — Rebuild everything from inside the chroot with correct paths, producing the final system</li>
+  <li><strong>Stage 1</strong> - Build a minimal cross-toolchain that is independent of the host system</li>
+  <li><strong>Stage 2</strong> - Use that toolchain to prepare the chroot environment</li>
+  <li><strong>Stage 3</strong> - Rebuild everything from inside the chroot with correct paths, producing the final system</li>
 </ul>
 
 <p>The result is a system that shares zero assumptions with the host that built it.</p>
@@ -59,10 +59,10 @@ sudo mkdir -pv $LFS
 # Initialize Horizon (downloads stage scripts)
 sudo astral -h --init
 
-# Stage 1 — temporary toolchain (~2-4 hours)
+# Stage 1 - temporary toolchain (~2-4 hours)
 sudo astral -h --stage 1
 
-# Stage 2 — chroot preparation (~3-5 hours)
+# Stage 2 - chroot preparation (~3-5 hours)
 sudo astral -h --stage 2
 
 # Enter chroot and run Stage 3
@@ -72,7 +72,7 @@ astral -h --stage 3
 # Exit chroot, configure bootloader
 exit</code></pre>
 
-<h2 id="stage1">Stage 1 — Temporary Toolchain</h2>
+<h2 id="stage1">Stage 1 - Temporary Toolchain</h2>
 
 <p>Builds a minimal cross-compilation toolchain that is completely independent of the host system's libraries and compiler. Everything is installed to <code>$LFS/tools</code>.</p>
 
@@ -93,7 +93,7 @@ exit</code></pre>
   <p>If Stage 1 fails, you can usually re-run it. The scripts check what's already been built and skip completed steps.</p>
 </div>
 
-<h2 id="stage2">Stage 2 — Chroot Preparation</h2>
+<h2 id="stage2">Stage 2 - Chroot Preparation</h2>
 
 <p>Uses the Stage 1 toolchain to build additional tools needed inside the chroot. At the end of this stage, the <code>$LFS</code> directory is ready to be entered as a self-contained environment.</p>
 
@@ -107,7 +107,7 @@ exit</code></pre>
 
 <pre><code>sudo astral -h --stage 2</code></pre>
 
-<h2 id="stage3">Stage 3 — Final System</h2>
+<h2 id="stage3">Stage 3 - Final System</h2>
 
 <p>Run <em>inside the chroot</em>. Rebuilds everything with the correct installation paths and produces the final bootable Astaraxia base system.</p>
 
@@ -130,7 +130,7 @@ astral -h --stage 3</code></pre>
 
 <p>Stage 3 leaves you with a functional base system but no bootloader or kernel. You need to configure those manually:</p>
 
-<pre><code># Still inside chroot — install kernel
+<pre><code># Still inside chroot - install kernel
 astral -S sys-kernel/linux
 cd /usr/src/linux
 make menuconfig
@@ -158,7 +158,7 @@ reboot</code></pre>
 <table class="cmd-table">
   <thead><tr><th>Problem</th><th>Fix</th></tr></thead>
   <tbody>
-    <tr><td>Build fails in Stage 1</td><td>Check <code>/var/log/astral/horizon.log</code>. Usually a missing host dep — install it and re-run.</td></tr>
+    <tr><td>Build fails in Stage 1</td><td>Check <code>/var/log/astral/horizon.log</code>. Usually a missing host dep - install it and re-run.</td></tr>
     <tr><td>Disk full</td><td>Each stage needs ~3 GB. Check with <code>df -h $LFS</code>. Clear <code>$LFS/sources</code> tarballs after each stage if needed.</td></tr>
     <tr><td>Chroot fails to enter</td><td>Make sure Stage 2 completed fully. Run <code>astral -h --status</code> to check.</td></tr>
     <tr><td>Stage 3 fails on glibc</td><td>The Stage 1 toolchain may be contaminated by the host. Start Stage 1 over with a clean <code>$LFS/tools</code>.</td></tr>
