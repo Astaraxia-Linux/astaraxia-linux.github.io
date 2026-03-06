@@ -23,31 +23,25 @@ title: Home
     align-items: center;
   }
 
-  /* ASCII logo */
-  pre.ascii-logo {
-    font-family: var(--mono);
-    font-size: 0.52rem;
-    line-height: 1.18;
-    color: var(--ice-dim);
-    white-space: pre;
-    user-select: none;
-    text-shadow: 0 0 8px rgba(168,216,255,0.25);
-    animation: frost-pulse 4s ease-in-out infinite;
-    overflow: visible;
-    display: block;
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
+  /* Logo */
+  .hero-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
-  .ascii-logo .ac-bright { color: var(--ice); text-shadow: 0 0 10px rgba(168,216,255,0.6); }
-  .ascii-logo .ac-mid    { color: var(--ice-dim); }
-  .ascii-logo .ac-dim    { color: var(--ice-mute); }
+  .hero-logo img {
+    width: 280px;
+    height: 280px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 32px rgba(100,180,255,0.4));
+    animation: frost-pulse 4s ease-in-out infinite;
+  }
 
   @keyframes frost-pulse {
-    0%,100% { opacity: 1; }
-    50%      { opacity: 0.82; }
+    0%,100% { filter: drop-shadow(0 0 32px rgba(100,180,255,0.4)); }
+    50%      { filter: drop-shadow(0 0 52px rgba(100,180,255,0.65)); }
   }
 
   .ascii-label {
@@ -431,9 +425,9 @@ title: Home
 <section class="hero">
   <div class="hero-grid">
 
-    <!-- ASCII art logo -->
-    <div>
-<img class="ascii-logo" id="ascii-logo">loading...</img>
+    <!-- Logo -->
+    <div class="hero-logo">
+      <img src="/assets/astaraxia.png" alt="Astaraxia Linux">
       <div class="ascii-label">// source-based linux distribution</div>
     </div>
 
