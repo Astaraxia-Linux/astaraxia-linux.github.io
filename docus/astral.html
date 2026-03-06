@@ -1,198 +1,317 @@
 ---
 layout: docs
-title: Astral Docs
-sidebar_content: |
-  <div class="nav-group" style="display: block;">
-    <h3>Documentation</h3>
-    <ul>
-      <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#installation">Installation</a></li>
-      <li><a href="#basic-usage">Basic Usage</a></li>
-      <li><a href="#recipe-formats">Recipe Formats</a></li>
-      <li><a href="#package-management">Package Management</a></li>
-      <li><a href="#configuration">Configuration</a></li>
-      <li><a href="#advanced-features">Advanced Features</a></li>
-      <li><a href="#recipe-generator">Recipe Generator</a></li>
-      <li><a href="#troubleshooting">Troubleshooting</a></li>
-      <li><a href="#contributing">Contributing</a></li>
-      <li><a href="#faq">FAQ</a></li>
-    </ul>
-  </div>
+title: Astral Package Manager
 ---
 
-<article class="astral-docs">
-    <header class="doc-header" style="margin-bottom: 3rem;">
-        <h1 class="title-gradient">Astral Package Manager</h1>
-        <blockquote style="max-width: 100%; margin: 1rem 0;">
-            "Because compiling from source should be less painful than a root canal"
-        </blockquote>
-        
-        <div class="spec-card" style="margin-top: 2rem; grid-template-columns: repeat(3, 1fr);">
-            <div class="spec-item">
-                <span class="spec-label">Version</span>
-                <span class="spec-value">3.4.1.1 Main</span>
-            </div>
-            <div class="spec-item">
-                <span class="spec-label">Updated</span>
-                <span class="spec-value">8 January 2026</span>
-            </div>
-            <div class="spec-item">
-                <span class="spec-label">Maintainer</span>
-                <span class="spec-value">One Maniac</span>
-            </div>
-        </div>
-    </header>
+<h1>Astral Package Manager</h1>
+<div class="doc-meta">
+  <div class="doc-meta-item">
+    <span class="doc-meta-label">Version</span>
+    <span class="doc-meta-value">5.0.1.0</span>
+  </div>
+  <div class="doc-meta-item">
+    <span class="doc-meta-label">Lines of Code</span>
+    <span class="doc-meta-value">10,000+</span>
+  </div>
+  <div class="doc-meta-item">
+    <span class="doc-meta-label">Language</span>
+    <span class="doc-meta-value">POSIX sh</span>
+  </div>
+  <div class="doc-meta-item">
+    <span class="doc-meta-label">Maintainer</span>
+    <span class="doc-meta-value">One Maniac™</span>
+  </div>
+</div>
 
-    <section id="introduction">
-        <h2>Introduction</h2>
-        <h3>What is Astral?</h3>
-        <p>Astral is a minimal <strong>POSIX package manager</strong> for <a href="https://github.com/Astaraxia-Linux/Astaraxia/">Astaraxia Linux</a>. It builds packages from source because apparently, we hate ourselves enough to avoid binary packages. Think of it as Gentoo's <em>Portage</em>, but written by someone who values their sanity (debatable).</p>
-        <div class="card-grid">
-            <div class="card" style="border-left: 4px solid var(--accent);">
-                <h3 style="color: var(--accent); margin-top: 0;">Why Astral?</h3>
-                <ul>
-                    <li><strong>Source-based</strong>: Because you <em>totally</em> want to compile everything</li>
-                    <li><strong>POSIX-compliant</strong>: Works on any UNIX-like system (in theory)</li>
-                    <li><strong>Minimal dependencies</strong>: Just <code>sh</code>, <code>curl</code>, and your tears</li>
-                    <li><strong>Smart dependency resolution</strong>: It won't delete your <code>/usr</code> (anymore)</li>
-                </ul>
-            </div>
-            <div class="card" style="border-left: 4px solid #ef4444;">
-                <h3 style="color: #ef4444; margin-top: 0;">Why Not?</h3>
-                <ul>
-                    <li>You value your time</li>
-                    <li>You have a slow computer</li>
-                    <li>You prefer binary packages</li>
-                    <li>You're a normal person</li>
-                </ul>
-            </div>
-        </div>
-    </section>
+<p>Astral is a monolithic, source-based package manager written entirely in POSIX <code>sh</code>. It handles package installation, removal, dependency resolution, service management, security verification, and transaction rollback — all from a single script.</p>
 
-    <section id="installation">
-        <h2>Installation</h2>
-        <h3>Prerequisites</h3>
-        <ul>
-            <li>POSIX-compliant shell (bash, dash, etc.)</li>
-            <li><code>curl</code> or <code>wget</code> (for downloading things)</li>
-            <li><code>sha256sum</code> (for paranoia)</li>
-            <li>Root access (because <code>sudo</code>/<code>doaso</code> is your friend)
-            <li>Coffee (not technically required, but highly recommended)</li>
-        </ul>
+<div class="callout">
+  <p>Astral compiles everything from source. A full system build takes 12–20 hours depending on your hardware. This is by design.</p>
+</div>
 
-        <h3>Quick Install</h3>
-        <pre><code># Clone the repository (or download the script)
-curl -O https://raw.githubusercontent.com/Astaraxia-Linux/Astral/main/astral
+<h2 id="installation">Installation</h2>
+
+<h3>Prerequisites</h3>
+<ul>
+  <li>POSIX-compliant shell (<code>bash</code>, <code>dash</code>, etc.)</li>
+  <li><code>curl</code> or <code>wget</code></li>
+  <li><code>sha256sum</code>, <code>tar</code>, <code>make</code>, <code>gcc</code></li>
+  <li>Root access</li>
+</ul>
+
+<h3>Install</h3>
+<pre><code>curl -O https://raw.githubusercontent.com/Astaraxia-Linux/Astral/main/astral
 chmod +x astral
-sudo mv astral /usr/bin/
+sudo mv astral /usr/bin/</code></pre>
 
-# Initialize directories
-sudo astral --version  # This creates necessary directories</code></pre>
-
-      <h3>Configuration</h3>
-      <p>Create <code>/etc/astral/make.conf</code>:</p>
-      <pre><code># Build flags (adjust for your masochism level)
+<h3>Configuration</h3>
+<p>Create <code>/etc/astral/astral.stars</code> (the main config file):</p>
+<pre><code># Build flags
 CFLAGS="-O2 -pipe -march=native"
 CXXFLAGS="$CFLAGS"
 MAKEFLAGS="-j$(nproc)"
 
-# Enable ccache (because compiling twice is for chumps)
-CCACHE_ENABLED="yes"
+# Repositories
+AOHARU_URL="https://izumi-sonoka.github.io/AOHARU/"
+ASURA_URL="https://codeberg.org/Izumi/ASURA/raw/branch/main"
 
-# Features
-FEATURES="ccache parallel-make strip"</code></pre>
+# Safety
+SAFETY_SIGNATURE_VERIFY=1
+SAFETY_SECURE_DOWNLOAD=1
+CCACHE_ENABLED="yes"</code></pre>
 
-      <p>Pro tip: <code>-march=native</code> optimizes for your CPU. Don't use it if you're building for other machines, genius.</p>
-    </section>
+<h2 id="basic-usage">Basic Usage</h2>
 
-    <section id="basic-usage">
-        <h2>Basic Usage</h2>
-        <h3>Installing</h3>
-        <pre><code># From official repo (AOHARU)
-sudo astral -S package-name
+<table class="cmd-table">
+  <thead><tr><th>Command</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>astral -S &lt;pkg&gt;</td><td>Install package from AOHARU</td></tr>
+    <tr><td>astral -SA &lt;pkg&gt;</td><td>Install package from ASURA overlay</td></tr>
+    <tr><td>astral -S &lt;p1&gt; &lt;p2&gt;</td><td>Install multiple packages in parallel</td></tr>
+    <tr><td>astral -R &lt;pkg&gt;</td><td>Remove package</td></tr>
+    <tr><td>astral -r &lt;pkg&gt;</td><td>Remove package and orphaned deps</td></tr>
+    <tr><td>astral -R &lt;p1&gt; &lt;p2&gt;</td><td>Remove multiple packages in parallel</td></tr>
+    <tr><td>astral -U</td><td>Update all installed packages</td></tr>
+    <tr><td>astral -Ss &lt;query&gt;</td><td>Search AOHARU and ASURA</td></tr>
+    <tr><td>astral -Si &lt;pkg&gt;</td><td>Show package info</td></tr>
+    <tr><td>astral -Sl</td><td>List all available packages</td></tr>
+    <tr><td>astral -ll &lt;pkg&gt;</td><td>List installed files</td></tr>
+    <tr><td>astral --count</td><td>Show package statistics</td></tr>
+    <tr><td>astral --graph-deps &lt;pkg&gt;</td><td>Show dependency graph</td></tr>
+    <tr><td>astral --preview &lt;pkg&gt;</td><td>Preview what would be installed</td></tr>
+    <tr><td>astral --use &lt;flag&gt; -S &lt;pkg&gt;</td><td>Install with specific USE flag</td></tr>
+  </tbody>
+</table>
 
-# From community overlay (ASURA)
-sudo astral -SA package-name</code></pre>
+<h2 id="package-management">Package Management</h2>
 
-        <h3>Removing</h3>
-        <pre><code># Simple remove
-sudo astral -R package-name
+<h3>World Set</h3>
+<p>The world set tracks explicitly installed packages (not pulled in as deps).</p>
+<table class="cmd-table">
+  <thead><tr><th>Command</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>astral --world-show</td><td>List world set packages</td></tr>
+    <tr><td>astral --world-add &lt;pkg&gt;</td><td>Add to world set</td></tr>
+    <tr><td>astral --world-remove &lt;pkg&gt;</td><td>Remove from world set</td></tr>
+    <tr><td>astral --world-sets</td><td>Show named package sets</td></tr>
+    <tr><td>astral --world-depclean</td><td>Remove unneeded deps not in world</td></tr>
+    <tr><td>astral --calc-system</td><td>Calculate system package set</td></tr>
+  </tbody>
+</table>
 
-# Remove with orphans
-sudo astral -r package-name</code></pre>
-    </section>
+<h3>Package Holds</h3>
+<table class="cmd-table">
+  <thead><tr><th>Command</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>astral --hold &lt;pkg&gt;</td><td>Prevent package from being updated</td></tr>
+    <tr><td>astral --unhold &lt;pkg&gt;</td><td>Remove hold</td></tr>
+    <tr><td>astral --list-held</td><td>Show all held packages</td></tr>
+  </tbody>
+</table>
 
-    <section id="recipe-formats">
-        <h2>Recipe Formats</h2>
-        <p>Astral supports four formats. <strong>v3</strong> is the current standard.</p>
+<h3>Verification</h3>
+<table class="cmd-table">
+  <thead><tr><th>Command</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>astral --verify-integrity &lt;pkg&gt;</td><td>Verify installed files against checksums</td></tr>
+    <tr><td>astral --verify-reproducible &lt;pkg&gt;</td><td>Verify reproducible build</td></tr>
+    <tr><td>astral --validate &lt;pkg&gt;</td><td>Validate recipe syntax</td></tr>
+    <tr><td>astral --check-version &lt;pkg&gt;</td><td>Check for upstream version updates</td></tr>
+  </tbody>
+</table>
 
-        <h3>v3 Format (Separated Dependencies)</h3>
-        <p>The future standard. Separates build-time and runtime dependencies.</p>
-        <pre><code>$PKG.Version = "3"
+<h2 id="recipe-formats">Recipe Formats</h2>
+
+<p>Astral supports three recipe formats. <strong>v3 is the current standard.</strong> All formats are backwards compatible.</p>
+
+<h3>v3 Format</h3>
+<pre><code>$PKG.Version = "3"
+
 $PKG.Metadata: {
     Version = "1.2.3"
-    Description = "A cool package"
+    Description = "A short description"
+    Homepage = "https://example.com"
+    Category = "app-misc"
 };
 
-$PKG.Depend.BDepends: { gcc make };
-$PKG.Depend.RDepends: { ncurses readline };
+$PKG.Depend.BDepends: {
+    gcc
+    make
+    cmake
+};
+
+$PKG.Depend.RDepends: {
+    glibc
+    zlib
+};
+
+$PKG.Depend.Optional: {
+    python3
+};
+
+$PKG.Sources: {
+    urls = "https://example.com/pkg-1.2.3.tar.xz"
+};
+
+$PKG.Checksums: {
+    sha256:abc123... pkg-1.2.3.tar.xz
+};
 
 $PKG.Build: {
+    cd pkg-1.2.3
     ./configure --prefix=/usr
     make -j$(nproc)
+};
+
+$PKG.Package: {
+    cd pkg-1.2.3
+    make DESTDIR="$PKGDIR" install
+};
+
+$PKG.PostInstall: {
+    systemctl enable myservice 2>/dev/null || true
+};
+
+$PKG.PostRemove: {
+    systemctl disable myservice 2>/dev/null || true
 };</code></pre>
-    </section>
 
-    <section id="configuration">
-        <h2>Configuration</h2>
-        <p>Edit <code>/etc/astral/make.conf</code> to tune the engine.</p>
-        <pre><code>CFLAGS="-O2 -pipe -march=native"
-MAKEFLAGS="-j$(nproc)"
-CCACHE_ENABLED="yes"</code></pre>
-    </section>
+<h3>Git Sources</h3>
+<pre><code>$PKG.Sources: {
+    urls = "git+https://github.com/user/repo#branch=main"
+};
 
-    <section id="troubleshooting">
-        <h2>Troubleshooting</h2>
-        <div class="spec-card">
-            <div class="spec-item" style="grid-column: span 2;">
-                <span class="spec-label">Problem: "Another instance is running"</span>
-                <span class="spec-value"><code>sudo rm -rf /var/lock/astral.lock.d</code></span>
-            </div>
-        </div>
-        
-        <div class="spec-card">
-            <div class="spec-item" style="grid-column: span 2;">
-                <span class="spec-label">Problem: "Checksum Mismatch"</span>
-                <span class="spec-value">Upstream changed the file. Re-download and update the recipe.</span>
-            </div>
-        </div>
-    </section>
+$PKG.Checksums: {
+# git sources don't use checksums
+};</code></pre>
 
-    <section id="faq">
-        <h2>FAQ</h2>
-        <dl>
-            <dt>Why POSIX sh?</dt>
-            <dd>If /bin/sh is broken, you have bigger problems.</dd>
-            
-            <dt>Is it stable?</dt>
-            <dd>It won't delete /usr anymore, so... yes?</dd>
-        </dl>
-    </section>
+<h3>Dependency Types</h3>
+<table class="cmd-table">
+  <thead><tr><th>Section</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>BDepends</td><td>Build-time only dependencies</td></tr>
+    <tr><td>RDepends</td><td>Runtime dependencies</td></tr>
+    <tr><td>PDepends</td><td>Post-install dependencies</td></tr>
+    <tr><td>IDepends</td><td>Install-time dependencies</td></tr>
+    <tr><td>Optional</td><td>Optional runtime dependencies</td></tr>
+  </tbody>
+</table>
 
-<footer class="doc-footer" style="margin-top: 8rem; border-top: 1px solid var(--border);">
-        
-        <div style="padding: 2rem 0; text-align: center;">
-            <p style="font-size: 0.8rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 2px; margin: 0;">
-                GPL-3.0 LICENSE <span style="margin: 0 10px; opacity: 0.3;">|</span> Inspired by Gentoo, Arch, and Pain
-            </p>
-        </div>
+<h2 id="service-management">Service Management</h2>
 
-        <section class="hero-quote">
-            <p>Astral: Because life's too short to not compile everything from source</p>
-        </section>
+<p>Astral detects your init system automatically (systemd, OpenRC, runit, s6, SysVinit) and wraps all service commands.</p>
 
-        <div style="text-align: center; padding-bottom: 4rem; opacity: 0.5; font-size: 0.8rem;">
-            <p>Maintained by One Maniac™ — 2026</p>
-        </div>
-    </footer>
-</article>
+<table class="cmd-table">
+  <thead><tr><th>Command</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>astral start &lt;svc&gt;</td><td>Start a service</td></tr>
+    <tr><td>astral stop &lt;svc&gt;</td><td>Stop a service</td></tr>
+    <tr><td>astral restart &lt;svc&gt;</td><td>Restart a service</td></tr>
+    <tr><td>astral enable &lt;svc&gt;</td><td>Enable service at boot</td></tr>
+    <tr><td>astral disable &lt;svc&gt;</td><td>Disable service at boot</td></tr>
+    <tr><td>astral status &lt;svc&gt;</td><td>Show service status</td></tr>
+  </tbody>
+</table>
+
+<h2 id="security">Security</h2>
+
+<h3>GPG Signing</h3>
+<pre><code># Sign a package
+astral --sign &lt;pkg&gt; --key YOUR_KEY_ID
+
+# Verify a package signature
+astral --verify &lt;pkg&gt;
+
+# Add a key to the Web of Trust
+astral --trust-key KEY_ID</code></pre>
+
+<h3>Safety Toggles</h3>
+<p>Controlled via <code>/etc/astral/astral.stars</code>:</p>
+<table class="cmd-table">
+  <thead><tr><th>Flag</th><th>Default</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>SAFETY_SIGNATURE_VERIFY</td><td>1</td><td>Verify GPG signatures on packages</td></tr>
+    <tr><td>SAFETY_SECURE_DOWNLOAD</td><td>1</td><td>Reject unverified index files</td></tr>
+    <tr><td>SAFETY_CHECKSUM_STRICT</td><td>1</td><td>Fail on checksum mismatch</td></tr>
+  </tbody>
+</table>
+
+<h2 id="transactions">Transactions &amp; Rollback</h2>
+
+<p>Every install/remove operation is recorded as a transaction. You can roll back to any previous state.</p>
+
+<pre><code># List recent transactions
+astral --transactions
+
+# Roll back the last operation
+astral --rollback
+
+# Recover from an interrupted build
+astral --recover
+
+# Check what's locked (interrupted builds)
+astral --lock-info</code></pre>
+
+<h2 id="advanced">Advanced Features</h2>
+
+<h3>Sandbox Isolation</h3>
+<p>Astral supports multiple sandbox backends for isolated builds:</p>
+<table class="cmd-table">
+  <thead><tr><th>Backend</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>bubblewrap</td><td>Rootless container isolation (recommended)</td></tr>
+    <tr><td>chroot</td><td>Classic chroot isolation</td></tr>
+    <tr><td>fakechroot</td><td>Userspace chroot (no root required)</td></tr>
+    <tr><td>fakeroot</td><td>Fake root for packaging only</td></tr>
+  </tbody>
+</table>
+<pre><code># Test sandbox
+astral --sandbox-test
+
+# Build in chroot
+astral --chroot /mnt/lfs</code></pre>
+
+<h3>Environment &amp; Debugging</h3>
+<pre><code># Show current build environment
+astral --show-env
+
+# Verbose output
+astral -v -S &lt;pkg&gt;
+
+# JSON output for scripting
+astral -ll &lt;pkg&gt; --json
+
+# Parallel build flag
+astral --parallel-build -S &lt;pkg&gt;
+
+# Clean temp build files
+astral --cleanup-temp</code></pre>
+
+<h3>Chroot &amp; Horizon Integration</h3>
+<pre><code># Enter chroot
+astral --chroot /mnt/lfs
+
+# Horizon commands
+astral -h --init
+astral -h --stage 1
+astral -h --stage 2
+astral -h --stage 3
+astral -h --status</code></pre>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<table class="cmd-table">
+  <thead><tr><th>Problem</th><th>Fix</th></tr></thead>
+  <tbody>
+    <tr><td>Another instance is running</td><td><code>sudo rm -rf /var/lock/astral.lock.d</code></td></tr>
+    <tr><td>Checksum mismatch</td><td>Upstream changed the file. Re-download and update the recipe checksum.</td></tr>
+    <tr><td>Interrupted build</td><td><code>astral --lock-info</code> to see state, <code>astral --recover</code> to resume</td></tr>
+    <tr><td>Service not detected</td><td>Check <code>which systemctl rc-service sv s6-rc</code> — Astral uses the first one found</td></tr>
+    <tr><td>Index signature failed</td><td>Set <code>SAFETY_SECURE_DOWNLOAD=0</code> temporarily, or re-import the repo GPG key</td></tr>
+    <tr><td>Build fails with dep errors</td><td>Run <code>astral --graph-deps &lt;pkg&gt;</code> to trace the dep chain</td></tr>
+  </tbody>
+</table>
+
+<div class="callout warn">
+  <p><strong>Never</strong> delete <code>/var/lib/astral/</code> manually. Use <code>astral --world-depclean</code> to remove unused packages safely.</p>
+</div>

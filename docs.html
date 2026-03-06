@@ -3,30 +3,75 @@ layout: docs
 title: Documentation
 ---
 
-<div class="docs-index">
-    <h1 class="title-gradient">Documentation</h1>
-    <p class="subtitle">Everything you need to build, manage, and break Astaraxia.</p>
+<h1>Documentation</h1>
+<div class="doc-meta">
+  <div class="doc-meta-item">
+    <span class="doc-meta-label">Astral Version</span>
+    <span class="doc-meta-value">5.0.1.0</span>
+  </div>
+  <div class="doc-meta-item">
+    <span class="doc-meta-label">Updated</span>
+    <span class="doc-meta-value">March 2026</span>
+  </div>
+  <div class="doc-meta-item">
+    <span class="doc-meta-label">Status</span>
+    <span class="doc-meta-value" style="color:var(--yellow)">WIP</span>
+  </div>
+</div>
 
-    <div class="docs-grid">
-        <a href="/docus/astral" class="doc-card">
-            <div class="card">
-                <h2>Astral</h2>
-                <p>Master the 5k line POSIX shell engine. Learn package installation, removal, and sync logic.</p>
-            </div>
-        </a>
+<p>Everything you need to build, manage, and break Astaraxia. Pick a section below.</p>
 
-        <a href="/docus/recipes" class="doc-card">
-            <div class="card">
-                <h2>Recipes</h2>
-                <p>Write <code>.stars</code> files. Understand the v1, v2, and v3 metadata formats and build hooks.</p>
-            </div>
-        </a>
+<h2 id="components">Components</h2>
 
-        <a href="/docus/horizon" class="doc-card">
-            <div class="card">
-                <h2>Horizon</h2>
-                <p>The bootstrap engine. A guide to the 3-stage LFS process and system initialization.</p>
-            </div>
-        </a>
-    </div>
+<table class="cmd-table">
+  <thead>
+    <tr>
+      <th>Component</th>
+      <th>Description</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="/docus/astral">Astral</a></td>
+      <td>10k+ line POSIX sh package manager — install, remove, sync, build, service management</td>
+      <td style="color:var(--green);font-family:var(--mono);font-size:0.8rem;">active</td>
+    </tr>
+    <tr>
+      <td><a href="/docus/horizon">Horizon</a></td>
+      <td>Three-stage LFS bootstrap engine — builds a complete system from a host Linux env</td>
+      <td style="color:var(--green);font-family:var(--mono);font-size:0.8rem;">active</td>
+    </tr>
+    <tr>
+      <td><a href="/docus/recipes">Recipes (.stars)</a></td>
+      <td>Package recipe format — v1, v2, v3 with build hooks, dependency separation, git sources</td>
+      <td style="color:var(--green);font-family:var(--mono);font-size:0.8rem;">active</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="quickref">Quick Reference</h2>
+
+<h3>Common Astral Commands</h3>
+<table class="cmd-table">
+  <thead><tr><th>Command</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>astral -S &lt;pkg&gt;</td><td>Install from AOHARU</td></tr>
+    <tr><td>astral -SA &lt;pkg&gt;</td><td>Install from ASURA overlay</td></tr>
+    <tr><td>astral -R &lt;pkg&gt;</td><td>Remove package</td></tr>
+    <tr><td>astral -r &lt;pkg&gt;</td><td>Remove with orphaned deps</td></tr>
+    <tr><td>astral -U</td><td>Update all packages</td></tr>
+    <tr><td>astral -Ss &lt;query&gt;</td><td>Search repositories</td></tr>
+    <tr><td>astral -ll &lt;pkg&gt;</td><td>List installed files</td></tr>
+    <tr><td>astral --rollback</td><td>Rollback last transaction</td></tr>
+  </tbody>
+</table>
+
+<h2 id="repos">Repositories</h2>
+
+<p><strong>AOHARU</strong> — Axia Official Hosted Astral Repository for Users. The curated, GPG-signed official package index served via GitHub Pages.</p>
+<p><strong>ASURA</strong> — Astaraxia User Repository For All. Community overlay. Packages are user-contributed; dependencies are resolved from AOHARU.</p>
+
+<div class="callout">
+  <p>Docs are a work in progress. If something is missing or wrong, open an issue on <a href="https://github.com/Astaraxia-Linux">GitHub</a>.</p>
 </div>

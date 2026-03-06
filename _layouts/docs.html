@@ -1,779 +1,474 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title }} | {{ site.title }}</title>
-    <style>
-        :root {
-            --bg: #0f172a;
-            --primary: #818cf8;
-            --accent: #10b981;
-            --text: #f1f5f9;
-            --text-dim: #94a3b8;
-            --border: #334155;
-            --card-bg: rgba(30, 41, 59, 0.5);
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% if page.title %}{{ page.title }} — {% endif %}{{ site.title }}</title>
+  <meta name="description" content="{{ page.description | default: site.description }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:       #080c14;
+      --bg2:      #0d1320;
+      --bg3:      #111827;
+      --border:   #1e2d45;
+      --cyan:     #00d4ff;
+      --cyan-dim: #0099bb;
+      --blue:     #3b82f6;
+      --text:     #e2eaf6;
+      --text-dim: #6b7fa3;
+      --text-mute:#3a4a66;
+      --green:    #10e880;
+      --yellow:   #fbbf24;
+      --mono: 'Space Mono', monospace;
+      --sans: 'DM Sans', sans-serif;
+      --sidebar-w: 260px;
+    }
 
-        /* Full Reset */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { 
-            background-color: var(--bg); 
-            color: var(--text); 
-            font-family: 'Inter', -apple-system, sans-serif;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
 
-        /* Header */
-        header {
-            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
-            padding: 5rem 0;
-            border-bottom: 1px solid var(--border);
-            text-align: center;
-        }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.75;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-        .header-container { max-width: 1200px; margin: 0 auto; padding: 0 2rem; }
-        .header-container h1 a {
-            font-size: 3.5rem;
-            font-weight: 800;
-            letter-spacing: -2px;
-            text-decoration: none;
-            background: linear-gradient(to right, #ffffff 20%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 10% 10%, rgba(0,212,255,0.03) 0%, transparent 40%),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='52'%3E%3Cpath d='M30 2 L58 17 L58 47 L30 62 L2 47 L2 17 Z' fill='none' stroke='%231e2d45' stroke-width='0.4'/%3E%3C/svg%3E");
+      background-size: 100% 100%, 60px 52px;
+      pointer-events: none;
+      z-index: 0;
+    }
 
-        nav { margin-top: 1.5rem; }
-        nav a { color: var(--text-dim); text-decoration: none; margin-right: 1.5rem; font-weight: 500; transition: 0.3s; }
-        nav a:hover { color: var(--primary); }
+    body > * { position: relative; z-index: 1; }
 
-        /* Content Layout */
-        .main-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            gap: 4rem;
-            padding: 4rem 2rem;
-            align-items: flex-start;
-        }
+    /* NAV */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,12,20,0.95);
+      backdrop-filter: blur(16px);
+    }
 
-        .content { flex-grow: 1; min-width: 0; order: 1; }
-        
-        /* Desktop Sticky Sidebar */
-        .sidebar {
-            width: 250px;
-            flex-shrink: 0;
-            order: 2;
-            position: sticky;
-            top: 2rem;
-            max-height: calc(100vh - 4rem);
-            overflow-y: auto;
-        }
+    .nav-inner {
+      max-width: 100%;
+      padding: 0 2rem;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-        .sidebar h3 { font-size: 0.8rem; text-transform: uppercase; color: var(--primary); letter-spacing: 1px; margin-bottom: 1rem; }
-        .sidebar ul { list-style: none; border-left: 1px solid var(--border); }
-        .sidebar li a { display: block; padding: 0.5rem 1rem; color: var(--text-dim); text-decoration: none; font-size: 0.95rem; }
-        .sidebar li a:hover { color: var(--primary); border-left: 2px solid var(--primary); margin-left: -1px; }
+    .nav-logo {
+      font-family: var(--mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
 
-        /* --- Content Area List Styling --- */
-        .content ul {
-            list-style: none;
-            margin: 1.5rem 0;
-            padding-left: 1rem;
-        }
-        
-        .content li {
-            position: relative;
-            padding-left: 1.5rem;
-            margin-bottom: 0.75rem;
-            color: var(--text);
-        }
-        
-        .content li::before {
-            content: "—";
-            position: absolute;
-            left: 0;
-            color: var(--primary);
-            font-weight: bold;
-        }
-        
-        .content ul ul {
-            margin: 0.5rem 0 0.5rem 1rem;
-            border-left: 1px solid var(--border);
-        }
+    .nav-logo span { color: var(--cyan); }
 
-        /* --- Headings Hierarchy --- */
-        .content h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--text);
-            border-bottom: 2px solid var(--border);
-            padding-bottom: 0.5rem;
-        }
-        
-        .content h2 {
-            font-size: 1.8rem;
-            margin-top: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        
-        .content h3 {
-            font-size: 1.4rem;
-            margin-top: 2rem;
-            margin-bottom: 0.75rem;
-            color: var(--text);
-        }
-        
-        .content h4 {
-            font-size: 1.1rem;
-            margin-top: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 0.2rem;
+      list-style: none;
+    }
 
-        /* --- Definition Lists (Specs/Flags) --- */
-        dl {
-            margin: 1.5rem 0;
-            padding: 1rem;
-            background: rgba(15, 23, 42, 0.3);
-            border-radius: 8px;
-            border: 1px solid var(--border);
-        }
-        
-        dt {
-            font-family: 'JetBrains Mono', monospace;
-            font-weight: 700;
-            color: var(--primary);
-            margin-top: 1rem;
-        }
-        
-        dt:first-child { margin-top: 0; }
-        
-        dd {
-            margin-left: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-dim);
-            font-size: 0.95rem;
-        }
+    .nav-links a {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      padding: 0.35rem 0.7rem;
+      border-radius: 3px;
+      transition: color 0.15s, background 0.15s;
+    }
 
-        /* --- Spec Card --- */
-        .spec-card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
-        }
-        
-        .spec-item {
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .spec-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            color: var(--primary);
-            letter-spacing: 1px;
-            margin-bottom: 0.25rem;
-            font-weight: 700;
-        }
-        
-        .spec-value {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
-            color: var(--text);
-        }
+    .nav-links a:hover { color: var(--cyan); background: rgba(0,212,255,0.06); }
 
-        /* --- Iconic Tagline Styling --- */
-        .hero-quote {
-            position: relative;
-            padding: 3rem 1rem;
-            text-align: center;
-            margin: 4rem 0;
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-            background: linear-gradient(to right, transparent, rgba(129, 140, 248, 0.03), transparent);
-        }
-        
-        .hero-quote p {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 1.2rem;
-            font-style: italic;
-            color: var(--primary);
-            max-width: 800px;
-            margin: 0 auto;
-            line-height: 1.4;
-        }
-        
-        .hero-quote p::before {
-            content: '“';
-            position: absolute;
-            left: 10%;
-            top: 1rem;
-            font-size: 4rem;
-            color: var(--border);
-            font-family: serif;
-            opacity: 0.5;
-        }
-        
-        .hero-quote p::after {
-            content: '”';
-            position: absolute;
-            right: 10%;
-            bottom: 0.5rem;
-            font-size: 4rem;
-            color: var(--border);
-            font-family: serif;
-            opacity: 0.5;
-        }
-        
-        /* Responsive for phone */
-        @media (max-width: 600px) {
-            .hero-quote p { font-size: 1rem; padding: 0 1rem; }
-            .hero-quote p::before, .hero-quote p::after { display: none; }
-        }
+    /* DOCS LAYOUT */
+    .docs-shell {
+      display: flex;
+      min-height: calc(100vh - 52px);
+    }
 
-        /* Quotes */
-        blockquote {
-            max-width: 600px;
-            margin: 2rem auto;
-            border-left: none;
-            border-top: 2px solid var(--primary);
-            border-bottom: 2px solid var(--primary);
-            padding: 1rem 0;
-            background: rgba(129, 140, 248, 0.05);
-        }
+    /* SIDEBAR */
+    .docs-sidebar {
+      width: var(--sidebar-w);
+      flex-shrink: 0;
+      border-right: 1px solid var(--border);
+      background: rgba(13,19,32,0.7);
+      position: sticky;
+      top: 52px;
+      height: calc(100vh - 52px);
+      overflow-y: auto;
+      padding: 1.5rem 0;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
 
-        .quote {
-            border-left: 4px solid var(--primary);
-            padding: 1.5rem;
-            background: rgba(129, 140, 248, 0.05);
-            font-style: italic;
-            margin: 2rem 0;
-            border-radius: 0 8px 8px 0;
-        }
+    .docs-sidebar::-webkit-scrollbar { width: 4px; }
+    .docs-sidebar::-webkit-scrollbar-track { background: transparent; }
+    .docs-sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
 
-        /* UI Elements */
-        .card-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin: 2rem 0; }
-        .card { background: var(--card-bg); padding: 2rem; border-radius: 12px; border: 1px solid var(--border); }
-        pre { background: #000; padding: 1.5rem; border-radius: 8px; border: 1px solid var(--border); overflow-x: auto; margin: 1.5rem 0; }
-        code { color: var(--accent); font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; }
+    .sidebar-section {
+      margin-bottom: 1.5rem;
+      padding: 0 1rem;
+    }
 
-        /* Mobile Sidebar Overlay */
-        .sidebar-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(15, 23, 42, 0.7);
-            backdrop-filter: blur(8px);
-            z-index: 999;
-            display: none;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
+    .sidebar-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--text-mute);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0 0.5rem;
+      margin-bottom: 0.4rem;
+    }
 
-        .sidebar li a.active-link {
-            color: var(--primary);
-            border-left: 2px solid var(--primary);
-            margin-left: -1px;
-            background: rgba(129, 140, 248, 0.05);
-        }
+    .sidebar-nav { list-style: none; }
 
-        .search-container {
-            margin-bottom: 2rem;
-            position: relative;
-        }
-        
-        #site-search {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border);
-            color: var(--text);
-            padding: 0.6rem 1rem;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            outline: none;
-        }
-        
-        #site-search:focus { border-color: var(--primary); }
-        
-        #search-results {
-            position: absolute;
-            top: 100%;
-            left: 0;
-            right: 0;
-            background: #1e293b;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            max-height: 300px;
-            overflow-y: auto;
-            z-index: 1200;
-            display: none;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.5);
-        }
-        
-        .search-item {
-            padding: 0.8rem 1rem;
-            border-bottom: 1px solid var(--border);
-            cursor: pointer;
-            display: block;
-            text-decoration: none;
-            color: var(--text-dim);
-        }
-        
-        .search-item:hover { background: rgba(129, 140, 248, 0.1); color: var(--text); }
-        .search-item strong { color: var(--primary); display: block; font-size: 0.9rem; }
-        .search-item small { font-size: 0.75rem; opacity: 0.7; }
+    .sidebar-nav a {
+      display: block;
+      padding: 0.35rem 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+      text-decoration: none;
+      border-radius: 4px;
+      border-left: 2px solid transparent;
+      transition: all 0.12s;
+      font-family: var(--sans);
+    }
 
-        /* --- Professional Card Styling --- */
+    .sidebar-nav a:hover {
+      color: var(--text);
+      background: rgba(0,212,255,0.05);
+      border-left-color: var(--border);
+    }
 
-        .doc-card {
-            text-decoration: none !important;
-            color: inherit;
-            display: block;
-            transition: transform 0.2s ease;
-        }
-        
-        /* Fix the card internal styles */
-        .doc-card .card {
-            background: var(--card-bg);
-            padding: 2.5rem 2rem;
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            height: 100%;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        /* Remove underlines from the titles inside cards */
-        .doc-card h2 {
-            color: var(--primary);
-            margin-bottom: 0.75rem;
-            font-size: 1.6rem;
-            text-decoration: none !important;
-        }
-        
-        /* Smooth Hover Effect */
-        .doc-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .doc-card:hover .card {
-            border-color: var(--primary);
-            background: rgba(129, 140, 248, 0.08);
-            box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.6);
-        }
-        
-        /* Fix for the grid to ensure alignment */
-        .docs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.5rem;
-            margin-top: 3rem;
-        }
-        .title-gradient {
-            font-size: 3rem;
-            font-weight: 800;
-            display: inline-block; /* Essential for background-clip */
-            background: linear-gradient(to right, #ffffff, var(--primary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            font-family: 'JetBrains Mono', monospace;
-            min-height: 1.2em;
-        }
+    .sidebar-nav a.active {
+      color: var(--cyan);
+      background: rgba(0,212,255,0.08);
+      border-left-color: var(--cyan);
+    }
 
-        /* Terminal Cursor Styling */
-        .typewriter-text::after {
-            content: '_';
-            animation: blink 1s step-end infinite;
-            color: var(--primary);
-            margin-left: 4px;
-        }
-        
-        @keyframes blink {
-            from, to { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        
-        .title-gradient {
-            font-family: 'JetBrains Mono', 'Fira Code', monospace; /* Use a mono font if possible */
-            min-height: 1.2em; /* Prevents layout jump when text appears */
-        }
+    /* CONTENT */
+    .docs-content {
+      flex: 1;
+      min-width: 0;
+      padding: 3rem 4rem;
+      max-width: 900px;
+    }
 
-         /* --- Sticky Copy Button Styling (FIXED GAPS) --- */
-        pre {
-            position: relative;
-            padding: 1.2rem; 
-            background: #0D1117;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: auto;
-            margin: 1.5rem 0;
-        }
-        
-        .copy-code {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            z-index: 50;
-            
-            width: 32px;
-            height: 32px;
-            
-            background: var(--card-bg); 
-            color: var(--text-dim);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: 0.2s;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-        }
-        
-        .copy-code:hover {
-            background: var(--primary);
-            color: #ffffff;
-            border-color: var(--primary);
-        }
-    
-        pre code {
-            display: inline-block;
-            padding: 0 !important;
-            background: transparent !important;
-            line-height: 1.5;
-        }
+    /* TYPOGRAPHY */
+    .docs-content h1 {
+      font-family: var(--mono);
+      font-size: 2rem;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
 
-        /* Styling for all links in the doc */
-        .astral-docs a {
-            display: inline !important; /* Forces it to stay in the sentence */
-            color: var(--primary);
-            text-decoration: none !important; /* Removes default underline */
-            box-shadow: inset 0 -1px 0 0 rgba(129, 140, 248, 0.4); /* Custom underline */
-            transition: all 0.2s ease;
-        }
-        
-        .astral-docs a:hover {
-            box-shadow: inset 0 -1.5rem 0 0 rgba(129, 140, 248, 0.1);
-            color: var(--text);
-        }
-        
-        /* This ensures the arrow and the following punctuation stay together */
-        .astral-docs a[href^="http"]::after {
-            content: '\00a0\2197'; /* Non-breaking space + Arrow */
-            display: inline;
-            font-size: 0.8em;
-            opacity: 0.7;
-            /* This prevents the underline/hover effect from applying to the arrow */
-            box-shadow: none !important; 
-            padding-left: 2px;
-        }
+    .docs-content h2 {
+      font-family: var(--mono);
+      font-size: 1.1rem;
+      color: var(--cyan);
+      margin: 2.5rem 0 0.75rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 1px solid var(--border);
+      letter-spacing: 0.02em;
+    }
 
-        #back-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 45px;
-            height: 45px;
-            background: var(--primary);
-            color: white;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1000;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-        }
-        
-        #back-to-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        #back-to-top:hover {
-            transform: translateY(-5px);
-            background: var(--accent);
-        }
+    .docs-content h3 {
+      font-family: var(--mono);
+      font-size: 0.9rem;
+      color: var(--text);
+      margin: 1.75rem 0 0.5rem;
+      letter-spacing: 0.04em;
+    }
 
-        /* --- MOBILE FIXES --- */
-        @media (max-width: 900px) {
-            /* Shrink global text and headings on mobile */
-            body { font-size: 0.9rem; }
-            .header-container h1 a { font-size: 2.2rem; }
-            .content h1 { font-size: 2rem; }
-            .content h2 { font-size: 1.4rem; }
+    .docs-content p { margin-bottom: 1rem; color: var(--text-dim); }
+    .docs-content p strong { color: var(--text); }
 
-            .main-wrapper { 
-                gap: 0; 
-                padding: 1.5rem 1rem; /* Slightly tighter padding */
-                display: block; 
-            }
+    .docs-content ul, .docs-content ol {
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+      color: var(--text-dim);
+    }
 
-            .sidebar {
-                position: fixed;
-                top: 0;
-                right: -100%; 
-                height: 100vh;
-                background: #0f172a; 
-                z-index: 1000;
-                padding: 6rem 1.5rem;
-                width: 280px;
-                order: unset;
-                box-shadow: -10px 0 30px rgba(0,0,0,0.5);
-                transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-                border-left: 1px solid var(--border);
-            }
+    .docs-content li { margin-bottom: 0.35rem; }
 
-            .sidebar.active { right: 0; }
-            
-            .menu-toggle {
-                display: flex !important;
-                position: fixed;
-                top: 1rem;
-                right: 1rem;
-                z-index: 1100;
-                background: var(--primary);
-                color: white;
-                width: 45px;
-                height: 45px;
-                border-radius: 8px;
-                align-items: center;
-                justify-content: center;
-                cursor: pointer;
-                font-size: 1.5rem; /* Larger icon */
-                box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-            }
-        }
+    .docs-content a { color: var(--cyan); }
 
-        @media (min-width: 901px) {
-            .menu-toggle { display: none !important; }
-        }
+    /* Code */
+    code, kbd {
+      font-family: var(--mono);
+      font-size: 0.82em;
+      background: rgba(0,212,255,0.08);
+      border: 1px solid rgba(0,212,255,0.15);
+      border-radius: 3px;
+      padding: 0.1em 0.35em;
+      color: var(--cyan);
+    }
 
-        footer { text-align: center; padding: 4rem 2rem; color: var(--text-dim); border-top: 1px solid var(--border); margin-top: 5rem; }
-    </style>
+    pre {
+      background: #050810;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      margin: 1.25rem 0;
+      position: relative;
+    }
+
+    pre code {
+      background: none;
+      border: none;
+      padding: 0;
+      font-size: 0.85rem;
+      color: var(--green);
+      line-height: 1.6;
+    }
+
+    /* Callout boxes */
+    .callout {
+      border-left: 3px solid var(--cyan);
+      background: rgba(0,212,255,0.05);
+      padding: 1rem 1.25rem;
+      border-radius: 0 6px 6px 0;
+      margin: 1.25rem 0;
+    }
+
+    .callout.warn {
+      border-left-color: var(--yellow);
+      background: rgba(251,191,36,0.05);
+    }
+
+    .callout p { margin: 0; }
+
+    /* Meta strip */
+    .doc-meta {
+      display: flex;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .doc-meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+
+    .doc-meta-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      color: var(--text-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+    }
+
+    .doc-meta-value {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--cyan);
+    }
+
+    /* Command table */
+    .cmd-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.25rem 0;
+      font-size: 0.875rem;
+    }
+
+    .cmd-table th {
+      text-align: left;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text-mute);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      padding: 0.5rem 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cmd-table td {
+      padding: 0.6rem 0.75rem;
+      border-bottom: 1px solid rgba(30,45,69,0.5);
+      vertical-align: top;
+    }
+
+    .cmd-table td:first-child {
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--green);
+      white-space: nowrap;
+    }
+
+    .cmd-table td:last-child { color: var(--text-dim); }
+
+    .cmd-table tr:hover td { background: rgba(0,212,255,0.02); }
+
+    /* Mobile */
+    .sidebar-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 900px) {
+      .sidebar-toggle { display: block; }
+      .docs-sidebar {
+        position: fixed;
+        top: 52px;
+        left: -100%;
+        z-index: 150;
+        transition: left 0.25s;
+        background: var(--bg2);
+      }
+      .docs-sidebar.open { left: 0; }
+      .docs-content { padding: 2rem 1.25rem; }
+    }
+
+    /* Footer */
+    .docs-footer {
+      border-top: 1px solid var(--border);
+      padding: 1.5rem 2rem;
+      text-align: center;
+    }
+
+    .docs-footer p {
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      color: var(--text-mute);
+      letter-spacing: 0.06em;
+    }
+
+    .docs-footer p span { color: var(--cyan); }
+  </style>
 </head>
-<div id="back-to-top" title="Back to Top">
-    <i class="fa-solid fa-arrow-up"></i>
-</div>
 <body>
-    <div class="menu-toggle" onclick="toggleSidebar()">☰</div>
 
-    <header>
-        <div class="header-container">
-            <h1><a href="/" style="text-decoration:none; color:inherit;">{{ site.title }}</a></h1>
-            <nav style="margin-top:1.5rem;">
-                {% for item in site.navigation %}
-                <a href="{{ item.url }}" style="color:var(--text-dim); margin: 0 1rem; text-decoration:none;">{{ item.title }}</a>
-                {% endfor %}
-            </nav>
-        </div>
-    </header>
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="nav-logo">
+      ASTARAXIA<span>/</span>LINUX
+    </a>
+    <button class="sidebar-toggle" onclick="document.querySelector('.docs-sidebar').classList.toggle('open')">☰</button>
+    <ul class="nav-links">
+      <li><a href="/">home</a></li>
+      <li><a href="/docs">docs</a></li>
+      <li><a href="/download">download</a></li>
+      <li><a href="https://github.com/Astaraxia-Linux" target="_blank">github</a></li>
+    </ul>
+  </div>
+</nav>
 
-    <main class="main-wrapper">
-        <aside class="sidebar" onclick="handleSidebarClick(event)">
-            <div class="search-container">
-                <input type="text" id="site-search" placeholder="Search Astaraxia docs..." autocomplete="off">
-                <div id="search-results"></div>
-            </div>
-            {{ page.sidebar_content }}
-        </aside>
+<div class="docs-shell">
+  <aside class="docs-sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">Getting Started</div>
+      <ul class="sidebar-nav">
+        <li><a href="/docs">Overview</a></li>
+        <li><a href="/download">Download</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Astral</div>
+      <ul class="sidebar-nav">
+        <li><a href="/docus/astral">Introduction</a></li>
+        <li><a href="/docus/astral#installation">Installation</a></li>
+        <li><a href="/docus/astral#basic-usage">Basic Usage</a></li>
+        <li><a href="/docus/astral#package-management">Package Management</a></li>
+        <li><a href="/docus/astral#recipe-formats">Recipe Formats</a></li>
+        <li><a href="/docus/astral#service-management">Service Management</a></li>
+        <li><a href="/docus/astral#security">Security</a></li>
+        <li><a href="/docus/astral#transactions">Transactions</a></li>
+        <li><a href="/docus/astral#advanced">Advanced</a></li>
+        <li><a href="/docus/astral#troubleshooting">Troubleshooting</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Horizon</div>
+      <ul class="sidebar-nav">
+        <li><a href="/docus/horizon">Bootstrap Guide</a></li>
+        <li><a href="/docus/horizon#stage1">Stage 1</a></li>
+        <li><a href="/docus/horizon#stage2">Stage 2</a></li>
+        <li><a href="/docus/horizon#stage3">Stage 3</a></li>
+      </ul>
+    </div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">Recipes</div>
+      <ul class="sidebar-nav">
+        <li><a href="/docus/recipes">Writing Recipes</a></li>
+        <li><a href="/docus/recipes#v3">v3 Format</a></li>
+        <li><a href="/docus/recipes#sections">All Sections</a></li>
+      </ul>
+    </div>
+  </aside>
 
-        <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+  <article class="docs-content">
+    {{ content }}
+  </article>
+</div>
 
-        <article class="content">
-            {{ content }}
-        </article>
-    </main>
+<footer class="docs-footer">
+  <p>ASTARAXIA LINUX — <span>GPL-3.0</span> — 2026 — Maintained by <span>One Maniac™</span></p>
+</footer>
 
-    <footer>
-        <p>&copy; 2026 Astaraxia Linux. Licensed under GPL-3.0</p>
-        <div style="text-align: center; padding-bottom: 4rem; opacity: 0.5; font-size: 0.8rem;">
-            <p>Maintained by One Maniac™ — 2026</p>
-        </div>
-    </footer>
+<script>
+  // Active sidebar link
+  const links = document.querySelectorAll('.sidebar-nav a');
+  links.forEach(link => {
+    if (link.href === window.location.href ||
+        (link.pathname === window.location.pathname && !link.hash)) {
+      link.classList.add('active');
+    }
+  });
 
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.querySelector('.sidebar');
-            const overlay = document.querySelector('.sidebar-overlay');
-            const toggleBtn = document.querySelector('.menu-toggle');
-            const isActive = sidebar.classList.toggle('active');
-            
-            // Switch between Burger and X
-            toggleBtn.innerHTML = isActive ? '✕' : '☰';
-            
-            if (isActive) {
-                overlay.style.display = 'block';
-                setTimeout(() => overlay.style.opacity = '1', 10);
-                document.body.style.overflow = 'hidden'; 
-            } else {
-                overlay.style.opacity = '0';
-                setTimeout(() => {
-                    overlay.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }, 300);
-            }
-        }
+  // Scrollspy
+  const headings = document.querySelectorAll('.docs-content h2[id], .docs-content h3[id]');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        links.forEach(l => l.classList.remove('active'));
+        const active = document.querySelector(`.sidebar-nav a[href="#${entry.target.id}"]`);
+        if (active) active.classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -70% 0px' });
 
-        // Closes the sidebar when a link is clicked (Mobile only)
-        function handleSidebarClick(event) {
-            if (window.innerWidth <= 900 && event.target.tagName === 'A') {
-                toggleSidebar();
-            }
-        }
-        
-        window.addEventListener('DOMContentLoaded', () => {
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    // Find the link in the sidebar that matches the id of the section on screen
-                    const id = entry.target.getAttribute('id');
-                    const sidebarLink = document.querySelector(`.sidebar li a[href="#${id}"]`);
-                    
-                    if (entry.isIntersecting && sidebarLink) {
-                        // Remove active class from all links
-                        document.querySelectorAll('.sidebar li a').forEach(link => 
-                            link.classList.remove('active-link'));
-                        // Add to current one
-                        sidebarLink.classList.add('active-link');
-                    }
-                });
-            }, { rootMargin: '-20% 0px -70% 0px' }); // Trigger when item is in the top portion of screen
-        
-            // Track all headings in the content that have an ID
-            document.querySelectorAll('.content h2, .content h3').forEach((section) => {
-                observer.observe(section);
-            });
-        });
+  headings.forEach(h => observer.observe(h));
+</script>
 
-        const backToTop = document.getElementById('back-to-top');
-
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 400) {
-                backToTop.classList.add('show');
-            } else {
-                backToTop.classList.remove('show');
-            }
-        });
-        
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
-
-        document.querySelectorAll('pre').forEach((codeBlock) => {
-            const button = document.createElement('button');
-            button.className = 'copy-code';
-            button.setAttribute('aria-label', 'Copy code');
-            
-            const icon = document.createElement('i');
-            icon.className = 'fa-solid fa-copy';
-            button.appendChild(icon);
-            
-            // Create the space for the button
-            codeBlock.prepend(button);
-        
-            button.addEventListener('click', () => {
-                const code = codeBlock.querySelector('code').innerText;
-                navigator.clipboard.writeText(code).then(() => {
-                    icon.className = 'fa-solid fa-check';
-                    button.style.color = 'var(--accent)';
-                    button.style.borderColor = 'var(--accent)';
-                    
-                    setTimeout(() => { 
-                        icon.className = 'fa-solid fa-copy';
-                        button.style.color = '';
-                        button.style.borderColor = '';
-                    }, 2000);
-                });
-            });
-        });
-
-        const searchInput = document.getElementById('site-search');
-        const searchResults = document.getElementById('search-results');
-        let searchIndex = [];
-        
-        // Fetch the index once
-        fetch('/search.json')
-            .then(response => response.json())
-            .then(data => { searchIndex = data; });
-        
-        searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            searchResults.innerHTML = '';
-            
-            if (query.length < 2) {
-                searchResults.style.display = 'none';
-                return;
-            }
-        
-            const matches = searchIndex.filter(item => 
-                item.title.toLowerCase().includes(query) || 
-                item.content.toLowerCase().includes(query)
-            ).slice(0, 8); // Limit to 8 results
-        
-            if (matches.length > 0) {
-                matches.forEach(match => {
-                    const div = document.createElement('a');
-                    div.href = match.url;
-                    div.className = 'search-item';
-                    div.innerHTML = `<strong>${match.title}</strong><small>${match.content.substring(0, 60)}...</small>`;
-                    searchResults.appendChild(div);
-                });
-                searchResults.style.display = 'block';
-            } else {
-                searchResults.style.display = 'none';
-            }
-        });
-        
-        // Close search when clicking outside
-        document.addEventListener('click', (e) => {
-            if (!searchInput.contains(e.target)) searchResults.style.display = 'none';
-        });
-
-        window.addEventListener('DOMContentLoaded', () => {
-            const titleElement = document.querySelector('.title-gradient');
-            if (!titleElement) return;
-        
-            // Use the actual text from the HTML so astral.html works too!
-            const text = titleElement.innerText || "Documentation";
-            let i = 0;
-        
-            titleElement.innerHTML = '';
-            titleElement.classList.add('typewriter-text');
-        
-            function typeWriter() {
-                if (i < text.length) {
-                    // Using textContent is safer for gradients than innerHTML
-                    titleElement.textContent += text.charAt(i);
-                    i++;
-                    setTimeout(typeWriter, 80); 
-                }
-            }
-        
-            typeWriter();
-        });
-    </script>
 </body>
 </html>

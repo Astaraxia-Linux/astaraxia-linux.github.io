@@ -1,324 +1,507 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astaraxia Linux | Source-Based Minimalism</title>
-    <style>
-        :root {
-            --primary: #818cf8;
-            --bg: #0f172a;
-            --card-bg: #1e293b;
-            --text: #f1f5f9;
-            --text-dim: #94a3b8;
-            --accent: #10b981;
-            --border: #334155;
-        }
+---
+layout: default
+title: Home
+---
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-            background-color: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-        }
+<style>
+  /* HERO */
+  .hero {
+    min-height: calc(100vh - 56px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 6rem 2rem 4rem;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
 
-        /* 1. Full-width Header with Gradient */
-        header {
-            background: linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%);
-            padding: 6rem 0;
-            border-bottom: 1px solid var(--border);
-            width: 100%;
-            text-align: center; /* Centers all inline-block elements */
-        }
+  .hero-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--cyan);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
 
-        /* 2. Content Container */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+  .hero-eyebrow::before {
+    content: '';
+    display: inline-block;
+    width: 32px;
+    height: 1px;
+    background: var(--cyan);
+  }
 
-        /* 3. The Fixed Gradient Title */
-        .title-gradient {
-            font-size: 4.5rem; /* Large and bold */
-            font-weight: 800;
-            letter-spacing: -3px;
-            margin-bottom: 1rem;
-            background: linear-gradient(to right, #ffffff 20%, var(--primary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            display: inline-block;
-        }
+  .hero h1 {
+    font-family: var(--mono);
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+  }
 
-        header p {
-            font-size: 1.4rem;
-            color: var(--text-dim);
-            max-width: 700px;
-            margin: 0 auto 2rem auto;
-        }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--cyan);
+  }
 
-        main {
-            max-width: 900px;
-            margin: 4rem auto;
-            padding: 0 2rem;
-        }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-dim);
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    line-height: 1.65;
+  }
 
-        h2 { font-size: 2.2rem; margin: 3rem 0 1.5rem; color: var(--primary); letter-spacing: -1px; }
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 5rem;
+  }
 
-        /* Buttons */
-        .button-group { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
-        
-        .button {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 0.9rem 2.5rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: all 0.2s;
-        }
+  .btn {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 0.7rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    transition: all 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
 
-        .button.secondary {
-            background: transparent;
-            border: 2px solid var(--primary);
-        }
+  .btn-primary {
+    background: var(--cyan);
+    color: #000;
+  }
 
-        .button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px -10px rgba(129, 140, 248, 0.5);
-        }
+  .btn-primary:hover {
+    background: #33dcff;
+    text-decoration: none;
+    transform: translateY(-1px);
+  }
 
-        /* Features List */
-        ul { list-style: none; }
-        li {
-            background: var(--card-bg);
-            margin-bottom: 1rem;
-            padding: 1.25rem;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--primary);
-        }
+  .btn-outline {
+    border: 1px solid var(--border);
+    color: var(--text-dim);
+    background: transparent;
+  }
 
-        /* Code Blocks */
-        .code-block {
-            background: #000;
-            padding: 1.5rem;
-            border-radius: 10px;
-            border: 1px solid var(--border);
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
-            overflow-x: auto;
-        }
+  .btn-outline:hover {
+    border-color: var(--cyan);
+    color: var(--cyan);
+    text-decoration: none;
+  }
 
-        pre { color: var(--accent); font-size: 0.95rem; }
+  /* STATS ROW */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 6rem;
+  }
 
-        .footer {
-            text-align: center;
-            padding: 5rem 0;
-            color: var(--text-dim);
-            border-top: 1px solid var(--border);
-            margin-top: 5rem;
-        }
+  .stat {
+    padding: 1.25rem 1.5rem;
+    border-right: 1px solid var(--border);
+  }
 
-        .dev-banner {
-            background: rgba(245, 158, 11, 0.1);
-            border: 1px dashed #f59e0b;
-            color: #f59e0b;
-            padding: 0.75rem 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-            display: inline-block;
-            font-family: 'JetBrains Mono', monospace;
-            margin-top: 3rem;
-            /* bored */
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            background: rgba(245, 158, 11, 0.05);
-        }
+  .stat:last-child { border-right: none; }
 
-        /* Navigation Bar */
-        .top-nav {
-            width: 100%;
-            border-bottom: 1px solid var(--border);
-            background: rgba(15, 23, 42, 0.9);
-            backdrop-filter: blur(12px);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .nav-logo {
-            font-weight: 800;
-            text-decoration: none;
-            color: white;
-            font-size: 1.2rem;
-            letter-spacing: -1px;
-        }
-        
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-dim);
-            font-weight: 500;
-            font-size: 0.9rem;
-            transition: color 0.3s;
-        }
-        
-        /* MOBILE */
-        @media (max-width: 600px) {
-            .nav-container {
-                flex-direction: column;
-                gap: 1rem;
-                padding: 1rem;
-            }
-        
-            .nav-links {
-                gap: 1rem;
-                font-size: 0.8rem;
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .nav-logo {
-                font-size: 1rem;
-            }
-        }
-        
-@media (max-width: 600px) {
-    .title-gradient {
-        font-size: 2.5rem; /* Shrink title */
-        letter-spacing: -1px;
-    }
+  .stat-val {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--cyan);
+    display: block;
+  }
 
-    header p {
-        font-size: 1.1rem; /* Shrink description */
-    }
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--text-mute);
+    margin-top: 0.1rem;
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+  }
 
-    .button-group {
-        flex-direction: column;
-        width: 100%;
-    }
+  /* SECTION */
+  .section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem 6rem;
+  }
 
-    .button {
-        width: 100%; /* Full width buttons for fat-thumb clicking */
-        text-align: center;
-        margin: 0.25rem 0;
-    }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--cyan);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
 
-    .dev-banner {
-        font-size: 0.75rem; /* Smaller warning text */
-        width: 100%;
-    }
-}
-    </style>
-</head>
-    <nav class="top-nav">
-    <div class="nav-container">
-        <a href="/" class="nav-logo">ASTARAXIA</a>
-        <div class="nav-links">
-            <a href="/">Home</a>
-            <a href="/docs.html">Docs</a>
-            <a href="/download.html">Download</a>
-            <a href="https://github.com/Astaraxia-Linux" target="_blank">GitHub</a>
-        </div>
+  .section h2 {
+    font-family: var(--mono);
+    font-size: 1.75rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
+
+  .section-intro {
+    color: var(--text-dim);
+    max-width: 480px;
+    margin-bottom: 2.5rem;
+  }
+
+  /* FEATURE GRID */
+  .feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .feature-card {
+    background: var(--bg);
+    padding: 1.75rem;
+    transition: background 0.15s;
+  }
+
+  .feature-card:hover { background: var(--bg2); }
+
+  .feature-icon {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--cyan);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    opacity: 0.7;
+  }
+
+  .feature-card h3 {
+    font-family: var(--mono);
+    font-size: 0.9rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .feature-card p {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    line-height: 1.6;
+  }
+
+  /* STACK DIAGRAM */
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    max-width: 560px;
+  }
+
+  .stack-layer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.85rem 1.25rem;
+    border: 1px solid var(--border);
+    border-radius: 5px;
+    transition: border-color 0.15s, background 0.15s;
+    cursor: default;
+  }
+
+  .stack-layer:hover {
+    border-color: var(--cyan);
+    background: rgba(0,212,255,0.04);
+  }
+
+  .stack-num {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-mute);
+    width: 1.5rem;
+    text-align: right;
+  }
+
+  .stack-name {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    color: var(--cyan);
+    min-width: 120px;
+  }
+
+  .stack-desc {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+  }
+
+  /* TERMINAL DEMO */
+  .terminal {
+    background: #050810;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: var(--mono);
+    font-size: 0.85rem;
+  }
+
+  .terminal-bar {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #ffbd2e; }
+  .dot-g { background: #28ca41; }
+
+  .terminal-title {
+    font-size: 0.68rem;
+    color: var(--text-mute);
+    margin-left: auto;
+    letter-spacing: 0.06em;
+  }
+
+  .terminal-body {
+    padding: 1.25rem 1.5rem;
+    line-height: 1.8;
+  }
+
+  .t-prompt { color: var(--cyan); }
+  .t-cmd { color: var(--text); }
+  .t-out { color: var(--text-dim); }
+  .t-ok { color: var(--green); }
+  .t-warn { color: var(--yellow); }
+  .t-blank { display: block; height: 0.5rem; }
+
+  /* DEV BADGE */
+  .dev-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: #f59e0b;
+    border: 1px dashed #f59e0b;
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    background: rgba(245,158,11,0.05);
+    letter-spacing: 0.1em;
+    margin-bottom: 1.5rem;
+  }
+
+  .dev-badge::before { content: '[ ! ]'; }
+
+  /* DIVIDER */
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 0 2rem;
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem 6rem;
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    font-family: var(--mono);
+    font-size: 2rem;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+
+  .cta-section p {
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+  }
+
+  @media (max-width: 768px) {
+    .feature-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); }
+    .stat:nth-child(2n) { border-right: none; }
+    .hero h1 { font-size: 2.5rem; }
+  }
+</style>
+
+<section class="hero">
+  <div class="hero-eyebrow">STATUS: ACTIVE DEVELOPMENT</div>
+  <h1>
+    Source-based<br>
+    Linux for<br>
+    <em>control freaks.</em>
+  </h1>
+  <p class="hero-sub">
+    Astaraxia is a POSIX-compliant, LFS-derived Linux distribution.
+    Build everything from source. Understand every layer. Own your system.
+  </p>
+  <div class="hero-actions">
+    <a href="/download" class="btn btn-primary">download →</a>
+    <a href="/docs" class="btn btn-outline">read the docs</a>
+    <a href="https://github.com/Astaraxia-Linux" class="btn btn-outline" target="_blank">github ↗</a>
+  </div>
+
+  <div class="stats-row">
+    <div class="stat">
+      <span class="stat-val">10k+</span>
+      <span class="stat-label">lines in Astral</span>
     </div>
-</nav>
-<body>
+    <div class="stat">
+      <span class="stat-val">v5.0.1.0</span>
+      <span class="stat-label">current version</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">3</span>
+      <span class="stat-label">Horizon stages</span>
+    </div>
+    <div class="stat">
+      <span class="stat-val">POSIX</span>
+      <span class="stat-label">pure sh</span>
+    </div>
+  </div>
+</section>
 
-    <header>
-        <div class="container">
-            <h1 class="title-gradient">Astaraxia Linux</h1>
-            <p>A minimal, source-based Linux distribution built with absolute control in mind.</p>
-            
-            <div class="button-group">
-                <a href="/docs" class="button">Read the Manuals</a>
-                <a href="/download" class="button secondary">Get Astaraxia</a>
-            </div>
-            
-            <div class="dev-banner">
-                <strong>[ ! ] STATUS: UNDER CONSTRUCTION.</strong> 
-                Expect every aspect of this site to be radically altered without notice.
-            </div>
-        </div>
-    </header>
+<hr class="divider">
 
-    <main>
-        <section>
-            <h2>What is Astaraxia?</h2>
-            <p>Astaraxia is a POSIX-compliant Linux distribution designed for users who want to understand their system from the ground up. No bloat, no unnecessary abstractions—just you and the source.</p>
-        </section>
-        
-        <section>
-            <h2>Features</h2>
-            <ul>
-                <li><strong>Astral Manager:</strong> A 5,000+ line pure POSIX shell package manager.</li>
-                <li><strong>Horizon Bootstrap:</strong> Automated 3-stage LFS-style deployment.</li>
-                <li><strong>Recipe Versatility:</strong> Native support for v1, v2, and v3 metadata formats.</li>
-                <li><strong>Init Freedom:</strong> No systemd dependency; built for modularity.</li>
-                <li>
-                    <strong>Architectural Modularity:</strong> 
-                    Designed as a collection of independent modules. Replace the init system, service manager, or standard library without side effects on the Astral core.
-                </li>
-            </ul>
-        </section>
+<section class="section" style="padding-top:5rem;">
+  <div class="section-label">FEATURES</div>
+  <h2>Built different.</h2>
+  <p class="section-intro">No binary blobs, no hidden init hooks, no unnecessary abstractions. Just source code and shell scripts.</p>
 
-        <section style="margin-top: 4rem;">
-            <h2>The Astaraxia Stack</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
-                <div style="background: rgba(129, 140, 248, 0.1); padding: 1.5rem; border: 1px dashed var(--primary); border-radius: 8px; text-align: center;">
-                    <span style="color: var(--primary); font-weight: bold; display: block;">USERLAND</span>
-                    <small>Glibc / Musl / Busybox</small>
-                </div>
-                <div style="background: rgba(129, 140, 248, 0.1); padding: 1.5rem; border: 1px dashed var(--primary); border-radius: 8px; text-align: center;">
-                    <span style="color: var(--primary); font-weight: bold; display: block;">INIT</span>
-                    <small>OpenRC / sinit / Custom</small>
-                </div>
-                <div style="background: rgba(129, 140, 248, 0.1); padding: 1.5rem; border: 1px dashed var(--primary); border-radius: 8px; text-align: center;">
-                    <span style="color: var(--primary); font-weight: bold; display: block;">KERNEL</span>
-                    <small>LTS / Zen / Hardened</small>
-                </div>
-            </div>
-        </section>
-        
-        <section>
-            <h2>Quick Start</h2>
-            <p>Get Astral running on your system to start building:</p>
-            <div class="code-block">
-                <pre><code># Download and install Astral
-curl -O https://raw.githubusercontent.com/Astaraxia-Linux/Astral/main/astral
-chmod +x astral
-sudo mv astral /usr/bin/
+  <div class="feature-grid">
+    <div class="feature-card">
+      <div class="feature-icon">PKG_MGR</div>
+      <h3>Astral</h3>
+      <p>A 10k+ line monolithic POSIX sh package manager. Source builds, GPG signing, rollback transactions, parallel installs, service management.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">BOOTSTRAP</div>
+      <h3>Horizon</h3>
+      <p>Three-stage LFS-style bootstrap engine. Builds your entire system from scratch — toolchain, chroot, final install. Automated. Reproducible.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">RECIPES</div>
+      <h3>.stars Format</h3>
+      <p>Three recipe format versions with full backwards compatibility. Build hooks, split dependencies, post-install scripts, git source support.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">REPOS</div>
+      <h3>AOHARU + ASURA</h3>
+      <p>Official curated repository (AOHARU) and a community overlay (ASURA). Both indexed and served via GitHub Pages with optional GPG verification.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">INIT</div>
+      <h3>Init Freedom</h3>
+      <p>No forced init system. Astral detects systemd, OpenRC, runit, s6, SysVinit automatically and adapts service commands accordingly.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">SECURITY</div>
+      <h3>Verified Builds</h3>
+      <p>SHA256 checksums, GPG package signing, Web of Trust, file integrity monitoring, audit trail. Toggle safety levels via make.conf.</p>
+    </div>
+  </div>
+</section>
 
-# Initialize Horizon
-export LFS=/mnt/lfs
-sudo astral -h --init</code></pre>
-            </div>
-        </section>
-    </main>
+<hr class="divider">
 
-    <footer class="footer">
-        <div class="container">
-            <p>&copy; 2026 Astaraxia Linux Project. Built with dedication and shell scripts.</p>
-        </div>
-    </footer>
+<section class="section" style="padding-top:5rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;">
+  <div>
+    <div class="section-label">THE STACK</div>
+    <h2>Every layer,<br>visible.</h2>
+    <p class="section-intro" style="margin-bottom:2rem;">Astaraxia has no hidden layers. You can inspect, replace, or rebuild any component.</p>
+    <div class="stack">
+      <div class="stack-layer">
+        <span class="stack-num">5</span>
+        <span class="stack-name">USERLAND</span>
+        <span class="stack-desc">glibc / musl / busybox</span>
+      </div>
+      <div class="stack-layer">
+        <span class="stack-num">4</span>
+        <span class="stack-name">PACKAGES</span>
+        <span class="stack-desc">Astral + AOHARU/ASURA</span>
+      </div>
+      <div class="stack-layer">
+        <span class="stack-num">3</span>
+        <span class="stack-name">INIT</span>
+        <span class="stack-desc">OpenRC / systemd / sinit</span>
+      </div>
+      <div class="stack-layer">
+        <span class="stack-num">2</span>
+        <span class="stack-name">BOOTSTRAP</span>
+        <span class="stack-desc">Horizon 3-stage LFS</span>
+      </div>
+      <div class="stack-layer">
+        <span class="stack-num">1</span>
+        <span class="stack-name">KERNEL</span>
+        <span class="stack-desc">Linux LTS / Zen / Hardened</span>
+      </div>
+    </div>
+  </div>
 
-</body>
-</html>
+  <div>
+    <div class="section-label">QUICK START</div>
+    <h2>Bootstrap<br>in minutes.</h2>
+    <p class="section-intro" style="margin-bottom:1.5rem;">(Well. Hours. It compiles everything.)</p>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <span class="terminal-title">horizon — bootstrap</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-prompt">$ </span><span class="t-cmd">curl -O https://raw.githubusercontent.com/<br>&nbsp;&nbsp;Astaraxia-Linux/Astral/main/astral</span></div>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">chmod +x astral && sudo mv astral /usr/bin/</span></div>
+        <span class="t-blank"></span>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">export LFS=/mnt/lfs</span></div>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">sudo astral -h --init</span></div>
+        <span class="t-blank"></span>
+        <div><span class="t-out">=== HORIZON INIT ===</span></div>
+        <div><span class="t-ok">✓ Directories created</span></div>
+        <div><span class="t-ok">✓ Stage scripts downloaded</span></div>
+        <span class="t-blank"></span>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">sudo astral -h --stage 1</span></div>
+        <div><span class="t-out">>> Building: sys-devel/binutils</span></div>
+        <div><span class="t-out">>> Building: sys-devel/gcc</span></div>
+        <div><span class="t-warn">  (go make coffee)</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
+<section class="cta-section">
+  <div class="dev-badge">UNDER ACTIVE CONSTRUCTION — EXPECT EVERYTHING TO CHANGE</div>
+  <h2>Ready to compile?</h2>
+  <p>Read the docs, grab the bootstrap script, and start building.</p>
+  <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+    <a href="/download" class="btn btn-primary">get astaraxia →</a>
+    <a href="/docus/astral" class="btn btn-outline">astral docs</a>
+  </div>
+</section>

@@ -4,318 +4,374 @@ title: Download
 ---
 
 <style>
-    /* DON'T redefine :root variables - inherit from default.html layout */
-    
-    /* Page-specific wrapper */
-    .download-page-wrapper {
-        background-color: var(--bg);
-        min-height: 100vh;
-        color: var(--text);
-        padding: 4rem 2rem;
-    }
+  .dl-page {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 5rem 2rem 6rem;
+  }
 
-    .download-content {
-        max-width: 1000px;
-        margin: 0 auto;
-    }
+  .dl-eyebrow {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--cyan);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
 
-    /* Use consistent heading styles that inherit font-family */
-    .download-content h1 { 
-        font-size: 3rem; 
-        margin-bottom: 0.5rem; 
-        color: var(--text);
-        font-weight: 800;
-    }
-    
-    .subtitle { 
-        color: var(--text-dim); 
-        font-size: 1.2rem; 
-        margin-bottom: 3rem;
-        font-weight: 400;
-    }
+  .dl-page h1 {
+    font-family: var(--mono);
+    font-size: 2.5rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.02em;
+  }
 
-    .card-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2rem;
-        margin-bottom: 4rem;
-    }
+  .dl-page > p {
+    color: var(--text-dim);
+    margin-bottom: 3rem;
+    font-size: 1rem;
+  }
 
-    .card {
-        background: var(--card-bg);
-        padding: 2rem;
-        border-radius: 12px;
-        border: 1px solid var(--border);
-    }
+  /* OPTIONS GRID */
+  .dl-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 4rem;
+  }
 
-    .card h2 { color: var(--primary); margin-bottom: 1rem; font-size: 1.5rem; }
-    .card p { color: var(--text-dim); margin-bottom: 1.5rem; }
+  .dl-card {
+    background: var(--bg);
+    padding: 2rem;
+    transition: background 0.15s;
+  }
 
-    /* Table Styling */
-    .download-table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 1rem;
-        font-size: 0.9rem;
-    }
+  .dl-card:hover { background: var(--bg2); }
 
-    .download-table th {
-        text-align: left;
-        color: var(--primary);
-        border-bottom: 1px solid var(--border);
-        padding: 0.5rem;
-        font-weight: 600;
-    }
+  .dl-card-tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-mute);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+  }
 
-    .download-table td { 
-        padding: 0.75rem 0.5rem; 
-        border-bottom: 1px solid var(--border);
-        color: var(--text); 
-    }
-    
-    .download-table a { 
-        color: var(--accent); 
-        text-decoration: none; 
-        font-weight: 500;
-    }
-    
-    .download-table a:hover { text-decoration: underline; }
+  .dl-card h2 {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
 
-    .badge {
-        background: #312e81;
-        color: var(--primary);
-        padding: 0.2rem 0.6rem;
-        border-radius: 4px;
-        font-size: 0.8rem;
-        font-weight: 500;
-    }
+  .dl-card p {
+    font-size: 0.875rem;
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
 
-    /* Code blocks inherit from default.html but add page-specific tweaks */
-    .code-block {
-        background: #000;
-        padding: 1.2rem;
-        border-radius: 8px;
-        border: 1px solid var(--border);
-        font-family: 'JetBrains Mono', 'Fira Code', monospace;
-        font-size: 0.85rem;
-        overflow-x: auto;
-    }
-    
-    .code-block pre { margin: 0; }
-    .code-block code { color: var(--accent); }
+  .dl-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 0.55rem 1.1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.15s;
+    letter-spacing: 0.04em;
+  }
 
-    hr { 
-        border: 0; 
-        border-top: 1px solid var(--border); 
-        margin: 4rem 0; 
-    }
+  .dl-btn-primary { background: var(--cyan); color: #000; }
+  .dl-btn-primary:hover { background: #33dcff; text-decoration: none; }
+  .dl-btn-ghost { border: 1px solid var(--border); color: var(--text-dim); }
+  .dl-btn-ghost:hover { border-color: var(--cyan); color: var(--cyan); text-decoration: none; }
+  .dl-btn-disabled {
+    border: 1px solid var(--border);
+    color: var(--text-mute);
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
 
-    /* ISO/Mirrors section */
-    .flex-row { 
-        display: flex; 
-        gap: 4rem; 
-        margin-bottom: 4rem; 
-    }
-    
-    .col { flex: 1; }
-    
-    .col h3 { 
-        color: var(--primary); 
-        margin-bottom: 1rem;
-        font-weight: 700;
-        font-size: 1.4rem;
-    }
+  /* DIVIDER */
+  .dl-divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 3rem 0;
+  }
 
-    .status-tag {
-        font-size: 0.7rem;
-        background: #475569;
-        color: #fff;
-        padding: 0.2rem 0.5rem;
-        border-radius: 4px;
-        vertical-align: middle;
-        margin-left: 0.5rem;
-        font-weight: 500;
-    }
+  /* SECTION */
+  .dl-section { margin-bottom: 3rem; }
 
-    /* Specs cards - inherit from default.html .spec-card */
-    .spec-card h4 {
-        margin-top: 0;
-        margin-bottom: 1rem;
-        color: var(--primary);
-        font-weight: 600;
-        font-size: 1.1rem;
-    }
-    
-    .spec-card ul { 
-        list-style: none; 
-        color: var(--text-dim);
-    }
-    
-    .spec-card li { margin-bottom: 0.4rem; }
+  .dl-section h2 {
+    font-family: var(--mono);
+    font-size: 1rem;
+    color: var(--cyan);
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.04em;
+  }
 
-    .muted { 
-        color: #64748b;
-        font-weight: 400;
-    }
+  /* TABLE */
+  .dl-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+  }
 
-    /* Mobile Responsiveness */
-    @media (max-width: 850px) {
-        .card-grid {
-            grid-template-columns: 1fr !important;
-        }
+  .dl-table th {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    color: var(--text-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+  }
 
-        .card {
-            width: 100% !important;
-            min-width: 0 !important;
-            overflow: hidden;
-        }
+  .dl-table td {
+    padding: 0.7rem 0.75rem;
+    border-bottom: 1px solid rgba(30,45,69,0.5);
+    color: var(--text-dim);
+  }
 
-        .download-table {
-            display: block;
-            width: 100%;
-            overflow-x: auto;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
-        }
+  .dl-table td:first-child {
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    color: var(--text);
+  }
 
-        .code-block {
-            width: 100%;
-            overflow-x: auto;
-        }
+  .badge {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+  }
 
-        .code-block pre {
-            white-space: pre;
-            word-wrap: normal;
-        }
+  .badge-soon { background: rgba(107,127,163,0.2); color: var(--text-dim); }
+  .badge-alpha { background: rgba(251,191,36,0.15); color: var(--yellow); }
 
-        .flex-row {
-            flex-direction: column;
-            gap: 2rem;
-        }
-    }
+  /* TERMINAL */
+  .terminal {
+    background: #050810;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .terminal-bar {
+    background: var(--bg3);
+    border-bottom: 1px solid var(--border);
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+
+  .dot { width: 9px; height: 9px; border-radius: 50%; }
+  .dot-r { background: #ff5f57; }
+  .dot-y { background: #ffbd2e; }
+  .dot-g { background: #28ca41; }
+
+  .terminal-title {
+    font-size: 0.65rem;
+    color: var(--text-mute);
+    margin-left: auto;
+    letter-spacing: 0.08em;
+  }
+
+  .terminal-body {
+    padding: 1.1rem 1.25rem;
+    line-height: 1.85;
+  }
+
+  .t-prompt { color: var(--cyan); }
+  .t-cmd { color: var(--text); }
+  .t-out { color: var(--text-dim); }
+  .t-ok { color: var(--green); }
+  .t-blank { display: block; height: 0.4rem; }
+
+  /* SPECS */
+  .specs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .spec-block {
+    background: var(--bg);
+    padding: 1.5rem;
+  }
+
+  .spec-block h3 {
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    color: var(--text-mute);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+
+  .spec-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 0.35rem 0;
+    border-bottom: 1px solid rgba(30,45,69,0.4);
+    font-size: 0.85rem;
+  }
+
+  .spec-row:last-child { border-bottom: none; }
+  .spec-key { color: var(--text-dim); }
+  .spec-val { font-family: var(--mono); font-size: 0.8rem; color: var(--text); }
+
+  @media (max-width: 700px) {
+    .dl-grid { grid-template-columns: 1fr; }
+    .specs-grid { grid-template-columns: 1fr; }
+  }
 </style>
 
-<main class="main-wrapper">
-    <section class="content" style="text-align: center; margin: 0 auto;">
-        <h2 class="title-gradient">Get Astaraxia</h2>
-        <p>Grab the latest ISO or bootstrap the system using Horizon.</p>
-        
-        <div class="card-grid" style="margin-top: 3rem;">
-            <div class="spec-card">
-                <h4>Standard ISO</h4>
-                <p>Ready to flash. Includes the base Astral engine.</p>
-                <a href="#" class="button">Download .iso</a>
-            </div>
-            <div class="spec-card">
-                <h4>Horizon Script</h4>
-                <p>For the maniacs. Bootstrap from an existing Linux host.</p>
-                <a href="#" class="button secondary">Get Script</a>
-            </div>
-        </div>
-    </section>
-</main>
+<div class="dl-page">
+  <div class="dl-eyebrow">ASTARAXIA LINUX</div>
+  <h1>Download</h1>
+  <p>Get Astaraxia via the Horizon bootstrap script or wait for stage tarballs. ISOs are coming later.</p>
 
-<div class="download-page-wrapper">
-    <div class="download-content">
-        <h1>Download Astaraxia</h1>
-        <p class="subtitle">The Minimalist, Source-Based Powerhouse</p>
-
-        <div class="card-grid">
-            <div class="card">
-                <h2>Stage Tarballs</h2>
-                <p>Pre-built base systems. Extract and bootstrap your environment instantly.</p>
-                
-                <div class="release-info" style="margin-bottom: 1rem;">
-                    <strong style="font-size: 0.9rem;">Latest Release:</strong> <span class="badge">v0.1.0-alpha</span>
-                </div>
-
-                <table class="download-table">
-                    <thead>
-                        <tr>
-                            <th>File</th>
-                            <th>Size</th>
-                            <th>SHA256</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><a href="https://github.com/Astaraxia-Linux/Horizon/releases">stage3-amd64.tar.xz</a></td>
-                            <td>~500MB</td>
-                            <td class="muted">Coming soon</td>
-                        </tr>
-                        <tr>
-                            <td><a href="https://github.com/Astaraxia-Linux/Horizon/releases">stage3-arm64.tar.xz</a></td>
-                            <td>~450MB</td>
-                            <td class="muted">Coming soon</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="card">
-                <h2>Bootstrap from Scratch</h2>
-                <p>Total control. Build your entire system from source using the Horizon engine.</p>
-                <div class="code-block">
-                    <pre><code># Install Astral
-curl -O https://raw.githubusercontent.com/.../astral
-chmod +x astral
-sudo mv astral /usr/bin/
-
-# Initialize Horizon
-export LFS=/mnt/lfs
-sudo astral -h --init
-
-# Run stages (12-20 hours)
-sudo astral -h --stage 1
-sudo astral -h --stage 2
-sudo astral --chroot $LFS
-astral -h --stage 3</code></pre>
-                </div>
-            </div>
-        </div>
-
-        <hr>
-
-        <div class="flex-row">
-            <div class="col">
-                <h3>Live ISO <span class="status-tag">Coming Soon</span></h3>
-                <ul style="list-style: none; color: var(--text-dim);">
-                    <li style="margin-bottom: 0.5rem;">◽ astaraxia-live-2026.01.iso</li>
-                    <li style="margin-bottom: 0.5rem;">◽ Includes installer</li>
-                    <li style="margin-bottom: 0.5rem;">◽ NetworkManager pre-configured</li>
-                </ul>
-            </div>
-
-            <div class="col">
-                <h3>Mirrors</h3>
-                <p style="margin-bottom: 0.5rem; color: var(--text);"><strong>Primary:</strong> GitHub Releases</p>
-                <p class="muted">Mirror 1: DigitalOcean (Coming soon)</p>
-                <p class="muted">Mirror 2: AWS (Coming soon)</p>
-            </div>
-        </div>
-
-        <div class="specs-section">
-            <h3 style="color: var(--primary); font-size: 1.4rem; font-weight: 700; margin-bottom: 1.5rem;">System Requirements</h3>
-            <div class="card-grid">
-                <div class="spec-card">
-                    <h4>Minimum</h4>
-                    <ul>
-                        <li>• CPU: x86_64 / ARM64</li>
-                        <li>• RAM: 512MB</li>
-                        <li>• Disk: 10GB</li>
-                        <li>• Time: Patience</li>
-                    </ul>
-                </div>
-                <div class="spec-card">
-                    <h4>Recommended</h4>
-                    <ul>
-                        <li>• CPU: Multi-core (High Clock)</li>
-                        <li>• RAM: 4GB+</li>
-                        <li>• Disk: 20GB+</li>
-                        <li>• Time: <strong>Lots of coffee</strong></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
+  <div class="dl-grid">
+    <div class="dl-card">
+      <div class="dl-card-tag">RECOMMENDED</div>
+      <h2>Horizon Bootstrap</h2>
+      <p>Build your entire system from source using the Horizon engine. Full control. Requires an existing Linux host and a lot of time.</p>
+      <a href="https://github.com/Astaraxia-Linux/Horizon" class="dl-btn dl-btn-primary" target="_blank">get bootstrap script →</a>
     </div>
+    <div class="dl-card">
+      <div class="dl-card-tag">COMING SOON</div>
+      <h2>Stage Tarballs</h2>
+      <p>Pre-built base system tarballs. Extract, configure, boot. Skips the toolchain compilation stages.</p>
+      <span class="dl-btn dl-btn-disabled">not yet available</span>
+    </div>
+    <div class="dl-card">
+      <div class="dl-card-tag">COMING LATER</div>
+      <h2>Live ISO</h2>
+      <p>Bootable installer image. Includes Astral, a minimal desktop, and an interactive installer.</p>
+      <span class="dl-btn dl-btn-disabled">not yet available</span>
+    </div>
+    <div class="dl-card">
+      <div class="dl-card-tag">PACKAGE MANAGER</div>
+      <h2>Astral Only</h2>
+      <p>Just the package manager. Run it on an existing Linux system to use AOHARU and ASURA repos.</p>
+      <a href="https://github.com/Astaraxia-Linux/Astral" class="dl-btn dl-btn-ghost" target="_blank">github →</a>
+    </div>
+  </div>
+
+  <div class="dl-section">
+    <h2>RELEASES</h2>
+    <table class="dl-table">
+      <thead>
+        <tr>
+          <th>File</th>
+          <th>Architecture</th>
+          <th>Size</th>
+          <th>Checksum</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>stage3-amd64.tar.xz</td>
+          <td>x86_64</td>
+          <td>~500MB</td>
+          <td style="color:var(--text-mute)">pending</td>
+          <td><span class="badge badge-soon">coming soon</span></td>
+        </tr>
+        <tr>
+          <td>stage3-arm64.tar.xz</td>
+          <td>aarch64</td>
+          <td>~450MB</td>
+          <td style="color:var(--text-mute)">pending</td>
+          <td><span class="badge badge-soon">coming soon</span></td>
+        </tr>
+        <tr>
+          <td>astral</td>
+          <td>any</td>
+          <td>~300KB</td>
+          <td style="color:var(--text-mute)">see GitHub</td>
+          <td><span class="badge badge-alpha">v5.0.1.0</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <hr class="dl-divider">
+
+  <div class="dl-section">
+    <h2>BOOTSTRAP GUIDE</h2>
+    <div class="terminal">
+      <div class="terminal-bar">
+        <div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div>
+        <span class="terminal-title">horizon — full bootstrap</span>
+      </div>
+      <div class="terminal-body">
+        <div><span class="t-out"># 1. Install Astral</span></div>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">curl -O https://raw.githubusercontent.com/Astaraxia-Linux/Astral/main/astral</span></div>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">chmod +x astral && sudo mv astral /usr/bin/</span></div>
+        <span class="t-blank"></span>
+        <div><span class="t-out"># 2. Initialize Horizon</span></div>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">export LFS=/mnt/lfs</span></div>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">sudo astral -h --init</span></div>
+        <div><span class="t-ok">✓ Stage scripts downloaded to /usr/src/astral/horizon/</span></div>
+        <span class="t-blank"></span>
+        <div><span class="t-out"># 3. Stage 1 — temporary toolchain (~2-4 hours)</span></div>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">sudo astral -h --stage 1</span></div>
+        <span class="t-blank"></span>
+        <div><span class="t-out"># 4. Stage 2 — chroot prep (~3-5 hours)</span></div>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">sudo astral -h --stage 2</span></div>
+        <span class="t-blank"></span>
+        <div><span class="t-out"># 5. Enter chroot and run stage 3</span></div>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">sudo astral --chroot $LFS</span></div>
+        <div><span class="t-prompt">$ </span><span class="t-cmd">astral -h --stage 3   # (~6-10 hours)</span></div>
+        <span class="t-blank"></span>
+        <div><span class="t-ok">✓ Astaraxia base system complete.</span></div>
+      </div>
+    </div>
+    <p style="font-size:0.85rem;color:var(--text-dim);">Check progress at any time with <code>astral -h --status</code>. See the <a href="/docus/horizon">Horizon docs</a> for detailed stage breakdowns.</p>
+  </div>
+
+  <hr class="dl-divider">
+
+  <div class="dl-section">
+    <h2>SYSTEM REQUIREMENTS</h2>
+    <div class="specs-grid">
+      <div class="spec-block">
+        <h3>Minimum</h3>
+        <div class="spec-row"><span class="spec-key">CPU</span><span class="spec-val">x86_64 / aarch64</span></div>
+        <div class="spec-row"><span class="spec-key">RAM</span><span class="spec-val">512 MB</span></div>
+        <div class="spec-row"><span class="spec-key">Disk</span><span class="spec-val">10 GB</span></div>
+        <div class="spec-row"><span class="spec-key">Time</span><span class="spec-val">patience</span></div>
+      </div>
+      <div class="spec-block">
+        <h3>Recommended</h3>
+        <div class="spec-row"><span class="spec-key">CPU</span><span class="spec-val">multi-core, high clock</span></div>
+        <div class="spec-row"><span class="spec-key">RAM</span><span class="spec-val">4 GB+</span></div>
+        <div class="spec-row"><span class="spec-key">Disk</span><span class="spec-val">20 GB+</span></div>
+        <div class="spec-row"><span class="spec-key">Time</span><span class="spec-val">lots of coffee</span></div>
+      </div>
+    </div>
+  </div>
 </div>
