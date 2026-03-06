@@ -9,31 +9,24 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:        #05090f;
-      --bg2:       #080d18;
-      --bg3:       #0c1322;
-      --border:    rgba(140,200,255,0.10);
-      --border-hi: rgba(180,225,255,0.22);
+      --bg:        #080d18;
+      --bg2:       #0c1422;
+      --bg3:       #101c2e;
+      --border:    rgba(120,190,255,0.11);
+      --border-hi: rgba(160,220,255,0.24);
       --ice:       #a8d8ff;
-      --ice-dim:   #5a9fcc;
-      --ice-mute:  #1e3d5a;
+      --ice-dim:   #68aadd;
+      --ice-mute:  #2d5070;
       --snow:      #ddeeff;
-      --snow-dim:  #8bafc8;
-      --snow-mute: #2e4a60;
-      --frost:     rgba(140,200,255,0.055);
-      --frost-hi:  rgba(140,200,255,0.10);
-      --green:     #4dffaa;
-      --yellow:    #ffe080;
-      --red:       #ff7096;
+      --snow-dim:  #9ab8d8;
+      --snow-mute: #3a5570;
+      --frost:     rgba(168,216,255,0.05);
+      --green:     #5dffa8;
+      --yellow:    #ffd86e;
+      --red:       #ff6b8a;
       --mono: 'Space Mono', monospace;
       --sans: 'Inter', sans-serif;
-      --sidebar-w: 260px;
-      /* legacy aliases */
-      --cyan:      #a8d8ff;
-      --cyan-dim:  #5a9fcc;
-      --text:      #ddeeff;
-      --text-dim:  #8bafc8;
-      --text-mute: #2e4a60;
+      --sidebar-w: 255px;
     }
 
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -467,8 +460,6 @@
 
 <canvas id="snow-canvas"></canvas>
 
-<canvas id="snow-canvas" style="position:fixed;inset:0;pointer-events:none;z-index:2"></canvas>
-
 <nav>
   <div class="nav-inner">
     <a href="/" class="nav-logo">
@@ -618,31 +609,6 @@
 
   window.addEventListener('resize', resize);
   init(); tick();
-})();
-</script>
-
-
-<script>
-(function(){
-  const canvas = document.getElementById('snow-canvas');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  let W, H, flakes = [];
-  const CHARS = ['*','·','+','❄','˙','·','*','.'];
-  const N = 45;
-  function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=window.innerHeight; }
-  function mkFlake(rY){ const sz=Math.random()*9+4;
-    return {x:Math.random()*W,y:rY?Math.random()*H:-sz,spd:Math.random()*0.35+0.09,
-      drift:(Math.random()-0.5)*0.16,ch:CHARS[Math.floor(Math.random()*CHARS.length)],
-      sz,alpha:Math.random()*0.18+0.03,wb:Math.random()*Math.PI*2,wbSpd:(Math.random()-0.5)*0.006}; }
-  function init(){ resize(); flakes=Array.from({length:N},()=>mkFlake(true)); }
-  function tick(){ ctx.clearRect(0,0,W,H);
-    flakes.forEach(f=>{f.wb+=f.wbSpd;f.x+=f.drift+Math.sin(f.wb)*0.09;f.y+=f.spd;
-      if(f.y>H+20)Object.assign(f,mkFlake(false));
-      ctx.save();ctx.globalAlpha=f.alpha;ctx.font=`${f.sz}px 'Space Mono',monospace`;
-      ctx.fillStyle='#b0d8ff';ctx.fillText(f.ch,f.x,f.y);ctx.restore();});
-    requestAnimationFrame(tick); }
-  window.addEventListener('resize',resize); init(); tick();
 })();
 </script>
 
