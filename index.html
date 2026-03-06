@@ -433,37 +433,7 @@ title: Home
 
     <!-- ASCII art logo -->
     <div>
-<pre class="ascii-logo">                                        '.
-                                       .dd'
-                                       ,ddd.
-                  ,:,.                 ldddd;
-             .colloooolloooooooooooooodkkkkOkdooooo.
-              .ldoooooxOOOOOOOOOOOOOOOOOOOOOOOOOOOO.
-              ;ooooollodddddddddddddddddddkkkkkkkdd.
-             :oooool.                     ,dddddd,
-            ;oooool.                       ,oddddd'
-           :ooooo;.    .:cccccccccccc:;.    .lddddd,
-         'cooodo'     .oddddddddddddlldo.     cdddddl.
-        'oooooo,     .oodddddddddddoodddd;     ;dddddl     ..,,
-  .',cl;looodl.     ,oddddddddddddlldddddd,     ;dddddc;lodkOx.
-  lddddddoooc.     ;oddddddddddddldddxxxxxx:.    'odddddkOOOc.
-  .oddddddd:     .:oooooooooooolldxxxxxxxxxxd.    .ddddddxO:
-   ;ddddddd.     .loooooooooooccldxxxxxxxxxkk'     dxdddddx.
-  .odddddddl      .ldddddddddoodloxxxxxxxxxd,     cOkxddddd'
- ,ooodddddddo.     .cdddddddoodxxoodxxkkkkl     .lOOOOxo;..
-,:;,'...oddddo.      'oddddloxxxxxdldkkkkc     .dOOOOO:
-        .dddddo,      ,dddcoxxxxxxkxlxkk,     .xOOOOO:
-         .lddddd,      ,oodxxxxxxxkkxod;     'kOOOOk:
-           cddddd;       ..............     ,kOOOOx.
-            :dddddo.                      .oOOOOOd.
-             :dddddl,,,,,,,,,,,,,,,,,,,,,,dOOOO0k'
-              cddooooooooooooooooooooooodkOOOOOOdl,.
-               'oooooooooooooooooooooooxOOOOOOxdoool:.
-                .oddddo'...............,ldOOk;........
-                 .:dddc                   .;.
-                   cdd'
-                    cd
-                     .</pre>
+<pre class="ascii-logo" id="ascii-logo">loading...</pre>
       <div class="ascii-label">// source-based linux distribution</div>
     </div>
 
@@ -628,3 +598,10 @@ title: Home
     <a href="/docus/horizon" class="btn btn-outline">horizon guide</a>
   </div>
 </section>
+
+<script>
+fetch('/assets/logo.txt')
+  .then(r => r.text())
+  .then(t => { document.getElementById('ascii-logo').textContent = t; })
+  .catch(() => { document.getElementById('ascii-logo').textContent = '[ logo.txt not found ]'; });
+</script>
