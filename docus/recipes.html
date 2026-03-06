@@ -1,0 +1,272 @@
+---
+layout: docs
+title: Writing Recipes
+---
+
+<h1>Writing Recipes</h1>
+<div class="doc-meta">
+  <div class="doc-meta-item">
+    <span class="doc-meta-label">Current Format</span>
+    <span class="doc-meta-value">v3</span>
+  </div>
+  <div class="doc-meta-item">
+    <span class="doc-meta-label">Extension</span>
+    <span class="doc-meta-value">.stars</span>
+  </div>
+  <div class="doc-meta-item">
+    <span class="doc-meta-label">Legacy Formats</span>
+    <span class="doc-meta-value">v1, v2, dir</span>
+  </div>
+</div>
+
+<p>Astral recipes are <code>.stars</code> files that describe how to download, build, and install a package. There are four recipe formats — use v3 for anything new.</p>
+
+<div class="callout">
+  <p>Too lazy to write a recipe from scratch? <code>astral-recipegen interactive v3</code> will scaffold one for you.</p>
+</div>
+
+<h2 id="formats">Format Overview</h2>
+
+<table class="cmd-table">
+  <thead><tr><th>Format</th><th>Status</th><th>Marker</th></tr></thead>
+  <tbody>
+    <tr><td>v3</td><td style="color:var(--green);font-family:var(--mono)">recommended</td><td><code>$PKG.Version = "3"</code></td></tr>
+    <tr><td>v2</td><td style="color:var(--yellow);font-family:var(--mono)">supported</td><td><code>$PKG.Metadata: { ... }</code></td></tr>
+    <tr><td>v1</td><td style="color:var(--text-mute);font-family:var(--mono)">deprecated</td><td><code>@BUILD</code></td></tr>
+    <tr><td>dir</td><td style="color:var(--text-mute);font-family:var(--mono)">ancient</td><td>directory with <code>build</code> file</td></tr>
+  </tbody>
+</table>
+
+<h2 id="v3">v3 Format</h2>
+
+<p>The current standard. Separates build-time and runtime dependencies, supports git sources, post-install hooks, and optional deps.</p>
+
+<pre><code>$PKG.Version = "3"
+
+$PKG.Metadata: {
+    Version = "1.2.3"
+    Description = "A short one-line description"
+    Homepage = "https://example.com"
+    Category = "app-misc"
+    License = "GPL-3.0"
+};
+
+$PKG.Depend.BDepends: {
+    gcc
+    make
+    cmake >= 3.20
+};
+
+$PKG.Depend.RDepends: {
+    glibc
+    ncurses >= 6.0
+    zlib
+};
+
+$PKG.Depend.Optional: {
+    bash-completion
+};
+
+$PKG.Sources: {
+    urls = "https://example.com/pkg-1.2.3.tar.xz"
+};
+
+$PKG.Checksums: {
+    sha256:abc123def456... pkg-1.2.3.tar.xz
+};
+
+$PKG.Build: {
+    cd pkg-1.2.3
+    ./configure --prefix=/usr
+    make -j$(nproc)
+};
+
+$PKG.Package: {
+    cd pkg-1.2.3
+    make DESTDIR="$PKGDIR" install
+};
+
+$PKG.PostInstall: {
+    ldconfig
+};
+
+$PKG.PostRemove: {
+    echo "pkg removed."
+};</code></pre>
+
+<h2 id="sections">All Sections</h2>
+
+<h3>Metadata</h3>
+<p>Required. Describes the package.</p>
+<table class="cmd-table">
+  <thead><tr><th>Key</th><th>Required</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>Version</td><td style="color:var(--green)">yes</td><td>Package version string (e.g. <code>"2.7.6"</code>)</td></tr>
+    <tr><td>Description</td><td>no</td><td>One-line description</td></tr>
+    <tr><td>Homepage</td><td>no</td><td>Project URL</td></tr>
+    <tr><td>Category</td><td>no</td><td>e.g. <code>sys-libs</code>, <code>app-editors</code>, <code>dev-util</code></td></tr>
+    <tr><td>License</td><td>no</td><td>SPDX identifier e.g. <code>GPL-3.0</code>, <code>MIT</code></td></tr>
+  </tbody>
+</table>
+
+<h3>Dependencies</h3>
+<table class="cmd-table">
+  <thead><tr><th>Section</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>BDepends</td><td>Build-time only — compilers, build tools. Removed after build.</td></tr>
+    <tr><td>RDepends</td><td>Runtime — libraries, interpreters. Kept forever.</td></tr>
+    <tr><td>Optional</td><td>Extra features — user can skip during install.</td></tr>
+    <tr><td>PDepends</td><td>Post-install time dependencies.</td></tr>
+    <tr><td>IDepends</td><td>Install-time dependencies.</td></tr>
+  </tbody>
+</table>
+
+<p>Version constraints:</p>
+<pre><code>ncurses >= 6.0
+readline = 8.2
+python < 3.12
+cmake          # any version</code></pre>
+<p>Operators: <code>=</code>, <code>&gt;=</code>, <code>&lt;=</code>, <code>&gt;</code>, <code>&lt;</code></p>
+
+<h3>Sources</h3>
+<p>URLs to download. Supports multiple sources and git repos.</p>
+<pre><code># Tarball
+$PKG.Sources: {
+    urls = "https://example.com/pkg-1.2.3.tar.xz"
+};
+
+# Multiple sources / patches
+$PKG.Sources: {
+    urls = "https://example.com/source.tar.gz"
+    urls = "https://example.com/fix-001.patch"
+};
+
+# Git source
+$PKG.Sources: {
+    urls = "git+https://github.com/user/repo#branch=main"
+};
+
+# Git by tag
+$PKG.Sources: {
+    urls = "git+https://github.com/user/repo#tag=v1.2.3"
+};</code></pre>
+
+<h3>Checksums</h3>
+<p>SHA256 hashes for downloaded files. Git sources don't need them.</p>
+<pre><code>$PKG.Checksums: {
+    sha256:fb53c30b...  source.tar.gz
+    sha256:9a3bc1d2...  fix-001.patch
+};</code></pre>
+
+<h3>Build</h3>
+<p>Shell commands to compile the package. Runs in a sandbox. Has access to <code>$CFLAGS</code>, <code>$CXXFLAGS</code>, <code>$MAKEFLAGS</code>.</p>
+<pre><code># Autotools
+$PKG.Build: {
+    cd pkg-1.2.3
+    ./configure --prefix=/usr --sysconfdir=/etc
+    make -j$(nproc)
+};
+
+# CMake
+$PKG.Build: {
+    cd pkg-1.2.3
+    cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=/usr
+    cmake --build build -j$(nproc)
+};
+
+# Meson
+$PKG.Build: {
+    cd pkg-1.2.3
+    meson setup build --prefix=/usr --buildtype=release
+    ninja -C build -j$(nproc)
+};
+
+# Architecture-specific
+$PKG.Build [IF arch=x86_64]: {
+    ./configure --prefix=/usr --enable-avx2
+    make -j$(nproc)
+};
+
+$PKG.Build [IF arch=aarch64]: {
+    ./configure --prefix=/usr --enable-neon
+    make -j$(nproc)
+};</code></pre>
+
+<p>Arch conditions: <code>x86_64</code>, <code>aarch64</code>, <code>riscv64</code>, <code>armv7h</code>, <code>i686</code></p>
+
+<h3>Package</h3>
+<p>Installs built files into <code>$PKGDIR</code> (the staging directory). <strong>Never write to <code>/</code> directly.</strong></p>
+<pre><code>$PKG.Package: {
+    cd pkg-1.2.3
+    make DESTDIR="$PKGDIR" install
+
+    # CMake
+    DESTDIR="$PKGDIR" cmake --install build
+
+    # Meson
+    DESTDIR="$PKGDIR" ninja -C build install
+
+    # Manual
+    install -Dm755 mybinary "$PKGDIR/usr/bin/mybinary"
+    install -Dm644 mylib.so "$PKGDIR/usr/lib/mylib.so"
+    install -Dm644 myapp.1  "$PKGDIR/usr/share/man/man1/myapp.1"
+
+    # Symlinks
+    ln -sf /usr/bin/myapp "$PKGDIR/usr/bin/app"
+};</code></pre>
+
+<h3>PostInstall / PostRemove</h3>
+<p>Shell hooks that run after installation or removal, on the real system (not <code>$PKGDIR</code>).</p>
+<pre><code>$PKG.PostInstall: {
+    ldconfig
+    update-desktop-database
+    glib-compile-schemas /usr/share/glib-2.0/schemas
+};
+
+$PKG.PostRemove: {
+    echo "pkg removed. config files in /etc/ remain."
+};</code></pre>
+
+<h2 id="recipegen">Recipe Generator</h2>
+
+<p><code>astral-recipegen</code> automates most of the boilerplate.</p>
+
+<table class="cmd-table">
+  <thead><tr><th>Command</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>astral-recipegen interactive v3</td><td>Guided wizard — prompts for all fields</td></tr>
+    <tr><td>astral-recipegen auto &lt;name&gt; &lt;url&gt;</td><td>Downloads source, detects build system, generates recipe</td></tr>
+    <tr><td>astral-recipegen template cmake v3</td><td>Output a blank CMake v3 template</td></tr>
+    <tr><td>astral-recipegen template autotools v3</td><td>Autotools template</td></tr>
+    <tr><td>astral-recipegen template meson v3</td><td>Meson template</td></tr>
+    <tr><td>astral-recipegen migrate old.stars v3</td><td>Convert v1/v2 recipe to v3</td></tr>
+    <tr><td>astral-recipegen dir-to-stars /path/to/dir</td><td>Convert dir-format recipe to .stars</td></tr>
+    <tr><td>astral-recipegen from-pkgbuild PKGBUILD v3</td><td>Convert Arch PKGBUILD (experimental)</td></tr>
+  </tbody>
+</table>
+
+<h2 id="best-practices">Best Practices</h2>
+
+<ul>
+  <li>Always use <code>v3</code> for new recipes.</li>
+  <li>Put compilers/build tools in <code>BDepends</code>, libraries in <code>RDepends</code>. Don't mix them.</li>
+  <li>Always include checksums for tarball sources.</li>
+  <li>Always use <code>$PKGDIR</code> / <code>DESTDIR</code> — never install directly to <code>/usr</code>.</li>
+  <li>Keep build scripts simple. Complex logic belongs in the upstream build system.</li>
+  <li>Use <code>-j$(nproc)</code> in make/ninja for parallel builds.</li>
+  <li>Run <code>astral --validate your-recipe.stars</code> before submitting.</li>
+</ul>
+
+<div class="callout warn">
+  <p>Never run <code>make install</code> without <code>DESTDIR="$PKGDIR"</code>. It will install directly to your live system and break everything.</p>
+</div>
+
+<h2 id="migration">Migrating Old Recipes</h2>
+
+<pre><code># v1 or v2 → v3
+astral-recipegen migrate old-recipe.stars v3
+
+# dir-format → v3
+astral-recipegen dir-to-stars /usr/src/astral/recipes/app-editors/nano</code></pre>
+
+<p>Always review the output manually after migrating — especially the dependency split between <code>BDepends</code> and <code>RDepends</code>, which the tool guesses at.</p>

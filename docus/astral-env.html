@@ -1,0 +1,291 @@
+---
+layout: docs
+title: astral-env
+---
+
+<h1>astral-env</h1>
+<div class="doc-meta">
+  <div class="doc-meta-item">
+    <span class="doc-meta-label">Version</span>
+    <span class="doc-meta-value">1.0.0.0</span>
+  </div>
+  <div class="doc-meta-item">
+    <span class="doc-meta-label">Language</span>
+    <span class="doc-meta-value">C++20</span>
+  </div>
+  <div class="doc-meta-item">
+    <span class="doc-meta-label">Depends On</span>
+    <span class="doc-meta-value">Astral 5.0.1.0+</span>
+  </div>
+  <div class="doc-meta-item">
+    <span class="doc-meta-label">Maintainer</span>
+    <span class="doc-meta-value">One Maniac™</span>
+  </div>
+</div>
+
+<p>astral-env is the declarative environment and system configuration layer that sits on top of Astral. Describe your entire system — packages, services, dotfiles, hostname, timezone, file snapshots — in a single <code>.stars</code> file. Then apply it. Reality matches the file.</p>
+
+<p>Think of it as NixOS without the functional language that makes your brain hurt, or Ansible without the YAML sprawl and Python dependency.</p>
+
+<h2 id="installation">Installation</h2>
+
+<h3>Prerequisites</h3>
+<ul>
+  <li>Astral 5.0.1.0+</li>
+  <li>A C++20 compiler (<code>gcc</code> or <code>clang</code>)</li>
+  <li><code>cmake</code> >= 3.20</li>
+  <li><code>openssl</code> >= 3.0 (for SHA-256 store hashing)</li>
+  <li><code>zstd</code> (for snapshots — <code>astral -S zstd</code>)</li>
+</ul>
+
+<pre><code>git clone https://github.com/Astaraxia-Linux/Astral-env
+cd Astral-env
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build -j$(nproc)
+sudo cmake --install build</code></pre>
+
+<h3>First-Time Setup</h3>
+<pre><code># Enable in /etc/astral/astral.stars
+sudo astral-env system init
+
+# Create your user config
+sudo astral-env system init-user yourusername</code></pre>
+
+<p>Add to <code>/etc/astral/astral.stars</code>:</p>
+<pre><code>$AST.core: {
+    astral-env        = "enabled"
+    astral-env-system = "enabled"
+};</code></pre>
+
+<h2 id="config-format">Configuration Format</h2>
+
+<p>astral-env uses the same <code>.stars</code> syntax as Astral recipes. If you've written a recipe, you already know this.</p>
+
+<h3>System Config — <code>/etc/astral/env/env.stars</code></h3>
+<pre><code>$ENV.Version = "3"
+
+$ENV.System: {
+    hostname = "izumi"
+    timezone = "Asia/Kuala_Lumpur"
+};
+
+$ENV.Packages: {
+    neovim
+    htop
+    git
+    zsh
+};
+
+$ENV.Services: {
+    sshd           = "enabled"
+    cronie         = "enabled"
+    NetworkManager = "enabled"
+};</code></pre>
+
+<h3>User Config — <code>/etc/astral/env/username.stars</code></h3>
+<pre><code>$ENV.Version = "3"
+
+$ENV.User: {
+    name  = "izumi"
+    shell = "/bin/zsh"
+};
+
+$ENV.Packages: {
+    firefox
+    mpv
+    thunderbird
+};
+
+$ENV.Dotfiles: {
+    "/home/izumi/.config/nvim" = "nvim"
+    "/home/izumi/.zshrc"       = "zshrc"
+    "/home/izumi/.gitconfig"   = "gitconfig"
+};
+
+$ENV.Vars: {
+    EDITOR  = "nvim"
+    BROWSER = "firefox"
+};</code></pre>
+
+<p>Dotfiles in <code>$ENV.Dotfiles</code> are symlinked from <code>/etc/astral/env/dotfiles/username/</code>. Manage all your configs in one place.</p>
+
+<h3>Project Environment — <code>astral-env.stars</code></h3>
+<p>Per-project dev environments, like <code>nix-shell</code> but readable:</p>
+<pre><code>$ENV.Version = "3"
+
+$ENV.Metadata: {
+    Name        = "my-project"
+    Description = "My cool project environment"
+};
+
+$ENV.Packages: {
+    python >= 3.11
+    nodejs >= 20.0
+    git
+};
+
+$ENV.Vars: {
+    DEBUG    = "true"
+    NODE_ENV = "development"
+};
+
+$ENV.Shell: {
+    echo "Welcome to my-project"
+    export PATH="$PWD/bin:$PATH"
+};</code></pre>
+
+<h3>Auto-Snapshots — <code>$ENV.Snap</code></h3>
+<pre><code>$ENV.Snap: {
+    on_interval      = "true"
+    default_interval = "1" "H"    # S=seconds M=minutes H=hours D=days
+
+    path: {
+        "/home/izumi/.config/hyprland"
+        "/home/izumi/.zshrc": {
+            interval = "autosave"         # snapshot on every file change
+        };
+        "/etc/astral": {
+            interval = "6" "H"
+        };
+    };
+};</code></pre>
+
+<h2 id="system-management">System Management</h2>
+
+<table class="cmd-table">
+  <thead><tr><th>Command</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>astral-env system diff</td><td>Preview what would change — safe, read-only</td></tr>
+    <tr><td>astral-env system apply</td><td>Apply changes to match the config files</td></tr>
+    <tr><td>astral-env system apply --dry-run</td><td>Show changes without making them</td></tr>
+    <tr><td>astral-env system apply --yes</td><td>Skip confirmation prompts</td></tr>
+    <tr><td>astral-env system apply --user &lt;u&gt;</td><td>Apply only a specific user's config</td></tr>
+    <tr><td>astral-env system apply --global-only</td><td>Apply only env.stars, skip user configs</td></tr>
+    <tr><td>astral-env system rollback</td><td>Roll back to the last snapshot</td></tr>
+    <tr><td>astral-env system rollback --list</td><td>List available rollback points</td></tr>
+    <tr><td>astral-env system rollback --to &lt;id&gt;</td><td>Roll back to a specific snapshot</td></tr>
+    <tr><td>astral-env system check</td><td>Validate all .stars files in /etc/astral/env/</td></tr>
+    <tr><td>astral-env system init</td><td>Create /etc/astral/env/env.stars</td></tr>
+    <tr><td>astral-env system init-user &lt;u&gt;</td><td>Create per-user config + dotfiles directory</td></tr>
+  </tbody>
+</table>
+
+<p>The <code>system diff</code> output uses these markers:</p>
+<table class="cmd-table">
+  <thead><tr><th>Marker</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td>[+]</td><td>Will install / create</td></tr>
+    <tr><td>[-]</td><td>Will remove / unlink</td></tr>
+    <tr><td>[~]</td><td>Will change</td></tr>
+    <tr><td>[!]</td><td>Conflict — needs manual resolution</td></tr>
+  </tbody>
+</table>
+
+<div class="callout">
+  <p>astral-env automatically saves a rollback snapshot before applying anything. Rollback restores service states, symlinks, hostname, and timezone — but not packages. Use <code>astral -R</code> to remove packages manually.</p>
+</div>
+
+<h2 id="environments">Project Environments</h2>
+
+<table class="cmd-table">
+  <thead><tr><th>Command</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>astral-env init</td><td>Scaffold an astral-env.stars in current directory</td></tr>
+    <tr><td>astral-env lock</td><td>Generate lockfile (resolves and pins versions)</td></tr>
+    <tr><td>astral-env lock --update &lt;pkg&gt;</td><td>Update a specific package in the lockfile</td></tr>
+    <tr><td>astral-env lock --update</td><td>Update all packages in the lockfile</td></tr>
+    <tr><td>astral-env build</td><td>Build environment from lockfile</td></tr>
+    <tr><td>astral-env shell</td><td>Enter interactive shell with environment active</td></tr>
+    <tr><td>astral-env run &lt;cmd&gt;</td><td>Run a command inside the environment</td></tr>
+    <tr><td>astral-env status</td><td>Show installed vs missing packages</td></tr>
+  </tbody>
+</table>
+
+<p>Packages live in a content-addressed store under <code>/astral-env/store/</code>. Multiple projects sharing the same version of a package pay zero extra disk cost.</p>
+
+<h2 id="snapshots">File Snapshots</h2>
+
+<p>Content-addressed, zstd-compressed, deduplicated file snapshots. If a file hasn't changed since the last snapshot, the new snapshot is free — zero bytes stored.</p>
+
+<table class="cmd-table">
+  <thead><tr><th>Command</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>astral-env snap &lt;path&gt;</td><td>Snapshot a file or directory</td></tr>
+    <tr><td>astral-env snap list</td><td>List all snapshots</td></tr>
+    <tr><td>astral-env snap list &lt;path&gt;</td><td>List snapshots for a specific path</td></tr>
+    <tr><td>astral-env snap restore &lt;id&gt;</td><td>Restore a snapshot</td></tr>
+    <tr><td>astral-env snap restore &lt;id&gt; --dest &lt;path&gt;</td><td>Restore to a different location</td></tr>
+    <tr><td>astral-env snap prune --keep-last 5</td><td>Keep only last 5 snapshots per path</td></tr>
+    <tr><td>astral-env snap prune --older-than 14d</td><td>Remove snapshots older than 14 days</td></tr>
+  </tbody>
+</table>
+
+<h2 id="daemon">Snapshot Daemon</h2>
+
+<p><code>astral-env-snapd</code> handles scheduled and autosave snapshots in the background. Supports systemd, OpenRC, runit, s6, dinit, SysVinit.</p>
+
+<table class="cmd-table">
+  <thead><tr><th>Command</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>astral-env snapd start</td><td>Start daemon and enable at boot</td></tr>
+    <tr><td>astral-env snapd stop</td><td>Stop daemon</td></tr>
+    <tr><td>astral-env snapd restart</td><td>Restart daemon</td></tr>
+    <tr><td>astral-env snapd status</td><td>Show daemon status</td></tr>
+  </tbody>
+</table>
+
+<p><code>autosave</code> uses inotify and waits 5 seconds after the last file change before snapshotting (debounce). Configurable per-path:</p>
+<pre><code>$ENV.Snap: {
+    path: {
+        "/home/izumi/.zshrc": {
+            interval          = "autosave"
+            autosave_debounce = "5" "S"
+        };
+    };
+};</code></pre>
+
+<h2 id="gc">Store &amp; Garbage Collection</h2>
+
+<table class="cmd-table">
+  <thead><tr><th>Command</th><th>Description</th></tr></thead>
+  <tbody>
+    <tr><td>astral-env store list</td><td>List all store entries</td></tr>
+    <tr><td>astral-env store size</td><td>Show total store disk usage</td></tr>
+    <tr><td>astral-env gc --dry-run</td><td>Show what would be collected</td></tr>
+    <tr><td>astral-env gc</td><td>Collect entries unused for 30+ days</td></tr>
+    <tr><td>astral-env gc --max-age 7</td><td>More aggressive collection (7 days)</td></tr>
+  </tbody>
+</table>
+
+<p>The GC skips entries referenced by any lockfile, entries newer than <code>--max-age</code> days, entries without a <code>.complete</code> marker, and the <code>snap/</code> subdirectory entirely (snapshots have their own pruning via <code>snap prune</code>).</p>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<table class="cmd-table">
+  <thead><tr><th>Error</th><th>Fix</th></tr></thead>
+  <tbody>
+    <tr><td>astral-env is not enabled</td><td>Add <code>astral-env = "enabled"</code> to <code>$AST.core</code> in <code>/etc/astral/astral.stars</code></td></tr>
+    <tr><td>astral-env-system is not enabled</td><td>Add <code>astral-env-system = "enabled"</code> to the same block</td></tr>
+    <tr><td>zstd is required for snapshots</td><td><code>sudo astral -S zstd</code></td></tr>
+    <tr><td>No lockfile found</td><td>Run <code>astral-env lock</code> before <code>astral-env build</code></td></tr>
+    <tr><td>Snapshot blob not found</td><td>The blob was GC'd before the index entry was pruned. Run <code>astral-env snap prune</code> to clean up dangling entries.</td></tr>
+    <tr><td>Rollback only partially worked</td><td>Rollback doesn't undo package installs. Use <code>astral -R &lt;pkg&gt;</code> manually, or <code>astral-env snap restore</code> for specific files.</td></tr>
+  </tbody>
+</table>
+
+<h2 id="faq">FAQ</h2>
+
+<p><strong>Why C++ instead of POSIX sh like Astral?</strong><br>
+astral-env needs concurrent file hashing, inotify event loops, content-addressed storage, and a GC. Doing that in sh would be a crime against humanity. C++20 with <code>std::filesystem</code> hits the sweet spot.</p>
+
+<p><strong>Does astral-env replace Astral?</strong><br>
+No. It's a layer on top. It uses <code>astral -S</code> to install packages — it doesn't reimplement the package manager.</p>
+
+<p><strong>Can I use it without system management?</strong><br>
+Yes. The project environment features (<code>init</code>, <code>lock</code>, <code>build</code>, <code>shell</code>, <code>run</code>) work completely independently without <code>astral-env-system = "enabled"</code>.</p>
+
+<p><strong>Can I track my configs in git?</strong><br>
+That's the whole point. Put your <code>.stars</code> files and <code>/etc/astral/env/dotfiles/</code> in a repo. Fresh install → clone → <code>system apply</code> → done.</p>
+
+<p><strong>Who maintains this?</strong><br>
+Same One Maniac™. Two projects, one maniac. The math is concerning.</p>
