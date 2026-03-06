@@ -24,15 +24,21 @@ title: Home
   }
 
   /* ASCII logo */
-  .ascii-logo {
+  pre.ascii-logo {
     font-family: var(--mono);
-    font-size: 0.55rem;
+    font-size: 0.52rem;
     line-height: 1.18;
     color: var(--ice-dim);
     white-space: pre;
     user-select: none;
-    text-shadow: 0 0 8px rgba(168,216,255,0.3);
+    text-shadow: 0 0 8px rgba(168,216,255,0.25);
     animation: frost-pulse 4s ease-in-out infinite;
+    overflow: visible;
+    display: block;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
   }
 
   .ascii-logo .ac-bright { color: var(--ice); text-shadow: 0 0 10px rgba(168,216,255,0.6); }
@@ -427,37 +433,37 @@ title: Home
 
     <!-- ASCII art logo -->
     <div>
-      <div class="ascii-logo"><span class="ac-dim">                                        '.
+<pre class="ascii-logo">                                        '.
                                        .dd'
                                        ,ddd.
-              ,:,.                 ldddd;</span>
-<span class="ac-mid">         .colloooolloooooooooooooodkkkkOkdooooo.
-          .ldoooooxOOOOOOOOOOOOOOOOOOOOOOOOOOOO.
-          ;ooooollodddddddddddddddddddkkkkkkkdd.</span>
-<span class="ac-bright">         :oooool.                     ,dddddd,
-        ;oooool.                       ,oddddd'
-       :ooooo;.    .:cccccccccccc:;.    .lddddd,</span>
-<span class="ac-mid">     'cooodo'     .oddddddddddddlldo.     cdddddl.
-    'oooooo,     .oodddddddddddoodddd;     ;dddddl</span>
-<span class="ac-dim">.',cl;</span><span class="ac-mid">looodl.     ,oddddddddddddlldddddd,     ;dddddc;</span><span class="ac-dim">lodkOx.</span>
-<span class="ac-bright">    lddddddoooc.     ;oddddddddddddldddxxxxxx:.    'odddddkOOOc.
-    .oddddddd:     .:oooooooooooolldxxxxxxxxxxd.    .ddddddxO:</span>
-<span class="ac-mid">     ;ddddddd.     .loooooooooooccldxxxxxxxxxkk'     dxdddddx.
-    .odddddddl      .ldddddddddoodloxxxxxxxxxd,     cOkxddddd'</span>
-<span class="ac-bright">   ,ooodddddddo.     .cdddddddoodxxoodxxkkkkl     .lOOOOxo;..
-  ,:;,'...oddddo.      'oddddloxxxxxdldkkkkc     .dOOOOO:</span>
-<span class="ac-mid">          .dddddo,      ,dddcoxxxxxxkxlxkk,     .xOOOOO:
-           .lddddd,      ,oodxxxxxxxkkxod;     'kOOOOk:</span>
-<span class="ac-bright">             cddddd;       ..............     ,kOOOOx.
-              :dddddo.                      .oOOOOOd.</span>
-<span class="ac-mid">               :dddddl,,,,,,,,,,,,,,,,,,,,,,dOOOO0k'
-                cddooooooooooooooooooooooodkOOOOOOdl,.
-                 'oooooooooooooooooooooooxOOOOOOxdoool:.</span>
-<span class="ac-dim">                  .oddddo'...............,ldOOk;........
-                   .:dddc                   .;.
-                     cdd'
-                      cd
-                       .</span></div>
+                  ,:,.                 ldddd;
+             .colloooolloooooooooooooodkkkkOkdooooo.
+              .ldoooooxOOOOOOOOOOOOOOOOOOOOOOOOOOOO.
+              ;ooooollodddddddddddddddddddkkkkkkkdd.
+             :oooool.                     ,dddddd,
+            ;oooool.                       ,oddddd'
+           :ooooo;.    .:cccccccccccc:;.    .lddddd,
+         'cooodo'     .oddddddddddddlldo.     cdddddl.
+        'oooooo,     .oodddddddddddoodddd;     ;dddddl     ..,,
+  .',cl;looodl.     ,oddddddddddddlldddddd,     ;dddddc;lodkOx.
+  lddddddoooc.     ;oddddddddddddldddxxxxxx:.    'odddddkOOOc.
+  .oddddddd:     .:oooooooooooolldxxxxxxxxxxd.    .ddddddxO:
+   ;ddddddd.     .loooooooooooccldxxxxxxxxxkk'     dxdddddx.
+  .odddddddl      .ldddddddddoodloxxxxxxxxxd,     cOkxddddd'
+ ,ooodddddddo.     .cdddddddoodxxoodxxkkkkl     .lOOOOxo;..
+,:;,'...oddddo.      'oddddloxxxxxdldkkkkc     .dOOOOO:
+        .dddddo,      ,dddcoxxxxxxkxlxkk,     .xOOOOO:
+         .lddddd,      ,oodxxxxxxxkkxod;     'kOOOOk:
+           cddddd;       ..............     ,kOOOOx.
+            :dddddo.                      .oOOOOOd.
+             :dddddl,,,,,,,,,,,,,,,,,,,,,,dOOOO0k'
+              cddooooooooooooooooooooooodkOOOOOOdl,.
+               'oooooooooooooooooooooooxOOOOOOxdoool:.
+                .oddddo'...............,ldOOk;........
+                 .:dddc                   .;.
+                   cdd'
+                    cd
+                     .</pre>
       <div class="ascii-label">// source-based linux distribution</div>
     </div>
 
