@@ -23,7 +23,7 @@ title: Astral Package Manager
   </div>
 </div>
 
-<p>Astral is a monolithic, source-based package manager written entirely in POSIX <code>sh</code>. It handles package installation, removal, dependency resolution, service management, security verification, and transaction rollback — all from a single script.</p>
+<p>Astral is a monolithic, source-based package manager written entirely in POSIX <code>sh</code>. It handles package installation, removal, dependency resolution, service management, security verification, and transaction rollback all from a single script.</p>
 
 <div class="callout">
   <p>Astral compiles everything from source. A full system build takes 12–20 hours depending on your hardware. This is by design.</p>
@@ -306,7 +306,7 @@ astral -h --status</code></pre>
     <tr><td>Another instance is running</td><td><code>sudo rm -rf /var/lock/astral.lock.d</code></td></tr>
     <tr><td>Checksum mismatch</td><td>Upstream changed the file. Re-download and update the recipe checksum.</td></tr>
     <tr><td>Interrupted build</td><td><code>astral --lock-info</code> to see state, <code>astral --recover</code> to resume</td></tr>
-    <tr><td>Service not detected</td><td>Check <code>which systemctl rc-service sv s6-rc</code> — Astral uses the first one found</td></tr>
+    <tr><td>Service not detected</td><td>Check <code>which systemctl rc-service sv s6-rc</code> Astral uses the first one found</td></tr>
     <tr><td>Index signature failed</td><td>Set <code>SAFETY_SECURE_DOWNLOAD=0</code> temporarily, or re-import the repo GPG key</td></tr>
     <tr><td>Build fails with dep errors</td><td>Run <code>astral --graph-deps &lt;pkg&gt;</code> to trace the dep chain</td></tr>
   </tbody>
