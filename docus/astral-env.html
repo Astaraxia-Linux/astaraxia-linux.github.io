@@ -23,7 +23,7 @@ title: astral-env
   </div>
 </div>
 
-<p>astral-env is the declarative environment and system configuration layer that sits on top of Astral. Describe your entire system — packages, services, dotfiles, hostname, timezone, file snapshots — in a single <code>.stars</code> file. Then apply it. Reality matches the file.</p>
+<p>astral-env is the declarative environment and system configuration layer that sits on top of Astral. Describe your entire system packages, services, dotfiles, hostname, timezone, file snapshots in a single <code>.stars</code> file. Then apply it. Reality matches the file.</p>
 
 <p>Think of it as NixOS without the functional language that makes your brain hurt, or Ansible without the YAML sprawl and Python dependency.</p>
 
@@ -35,7 +35,7 @@ title: astral-env
   <li>A C++20 compiler (<code>gcc</code> or <code>clang</code>)</li>
   <li><code>cmake</code> >= 3.20</li>
   <li><code>openssl</code> >= 3.0 (for SHA-256 store hashing)</li>
-  <li><code>zstd</code> (for snapshots — <code>astral -S zstd</code>)</li>
+  <li><code>zstd</code> (for snapshots <code>astral -S zstd</code>)</li>
 </ul>
 
 <pre><code>git clone https://github.com/Astaraxia-Linux/Astral-env
@@ -61,7 +61,7 @@ sudo astral-env system init-user yourusername</code></pre>
 
 <p>astral-env uses the same <code>.stars</code> syntax as Astral recipes. If you've written a recipe, you already know this.</p>
 
-<h3>System Config — <code>/etc/astral/env/env.stars</code></h3>
+<h3>System Config <code>/etc/astral/env/env.stars</code></h3>
 <pre><code>$ENV.Version = "3"
 
 $ENV.System: {
@@ -82,7 +82,7 @@ $ENV.Services: {
     NetworkManager = "enabled"
 };</code></pre>
 
-<h3>User Config — <code>/etc/astral/env/username.stars</code></h3>
+<h3>User Config <code>/etc/astral/env/username.stars</code></h3>
 <pre><code>$ENV.Version = "3"
 
 $ENV.User: {
@@ -109,7 +109,7 @@ $ENV.Vars: {
 
 <p>Dotfiles in <code>$ENV.Dotfiles</code> are symlinked from <code>/etc/astral/env/dotfiles/username/</code>. Manage all your configs in one place.</p>
 
-<h3>Project Environment — <code>astral-env.stars</code></h3>
+<h3>Project Environment <code>astral-env.stars</code></h3>
 <p>Per-project dev environments, like <code>nix-shell</code> but readable:</p>
 <pre><code>$ENV.Version = "3"
 
@@ -134,7 +134,7 @@ $ENV.Shell: {
     export PATH="$PWD/bin:$PATH"
 };</code></pre>
 
-<h3>Auto-Snapshots — <code>$ENV.Snap</code></h3>
+<h3>Auto-Snapshots <code>$ENV.Snap</code></h3>
 <pre><code>$ENV.Snap: {
     on_interval      = "true"
     default_interval = "1" "H"    # S=seconds M=minutes H=hours D=days
@@ -155,7 +155,7 @@ $ENV.Shell: {
 <table class="cmd-table">
   <thead><tr><th>Command</th><th>Description</th></tr></thead>
   <tbody>
-    <tr><td>astral-env system diff</td><td>Preview what would change — safe, read-only</td></tr>
+    <tr><td>astral-env system diff</td><td>Preview what would change safe, read-only</td></tr>
     <tr><td>astral-env system apply</td><td>Apply changes to match the config files</td></tr>
     <tr><td>astral-env system apply --dry-run</td><td>Show changes without making them</td></tr>
     <tr><td>astral-env system apply --yes</td><td>Skip confirmation prompts</td></tr>
@@ -177,12 +177,12 @@ $ENV.Shell: {
     <tr><td>[+]</td><td>Will install / create</td></tr>
     <tr><td>[-]</td><td>Will remove / unlink</td></tr>
     <tr><td>[~]</td><td>Will change</td></tr>
-    <tr><td>[!]</td><td>Conflict — needs manual resolution</td></tr>
+    <tr><td>[!]</td><td>Conflict needs manual resolution</td></tr>
   </tbody>
 </table>
 
 <div class="callout">
-  <p>astral-env automatically saves a rollback snapshot before applying anything. Rollback restores service states, symlinks, hostname, and timezone — but not packages. Use <code>astral -R</code> to remove packages manually.</p>
+  <p>astral-env automatically saves a rollback snapshot before applying anything. Rollback restores service states, symlinks, hostname, and timezone but not packages. Use <code>astral -R</code> to remove packages manually.</p>
 </div>
 
 <h2 id="environments">Project Environments</h2>
@@ -205,7 +205,7 @@ $ENV.Shell: {
 
 <h2 id="snapshots">File Snapshots</h2>
 
-<p>Content-addressed, zstd-compressed, deduplicated file snapshots. If a file hasn't changed since the last snapshot, the new snapshot is free — zero bytes stored.</p>
+<p>Content-addressed, zstd-compressed, deduplicated file snapshots. If a file hasn't changed since the last snapshot, the new snapshot is free zero bytes stored.</p>
 
 <table class="cmd-table">
   <thead><tr><th>Command</th><th>Description</th></tr></thead>
@@ -279,7 +279,7 @@ $ENV.Shell: {
 astral-env needs concurrent file hashing, inotify event loops, content-addressed storage, and a GC. Doing that in sh would be a crime against humanity. C++20 with <code>std::filesystem</code> hits the sweet spot.</p>
 
 <p><strong>Does astral-env replace Astral?</strong><br>
-No. It's a layer on top. It uses <code>astral -S</code> to install packages — it doesn't reimplement the package manager.</p>
+No. It's a layer on top. It uses <code>astral -S</code> to install packages it doesn't reimplement the package manager.</p>
 
 <p><strong>Can I use it without system management?</strong><br>
 Yes. The project environment features (<code>init</code>, <code>lock</code>, <code>build</code>, <code>shell</code>, <code>run</code>) work completely independently without <code>astral-env-system = "enabled"</code>.</p>
