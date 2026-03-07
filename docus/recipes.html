@@ -19,7 +19,7 @@ title: Writing Recipes
   </div>
 </div>
 
-<p>Astral recipes are <code>.stars</code> files that describe how to download, build, and install a package. There are four recipe formats — use v3 for anything new.</p>
+<p>Astral recipes are <code>.stars</code> files that describe how to download, build, and install a package. There are four recipe formats use v3 for anything new.</p>
 
 <div class="callout">
   <p>Too lazy to write a recipe from scratch? <code>astral-recipegen interactive v3</code> will scaffold one for you.</p>
@@ -113,9 +113,9 @@ $PKG.PostRemove: {
 <table class="cmd-table">
   <thead><tr><th>Section</th><th>Description</th></tr></thead>
   <tbody>
-    <tr><td>BDepends</td><td>Build-time only — compilers, build tools. Removed after build.</td></tr>
-    <tr><td>RDepends</td><td>Runtime — libraries, interpreters. Kept forever.</td></tr>
-    <tr><td>Optional</td><td>Extra features — user can skip during install.</td></tr>
+    <tr><td>BDepends</td><td>Build-time only compilers, build tools. Removed after build.</td></tr>
+    <tr><td>RDepends</td><td>Runtime libraries, interpreters. Kept forever.</td></tr>
+    <tr><td>Optional</td><td>Extra features user can skip during install.</td></tr>
     <tr><td>PDepends</td><td>Post-install time dependencies.</td></tr>
     <tr><td>IDepends</td><td>Install-time dependencies.</td></tr>
   </tbody>
@@ -234,7 +234,7 @@ $PKG.PostRemove: {
 <table class="cmd-table">
   <thead><tr><th>Command</th><th>Description</th></tr></thead>
   <tbody>
-    <tr><td>astral-recipegen interactive v3</td><td>Guided wizard — prompts for all fields</td></tr>
+    <tr><td>astral-recipegen interactive v3</td><td>Guided wizard prompts for all fields</td></tr>
     <tr><td>astral-recipegen auto &lt;name&gt; &lt;url&gt;</td><td>Downloads source, detects build system, generates recipe</td></tr>
     <tr><td>astral-recipegen template cmake v3</td><td>Output a blank CMake v3 template</td></tr>
     <tr><td>astral-recipegen template autotools v3</td><td>Autotools template</td></tr>
@@ -251,7 +251,7 @@ $PKG.PostRemove: {
   <li>Always use <code>v3</code> for new recipes.</li>
   <li>Put compilers/build tools in <code>BDepends</code>, libraries in <code>RDepends</code>. Don't mix them.</li>
   <li>Always include checksums for tarball sources.</li>
-  <li>Always use <code>$PKGDIR</code> / <code>DESTDIR</code> — never install directly to <code>/usr</code>.</li>
+  <li>Always use <code>$PKGDIR</code> / <code>DESTDIR</code> never install directly to <code>/usr</code>.</li>
   <li>Keep build scripts simple. Complex logic belongs in the upstream build system.</li>
   <li>Use <code>-j$(nproc)</code> in make/ninja for parallel builds.</li>
   <li>Run <code>astral --validate your-recipe.stars</code> before submitting.</li>
@@ -269,4 +269,4 @@ astral-recipegen migrate old-recipe.stars v3
 # dir-format → v3
 astral-recipegen dir-to-stars /usr/src/astral/recipes/app-editors/nano</code></pre>
 
-<p>Always review the output manually after migrating — especially the dependency split between <code>BDepends</code> and <code>RDepends</code>, which the tool guesses at.</p>
+<p>Always review the output manually after migrating especially the dependency split between <code>BDepends</code> and <code>RDepends</code>, which the tool guesses at.</p>
