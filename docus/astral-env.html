@@ -11,11 +11,11 @@ title: astral-env
   </div>
   <div class="doc-meta-item">
     <span class="doc-meta-label">Language</span>
-    <span class="doc-meta-value">C++20</span>
+    <span class="doc-meta-value">C++23</span>
   </div>
   <div class="doc-meta-item">
     <span class="doc-meta-label">Depends On</span>
-    <span class="doc-meta-value">Astral 5.0.1.0+</span>
+    <span class="doc-meta-value">Astral 5.3.0.0+</span>
   </div>
   <div class="doc-meta-item">
     <span class="doc-meta-label">Maintainer</span>
@@ -31,18 +31,17 @@ title: astral-env
 
 <h3>Prerequisites</h3>
 <ul>
-  <li>Astaraxia AZURE (Astral V5+)</li>
-  <li>A C++20 compiler (<code>gcc</code> or <code>clang</code>)</li>
-  <li><code>cmake</code> >= 3.20</li>
+  <li>Astaraxia AZURE (Astral 5.0.1.0+)</li>
+  <li>A C++23 compiler (GCC 13+ or Clang 17+)</li>
+  <li><code>make</code></li>
   <li><code>openssl</code> >= 3.0 (for SHA-256 store hashing)</li>
-  <li><code>zstd</code> (for snapshots <code>astral -S zstd</code>)</li>
+  <li><code>zstd</code> (for snapshots — <code>astral -S zstd</code>)</li>
 </ul>
 
 <pre><code>git clone https://github.com/Astaraxia-Linux/Astral-env
 cd Astral-env
-cmake -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build -j$(nproc)
-sudo cmake --install build</code></pre>
+make -j$(nproc)
+sudo make install</code></pre>
 
 <h3>First-Time Setup</h3>
 <pre><code># Enable in /etc/astral/astral.stars
