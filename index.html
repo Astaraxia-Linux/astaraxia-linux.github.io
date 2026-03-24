@@ -441,7 +441,7 @@ title: Home
       </h1>
       <p class="hero-sub">
         Astaraxia is a POSIX-compliant, LFS-derived Linux distribution.
-        No binary blobs. No hidden abstractions. Just source code, shell scripts, and compile time.
+        Source-built by default. Binary packages available via astral-env. No hidden abstractions. Just source code, shell scripts, and compile time.
       </p>
       <div class="hero-actions">
         <a href="/download" class="btn btn-primary">download →</a>
@@ -483,32 +483,32 @@ title: Home
     <div class="feature-card">
       <div class="feature-icon">[ PKG_MGR ]</div>
       <h3>Astral</h3>
-      <p>A 10k+ line monolithic POSIX sh package manager. Source builds, GPG signing, rollback transactions, parallel installs, built-in service management.</p>
+      <p>A 12k+ line monolithic POSIX sh package manager. Source builds, GPG signing, atomic transactions, parallel installs, sandboxed builds, rollback, and built-in service management.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">[ BOOTSTRAP ]</div>
       <h3>Horizon</h3>
-      <p>Three-stage LFS-style bootstrap engine. Builds the entire system from scratch - cross-toolchain, chroot, final system. Automated and reproducible.</p>
+      <p>Three-stage LFS-style bootstrap engine. Builds the entire system from scratch: cross-toolchain, chroot, final system. Automated and reproducible.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">[ ENV ]</div>
+      <h3>astral-env</h3>
+      <p>Declarative system configuration layer. Describe your entire system (packages, services, dotfiles, hostname, timezone, file snapshots) in a .stars file and apply it all at once. Binary packages supported.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">[ RECIPES ]</div>
       <h3>.stars Format</h3>
-      <p>Four recipe formats with full backwards compatibility. Split deps, build hooks, post-install scripts, git sources, architecture-conditional builds.</p>
+      <p>v3 recipe format with full backwards compatibility. Split build/runtime deps, build hooks, post-install scripts, git sources, architecture-conditional builds.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">[ REPOS ]</div>
       <h3>AOHARU + ASURA</h3>
-      <p>Official curated repository (AOHARU) and community overlay (ASURA). GPG-verified, indexed, served via GitHub Pages.</p>
+      <p>Official curated repository (AOHARU) and community overlay (ASURA). GPG-verified, indexed, served via GitHub Pages. 84+ packages and growing.</p>
     </div>
     <div class="feature-card">
       <div class="feature-icon">[ INIT ]</div>
       <h3>Init Freedom</h3>
-      <p>No forced init system. Astral auto-detects systemd, OpenRC, runit, s6, SysVinit and adapts all service commands accordingly.</p>
-    </div>
-    <div class="feature-card">
-      <div class="feature-icon">[ SECURITY ]</div>
-      <h3>Verified Builds</h3>
-      <p>SHA256 checksums, GPG signing, Web of Trust, file integrity monitoring, audit trail, certificate pinning. Toggle via make.conf.</p>
+      <p>No forced init system. Astral auto-detects systemd, OpenRC, runit, s6, dinit, SysVinit and adapts all service commands accordingly.</p>
     </div>
   </div>
 </section>

@@ -19,7 +19,7 @@ title: astral-env
   </div>
   <div class="doc-meta-item">
     <span class="doc-meta-label">Maintainer</span>
-    <span class="doc-meta-value">One Maniac™</span>
+    <span class="doc-meta-value">いずみ そのか</span>
   </div>
 </div>
 
@@ -35,7 +35,11 @@ title: astral-env
   <li>A C++23 compiler (GCC 13+ or Clang 17+)</li>
   <li><code>make</code></li>
   <li><code>openssl</code> >= 3.0 (for SHA-256 store hashing)</li>
+<<<<<<< HEAD
   <li><code>zstd</code> (for snapshots — <code>astral -S zstd</code>)</li>
+=======
+  <li><code>zstd</code> (for snapshots, via <code>astral -S zstd</code>)</li>
+>>>>>>> f8d0ec9 (Updating it again.)
 </ul>
 
 <pre><code>git clone https://github.com/Astaraxia-Linux/Astral-env
@@ -275,7 +279,7 @@ $ENV.Shell: {
 <h2 id="faq">FAQ</h2>
 
 <p><strong>Why C++ instead of POSIX sh like Astral?</strong><br>
-astral-env needs concurrent file hashing, inotify event loops, content-addressed storage, and a GC. Doing that in sh would be a crime against humanity. C++20 with <code>std::filesystem</code> hits the sweet spot.</p>
+astral-env needs concurrent file hashing, inotify event loops, content-addressed storage, and a GC. Doing that in sh would be a crime against humanity. C++23 with <code>std::filesystem</code> hits the sweet spot.</p>
 
 <p><strong>Does astral-env replace Astral?</strong><br>
 No. It's a layer on top. It uses <code>astral -S</code> to install packages it doesn't reimplement the package manager.</p>
@@ -287,4 +291,4 @@ Yes. The project environment features (<code>init</code>, <code>lock</code>, <co
 That's the whole point. Put your <code>.stars</code> files and <code>/etc/astral/env/dotfiles/</code> in a repo. Fresh install → clone → <code>system apply</code> → done.</p>
 
 <p><strong>Who maintains this?</strong><br>
-Same One Maniac™. Two projects, one maniac. The math is concerning.</p>
+Same developer, いずみ そのか. Two projects. The math is concerning.</p>
